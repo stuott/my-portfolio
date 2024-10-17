@@ -6,12 +6,14 @@ import {
 } from "react-router-dom";
 import "./App.css";
 
+import Education from "components/education/Education";
 import Home from "components/home/Home";
 import Projects from "components/projects/Projects";
 import { Page } from "types";
 
 const pages: Page[] = [
   { path: "/", name: "Home", Component: Home },
+  { path: "/education", name: "Education", Component: Education },
   { path: "/projects", name: "Projects", Component: Projects },
 ];
 

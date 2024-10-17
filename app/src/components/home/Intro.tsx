@@ -23,7 +23,6 @@ export default function Intro() {
   return (
     <div className="grid gap-1">
       <h1 className="text-white text-4xl md:text-5xl">Steven Ott</h1>
-      <p className="text-xl text-gray-400">Software Developer</p>
       <p className="text-gray-400">
         (920) 286-1509 - steven.ott.tech@gmail.com
       </p>
