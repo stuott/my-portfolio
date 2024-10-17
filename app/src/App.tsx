@@ -1,64 +1,66 @@
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import Intro, { About } from "./components/About";
-import Education from "./components/Education";
-import Experience from "./components/Experience";
-// import Projects from "./components/Projects";
-import Quotes from "./components/Quotes";
+
+import Home from "./components/Home";
+import Projects from "./components/Projects";
 
 function App() {
+  const pages = [
+    { path: "/", name: "Home", Component: Home },
+    { path: "/projects", name: "Projects", Component: Projects },
+  ];
+
   return (
-    <>
-      <body className="mx-auto">
-        <Navbar />
-        <main className="mx-auto min-h-screen max-w-screen-lg py-24 px-6 md:px-12 lg:px-24">
-          <Intro />
-          <Quotes />
-          <About />
-          <Education />
-          <Experience />
-          <div className="pt-16 text-center">
-            <a
-              className="text-white p-6 bg-cyan-900 hover:bg-cyan-700 hover:underline"
-              href={process.env.PUBLIC_URL + "/Resume.pdf"}
-            >
-              View my resume <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-            </a>
-          </div>
-          {/* <Projects /> */}
-        </main>
+    <main className="">
+      <Router>
+        <Navbar pages={pages} />
+        <PageContent pages={pages} />
         <Footer />
-      </body>
-    </>
+      </Router>
+    </main>
   );
 }
 
-function Navbar() {
+interface page {
+  path: string;
+  name: string;
+  Component: () => JSX.Element;
+}
+
+function Navbar(props: { pages: page[] }) {
+  const { pages } = props;
   return (
     <header className="mx-auto text-white bg-zinc-900 fixed top-0 w-full">
-      <nav className="mx-auto px-2 py-2">
-        <div className="flex justify-evenly">
-          <NavbarLink text="About" link="#about" />
-          <NavbarLink text="Education" link="#education" />
-          <NavbarLink text="Experience" link="#experience" />
-          {/* <NavbarLink text="Projects" link="#projects" /> */}
-        </div>
+      <nav className="px-2 py-2 flex justify-evenly">
+        {pages.map(({ path, name }) => {
+          return (
+            <Link
+              className="text-lg px-4 py-2 transition hover:bg-cyan-700"
+              to={path}
+            >
+              {name}
+            </Link>
+          );
+        })}
       </nav>
     </header>
   );
 }
 
-function NavbarLink(props: { text: string; link: string }) {
-  const { text, link } = props;
+function PageContent(props: { pages: page[] }) {
+  const { pages } = props;
   return (
-    <a className="text-lg px-4 py-2 transition hover:bg-cyan-700" href={link}>
-      {text}
-    </a>
+    <div className="mx-auto min-h-screen max-w-screen-lg py-24 px-6 md:px-12 lg:px-24">
+      <Routes>
+        {pages.map(({ path, Component }) => {
+          return <Route path={path} element={<Component />} />;
+        })}
+      </Routes>
+    </div>
   );
 }
 
-export function Footer() {
+function Footer() {
   return (
     <div className="w-full text-white p-4 bg-zinc-800">
       Check out the source code on{" "}

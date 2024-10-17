@@ -1,28 +1,30 @@
 import {
+  faArrowUpRightFromSquare,
   faBook,
   faBriefcase,
   faCodeBranch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import jsonData from "../data/about.json";
+import aboutData from "../data/about.json";
+import quotesData from "../data/quotes.json";
+import Education from "./Education";
+import Experience from "./Experience";
 import { Section } from "./SectionUtils";
 
-export default function Intro() {
-  // const icons = [
-  //   {
-  //     text: "Madison, WI",
-  //     icon: <FontAwesomeIcon icon={faLocationDot} />,
-  //   },
-  //   {
-  //     text: "stevenott@charter.net",
-  //     icon: <FontAwesomeIcon icon={faEnvelope} />,
-  //   },
-  //   {
-  //     text: "(920) 286-1509",
-  //     icon: <FontAwesomeIcon icon={faPhone} />,
-  //   },
-  // ];
+export default function Home() {
+  return (
+    <>
+      <Intro />
+      <Quotes />
+      <About />
+      <ResumeLink />
+      <Education />
+      <Experience />
+    </>
+  );
+}
 
+function Intro() {
   const icons = [
     {
       element: <FontAwesomeIcon icon={faBriefcase} />,
@@ -53,7 +55,6 @@ export default function Intro() {
 interface iconTableProps {
   icons: { element: JSX.Element; url: string }[];
 }
-//https://www.linkedin.com/in/stevencott/
 
 function IconTable(props: iconTableProps) {
   const { icons } = props;
@@ -71,8 +72,23 @@ function IconTable(props: iconTableProps) {
   );
 }
 
+function Quotes() {
+  const data = quotesData.data;
+  const date = new Date(Date.now());
+  const quote = data[date.getDay() % data.length];
+
+  return (
+    <Section id="meditation">
+      <div className="text-center text-lg text-zinc-400 text-balance">
+        <blockquote>"{quote.text}"</blockquote>
+        <p className="text-sm"> - {quote.author}</p>
+      </div>
+    </Section>
+  );
+}
+
 export function About() {
-  const data = jsonData.data;
+  const data = aboutData.data;
 
   return (
     <Section id="about" title="About">
@@ -82,5 +98,18 @@ export function About() {
         })}
       </div>
     </Section>
+  );
+}
+
+function ResumeLink() {
+  return (
+    <div className="pt-16 text-center">
+      <a
+        className="text-white p-6 bg-cyan-900 hover:bg-cyan-700 hover:underline"
+        href={process.env.PUBLIC_URL + "/Resume.pdf"}
+      >
+        View my resume <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+      </a>
+    </div>
   );
 }
