@@ -1,4 +1,4 @@
-import { Section } from "./SectionUtils";
+import Section from "components/common/Section";
 
 export default function Projects() {
   const projects = [

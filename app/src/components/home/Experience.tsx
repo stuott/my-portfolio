@@ -1,7 +1,8 @@
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import jsonData from "../data/experience.json";
-import { Badges, Section } from "./SectionUtils";
+import Badges from "components/common/Badges";
+import Section from "components/common/Section";
+import experienceData from "data/experience.json";
 
 interface experience {
   title: string;
@@ -14,11 +15,12 @@ interface experience {
 }
 
 export default function Experience() {
-  const data: experience[] = jsonData.data;
+  const data: experience[] = experienceData.data;
 
   return (
     <Section id="experience" title="Experience">
       <ExperienceList experiences={data} />
+      <ResumeLink />
     </Section>
   );
 }
@@ -91,6 +93,18 @@ function ExperiencePoints(props: { points: string[] }) {
         return <li className="text-zinc-400">{point}</li>;
       })}
     </ul>
-    // <p className="pt-2 text-zinc-400">{points.join(". ") + "."}</p>
+  );
+}
+
+function ResumeLink() {
+  return (
+    <div className="pt-16 text-center">
+      <a
+        className="text-white p-6 bg-cyan-900 hover:bg-cyan-700 hover:underline"
+        href={process.env.PUBLIC_URL + "/Resume.pdf"}
+      >
+        View my resume <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+      </a>
+    </div>
   );
 }
