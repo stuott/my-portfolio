@@ -1,0 +1,80 @@
+{
+  "data": [
+    {
+      "grade": "Senior",
+      "years": "2021 - 2022",
+      "classes": [
+        "Operating Systems",
+        "Computer Networks",
+        "Computer Systems Engineering & Performance",
+        "Formal Models of Computation",
+        "Embedded System Interfacing",
+        "Understanding the Earth",
+        "Introduction to Archaeology",
+        "Electric Energy Systems",
+        "Blue Marble Security",
+        "Communication Contexts"
+      ],
+      "callouts": [
+        "Triangle Fraternity President",
+        "Enterprise Team Document Chief - GM Pick Point"
+      ]
+    },
+    {
+      "grade": "Junior",
+      "years": "2020 - 2021",
+      "classes": [
+        "Computer Organization",
+        "Introduction to Algorithms",
+        "Electronics",
+        "Signals and Systems",
+        "Systems Programming",
+        "HW/SW System Integration",
+        "Engineering Statistics",
+        "Design Fundamentals",
+        "Statistical Programming and Analysis",
+        "Technical and Professional Communication",
+        "Mythology"
+      ],
+      "callouts": [
+        "Triangle Fraternity Vice President Internal",
+        "Enterprise Team - GM Pick Point",
+        "Software Engineering Internship"
+      ]
+    },
+    {
+      "grade": "Sophomore",
+      "years": "2019 - 2020",
+      "classes": [
+        "Electric Circuits I",
+        "Electric Circuits II and Lab",
+        "Digital Logic and Lab",
+        "Discrete Structures",
+        "Data Structures",
+        "Elementary Linear Algebra",
+        "Elementary Differential Equations",
+        "Physics by Inquiry II",
+        "University Physics II - Electricity & Magnetism",
+        "Beginning Acting",
+        "Introduction to Literature"
+      ]
+    },
+    {
+      "grade": "Freshman",
+      "years": "2018 - 2019",
+      "classes": [
+        "Intro to Programming II",
+        "Programming at the HW/SW Interface",
+        "Essential Math for EE",
+        "ECE 1.0",
+        "Engineering Analysis & Problem Solving",
+        "Calculus Plus w/ Technology I",
+        "Calculus with Technology II",
+        "Physics by Inquiry I",
+        "University Physics I - Mechanics",
+        "Global Issues",
+        "Introduction to Sociology"
+      ]
+    }
+  ]
+}
