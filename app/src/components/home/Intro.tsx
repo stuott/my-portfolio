@@ -22,10 +22,10 @@ const icons: Icon[] = [
 
 export default function Intro() {
   return (
-    <Section id="intro" className="bg-zinc-900/30">
+    <Section id="intro" className="bg-zinc-900/50">
       <div
         className="grid gap-1 px-6 md:px-12 lg:px-24"
-        style={{ textShadow: "1px 1px 5px rgba(0, 0, 0, 1)" }}
+        style={{ textShadow: "1px 1px 10px black" }}
       >
         <h1 className="text-white text-4xl md:text-5xl">Steven Ott</h1>
         <p className="text-gray-400">

@@ -1,6 +1,7 @@
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Badges from "components/common/Badges";
+import BulletList from "components/common/BulletList";
 
 export interface TimelineProps {
   items: TimelineItem[];
@@ -30,7 +31,7 @@ const TimelineCard = ({ item, flipped }: TimelineCardProps) => (
         URL={item.URL}
       />
       {item.badges ? <Badges captions={item.badges} /> : <></>}
-      {item.points ? <TimelinePoints points={item.points} /> : <></>}
+      {item.points ? <BulletList points={item.points} /> : <></>}
     </div>
     {getTimeElement(item.time, false, flipped)}
   </div>
@@ -78,18 +79,6 @@ const TimelineMeta = ({ title, subtitle, URL }: TimelineMetaInfo) => (
     )}
     {subtitle && <p className="italic text-zinc-500">{subtitle}</p>}
   </>
-);
-
-interface TimelinePointsProps {
-  points: string[];
-}
-
-const TimelinePoints = ({ points }: TimelinePointsProps) => (
-  <ul className="grid gap-2 py-2 list-disc list-inside">
-    {points.map((point) => {
-      return <li className="text-zinc-400">{point}</li>;
-    })}
-  </ul>
 );
 
 export interface TimelineItem extends TimelineMetaInfo {

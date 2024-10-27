@@ -22,7 +22,7 @@ export default function Experience() {
     <Section
       id="experience"
       title="Experience"
-      className="py-10 px-6 md:px-12 lg:px-24 bg-zinc-900"
+      className="pb-16 px-6 md:px-12 lg:px-24 bg-zinc-900"
     >
       <Timeline items={timelineItems}></Timeline>
       <ResumeLink />
