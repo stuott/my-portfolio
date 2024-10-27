@@ -2,6 +2,7 @@ import { faGithubAlt, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import IconTable from "components/common/IconTable";
+import Section from "components/common/Section";
 import { Icon } from "types";
 
 const icons: Icon[] = [
@@ -21,12 +22,17 @@ const icons: Icon[] = [
 
 export default function Intro() {
   return (
-    <div className="grid gap-1">
-      <h1 className="text-white text-4xl md:text-5xl">Steven Ott</h1>
-      <p className="text-gray-400">
-        (920) 286-1509 - steven.ott.tech@gmail.com
-      </p>
-      <IconTable icons={icons} />
-    </div>
+    <Section id="intro" className="bg-zinc-900/30">
+      <div
+        className="grid gap-1 px-6 md:px-12 lg:px-24"
+        style={{ textShadow: "1px 1px 5px rgba(0, 0, 0, 1)" }}
+      >
+        <h1 className="text-white text-4xl md:text-5xl">Steven Ott</h1>
+        <p className="text-gray-400">
+          (920) 286-1509 - steven.ott.tech@gmail.com
+        </p>
+        <IconTable icons={icons} />
+      </div>
+    </Section>
   );
 }

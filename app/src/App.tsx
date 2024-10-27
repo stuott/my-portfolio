@@ -19,7 +19,7 @@ const pages: Page[] = [
 
 function App() {
   return (
-    <main className="">
+    <main className="bg-[url('../public/map-pattern.svg')]">
       <Router>
         <Navbar pages={pages} />
         <PageContent pages={pages} />
@@ -40,7 +40,7 @@ function Navbar(props: { pages: Page[] }) {
   }
 
   return (
-    <header className="mx-auto text-white bg-zinc-900 fixed top-0 w-full">
+    <header className="mx-auto text-white bg-zinc-900 fixed top-0 w-full z-50">
       <nav className="px-2 py-2 flex justify-evenly">
         {pages.map(({ path, name }) => (
           <NavLink to={path} className={getLinkClasses}>
@@ -55,7 +55,7 @@ function Navbar(props: { pages: Page[] }) {
 function PageContent(props: { pages: Page[] }) {
   const { pages } = props;
   return (
-    <div className="mx-auto min-h-screen max-w-screen-lg py-24 px-6 md:px-12 lg:px-24">
+    <div className="mx-auto min-h-screen max-w-screen-lg">
       <Routes>
         {pages.map(({ path, Component }) => {
           return <Route path={path} element={<Component />} />;

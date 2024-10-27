@@ -5,11 +5,11 @@ import Quotes from "./Quotes";
 
 export default function Home() {
   return (
-    <>
+    <div className="py-[3.7rem]">
       <Intro />
       <About />
       <Quotes />
       <Experience />
-    </>
+    </div>
   );
 }
