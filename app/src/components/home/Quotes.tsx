@@ -7,7 +7,7 @@ export default function Quotes() {
   const quote = data[date.getDay() % data.length];
 
   return (
-    <Section id="meditation" className="px-6 md:px-12 lg:px-24 bg-zinc-900/50">
+    <Section id="meditation" className="bg-zinc-900/30 py-10">
       <div
         className="text-center text-lg text-zinc-400 text-balance"
         style={{ textShadow: "1px 1px 10px black" }}

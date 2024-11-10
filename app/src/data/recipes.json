@@ -1,0 +1,134 @@
+{
+  "recipes": [
+    {
+      "title": "Eggs Benedict",
+      "tags": ["breakfast", "brunch", "eggs", "rich", "creamy"],
+      "description": "A nice little egg dish",
+      "ingredients": [
+        "2 English muffins",
+        "4 slices of Canadian bacon",
+        "4 eggs",
+        "Hollandaise sauce"
+      ],
+      "instructions": [
+        "Toast the English muffins",
+        "Cook the Canadian bacon",
+        "Poach the eggs",
+        "Assemble the muffins with bacon, eggs, and sauce"
+      ]
+    },
+    {
+      "title": "Pasta Pomodoro",
+      "tags": ["dinner", "pasta", "tomato"],
+      "description": "Something that has tomato as a base",
+      "ingredients": [
+        "200g spaghetti",
+        "2 cups of cherry tomatoes",
+        "2 cloves of garlic",
+        "Basil leaves",
+        "Olive oil"
+      ],
+      "instructions": [
+        "Cook the spaghetti",
+        "Sauté the garlic in olive oil",
+        "Add the tomatoes and cook until soft",
+        "Mix with spaghetti and garnish with basil"
+      ]
+    },
+    {
+      "title": "Sweet Rolls",
+      "tags": ["breakfast", "brunch", "sweet", "cinnamon", "nutmeg"],
+      "description": "This is a recipe that has nutmeg and cinnamon",
+      "ingredients": [
+        "2 cups of flour",
+        "1/2 cup of sugar",
+        "1/2 cup of butter"
+      ],
+      "instructions": [
+        "Mix the flour and sugar",
+        "Add the butter",
+        "Bake at 350 degrees for 30 minutes"
+      ]
+    },
+    {
+      "title": "Turkey Sandwich",
+      "tags": ["lunch", "sandwich", "turkey", "quick"],
+      "description": "A simple and quick turkey sandwich",
+      "ingredients": [
+        "2 slices of bread",
+        "4 slices of turkey",
+        "Lettuce",
+        "Tomato",
+        "Mayonnaise"
+      ],
+      "instructions": [
+        "Toast the bread if desired",
+        "Spread mayonnaise on the bread",
+        "Layer the turkey, lettuce, and tomato between the slices of bread"
+      ]
+    },
+    {
+      "title": "Turkey Burger",
+      "tags": ["lunch", "burger", "turkey", "grilled"],
+      "description": "A delicious and healthy turkey burger",
+      "ingredients": [
+        "1 pound ground turkey",
+        "1 egg",
+        "1/4 cup breadcrumbs",
+        "Salt",
+        "Pepper",
+        "4 burger buns",
+        "Lettuce",
+        "Tomato",
+        "Onion",
+        "Mayonnaise"
+      ],
+      "instructions": [
+        "Mix the ground turkey, egg, breadcrumbs, salt, and pepper in a bowl",
+        "Form the mixture into 4 patties",
+        "Grill the patties until fully cooked",
+        "Toast the burger buns",
+        "Assemble the burgers with lettuce, tomato, onion, and mayonnaise"
+      ]
+    },
+    {
+      "title": "Greek Yogurt Parfait",
+      "tags": ["breakfast", "snack", "yogurt", "healthy"],
+      "description": "A simple and healthy yogurt parfait",
+      "ingredients": [
+        "1 cup Greek yogurt",
+        "1/2 cup granola",
+        "1/2 cup mixed berries",
+        "Honey"
+      ],
+      "instructions": [
+        "Layer the Greek yogurt in a bowl or glass",
+        "Add a layer of granola",
+        "Top with mixed berries",
+        "Drizzle with honey"
+      ]
+    },
+    {
+      "title": "Chicken Stir Fry",
+      "tags": ["dinner", "chicken", "vegetables", "quick"],
+      "description": "A quick and easy chicken stir fry",
+      "ingredients": [
+        "1 pound chicken breast, sliced",
+        "2 cups mixed vegetables (bell peppers, broccoli, carrots)",
+        "2 cloves garlic, minced",
+        "1/4 cup soy sauce",
+        "2 tablespoons olive oil",
+        "Salt",
+        "Pepper"
+      ],
+      "instructions": [
+        "Heat olive oil in a pan",
+        "Add garlic and sauté until fragrant",
+        "Add chicken and cook until no longer pink",
+        "Add mixed vegetables and cook until tender",
+        "Stir in soy sauce, salt, and pepper",
+        "Serve hot"
+      ]
+    }
+  ]
+}

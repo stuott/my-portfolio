@@ -22,11 +22,8 @@ const icons: Icon[] = [
 
 export default function Intro() {
   return (
-    <Section id="intro" className="bg-zinc-900/50">
-      <div
-        className="grid gap-1 px-6 md:px-12 lg:px-24"
-        style={{ textShadow: "1px 1px 10px black" }}
-      >
+    <Section id="intro" className="bg-zinc-900/30 py-10">
+      <div className="grid gap-1" style={{ textShadow: "1px 1px 10px black" }}>
         <h1 className="text-white text-4xl md:text-5xl">Steven Ott</h1>
         <p className="text-gray-400">
           (920) 286-1509 - steven.ott.tech@gmail.com

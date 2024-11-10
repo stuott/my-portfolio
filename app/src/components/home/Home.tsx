@@ -5,7 +5,7 @@ import Quotes from "./Quotes";
 
 export default function Home() {
   return (
-    <div className="py-[3.7rem]">
+    <div>
       <Intro />
       <About />
       <Quotes />

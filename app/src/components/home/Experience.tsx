@@ -1,5 +1,4 @@
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "components/common/Link";
 import Section from "components/common/Section";
 import Timeline, { TimelineItem } from "components/common/Timeline";
 import experienceData from "data/experience.json";
@@ -19,26 +18,15 @@ export default function Experience() {
   );
 
   return (
-    <Section
-      id="experience"
-      title="Experience"
-      className="pb-16 px-6 md:px-12 lg:px-24 bg-zinc-900"
-    >
+    <Section id="experience" title="Experience" className="bg-zinc-900">
       <Timeline items={timelineItems}></Timeline>
-      <ResumeLink />
+      <div className="flex justify-center">
+        <Link
+          text="View my resume"
+          to={process.env.PUBLIC_URL + "/Resume.pdf"}
+          className="w-fit my-10"
+        />
+      </div>
     </Section>
-  );
-}
-
-function ResumeLink() {
-  return (
-    <div className="pt-8 text-center">
-      <a
-        className="text-white p-6 bg-cyan-900 hover:bg-cyan-700 hover:underline"
-        href={process.env.PUBLIC_URL + "/Resume.pdf"}
-      >
-        View my resume <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-      </a>
-    </div>
   );
 }

@@ -6,6 +6,7 @@ export interface Page {
     path: string;
     name:string;
     Component: () => JSX.Element;
+    showInNavbar: boolean;
 }
 
 export interface Icon {

@@ -1,54 +1,62 @@
+import { useEffect } from "react";
 import {
-  NavLink,
   Route,
   BrowserRouter as Router,
   Routes,
+  useLocation,
 } from "react-router-dom";
 import "./App.css";
 
 import Education from "components/education/Education";
 import Home from "components/home/Home";
 import Projects from "components/projects/Projects";
+import RecipeList from "components/projects/RecipeList";
 import { Page } from "types";
 
+import Navbar from "components/Navbar";
+
 const pages: Page[] = [
-  { path: "/", name: "Home", Component: Home },
-  { path: "/education", name: "Education", Component: Education },
-  { path: "/projects", name: "Projects", Component: Projects },
+  { path: "/", name: "Home", Component: Home, showInNavbar: true },
+  {
+    path: "/education",
+    name: "Education",
+    Component: Education,
+    showInNavbar: true,
+  },
+  {
+    path: "/projects",
+    name: "Projects",
+    Component: Projects,
+    showInNavbar: true,
+  },
+  {
+    path: "/projects/recipe-list",
+    name: "Recipe List",
+    Component: RecipeList,
+    showInNavbar: false,
+  },
 ];
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   return (
     <main className="bg-[url('../public/map-pattern.svg')]">
       <Router>
+        <ScrollToTop />
         <Navbar pages={pages} />
         <PageContent pages={pages} />
         <Footer />
       </Router>
     </main>
-  );
-}
-
-function Navbar(props: { pages: Page[] }) {
-  const { pages } = props;
-
-  function getLinkClasses(props: { isActive: boolean }) {
-    const { isActive } = props;
-    return `${
-      isActive ? "bg-cyan-700/20" : ""
-    } text-lg px-4 py-2 transition hover:bg-cyan-700`;
-  }
-
-  return (
-    <header className="mx-auto text-white bg-zinc-900 fixed top-0 w-full z-50">
-      <nav className="px-2 py-2 flex justify-evenly">
-        {pages.map(({ path, name }) => (
-          <NavLink to={path} className={getLinkClasses}>
-            {name}
-          </NavLink>
-        ))}
-      </nav>
-    </header>
   );
 }
 
@@ -67,7 +75,7 @@ function PageContent(props: { pages: Page[] }) {
 
 function Footer() {
   return (
-    <div className="w-full text-white p-4 bg-zinc-800">
+    <div className="w-full text-white p-4 bg-zinc-800 mt-10">
       Check out the source code on{" "}
       <a
         className="underline text-cyan-400"

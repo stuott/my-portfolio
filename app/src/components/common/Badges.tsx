@@ -1,8 +1,11 @@
-export default function Badges(props: { captions: string[] }) {
-  const { captions } = props;
+interface BadgesProps {
+  captions: string[];
+  className?: string;
+}
 
+const Badges = ({ captions, className }: BadgesProps) => {
   return (
-    <ul className="flex flex-wrap gap-2 pt-2">
+    <ul className={"flex flex-wrap gap-2 " + className}>
       {captions.map((caption) => {
         return (
           <li className="rounded-xl bg-cyan-900 py-1 px-2 text-sm">
@@ -12,4 +15,6 @@ export default function Badges(props: { captions: string[] }) {
       })}
     </ul>
   );
-}
+};
+
+export default Badges;

@@ -1,11 +1,10 @@
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BulletList from "components/common/BulletList";
+import Link from "components/common/Link";
 import Section from "components/common/Section";
 
 export default function Projects() {
   return (
-    <div className="py-12 bg-zinc-900/50">
+    <div className="bg-zinc-900/50">
       <Complete />
       <InProgress />
       <UpNext />
@@ -18,11 +17,23 @@ const Complete = () => {
     {
       title: "Cost-Effective Pick Point System",
       URL: "https://youtu.be/5CnoxZWs00k?si=rgVU8ebNp2aKR4Nv&t=232",
-      description: "An enterprise team projects partnered with General Motors",
+      description: "An enterprise team project partnered with General Motors",
       points: [
         "Worked with a team of engineering student peers to create a system to grab and sort objects in 3D space using a 6-axis robotic arm, machine learning, and an array of cameras",
         "Researched and selected a depth camera based on system constraints including the size of the workspace and necessary depth accuracy",
         "Implemented height detection and end effector manipulation in Python using provided packages",
+      ],
+    },
+    {
+      title: "Recipe List",
+      URL: "/projects/recipe-list",
+      internal: true,
+      description:
+        "A Typescript and React based list of recipes that I have curated",
+      points: [
+        "Using React to create a list of recipes with search and filter functionality",
+        "Creating a recipe card component to display each recipe",
+        "Using Tailwind CSS to style the page",
       ],
     },
   ];
@@ -65,6 +76,7 @@ interface Project {
   description: string;
   URL?: string;
   points?: string[];
+  internal?: boolean;
 }
 
 const ProjectList = ({
@@ -84,27 +96,12 @@ const ProjectList = ({
         {projects.map((project) => {
           return (
             <div className="flex flex-col gap-6 sm:flex-row sm:gap-10 items-center">
-              <a
-                className={
-                  "p-4 bg-cyan-800 sm:w-1/4" +
-                  (project.URL
-                    ? " transition hover:bg-cyan-700 hover:scale-[1.02] hover:underline"
-                    : "")
-                }
-                href={project.URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {project.title}{" "}
-                {project.URL ? (
-                  <FontAwesomeIcon
-                    className="text-sm"
-                    icon={faArrowUpRightFromSquare}
-                  />
-                ) : (
-                  <></>
-                )}
-              </a>
+              <Link
+                to={project.URL}
+                text={project.title}
+                internal={project.internal}
+                className="sm:w-1/4"
+              />
               <div
                 className="sm:w-3/4"
                 style={{ textShadow: "1px 1px 10px black" }}

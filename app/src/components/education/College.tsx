@@ -22,7 +22,10 @@ const College = () => {
         </a>
         <div className="md:max-w-xs">
           <p className="text-zinc-200 font-bold">BS Computer Engineering</p>
-          <Badges captions={["3.93 GPA", "Summa Cum Laude", "Dean's List"]} />
+          <Badges
+            className="pt-2"
+            captions={["3.93 GPA", "Summa Cum Laude", "Dean's List"]}
+          />
         </div>
       </div>
     </Section>

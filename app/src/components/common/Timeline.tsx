@@ -1,7 +1,6 @@
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Badges from "components/common/Badges";
 import BulletList from "components/common/BulletList";
+import Link from "./Link";
 
 export interface TimelineProps {
   items: TimelineItem[];
@@ -30,7 +29,7 @@ const TimelineCard = ({ item, flipped }: TimelineCardProps) => (
         subtitle={item.subtitle}
         URL={item.URL}
       />
-      {item.badges ? <Badges captions={item.badges} /> : <></>}
+      {item.badges ? <Badges className="pt-2" captions={item.badges} /> : <></>}
       {item.points ? <BulletList points={item.points} /> : <></>}
     </div>
     {getTimeElement(item.time, false, flipped)}
@@ -62,24 +61,18 @@ interface TimelineMetaInfo {
   URL?: string;
 }
 
-const TimelineMeta = ({ title, subtitle, URL }: TimelineMetaInfo) => (
-  <>
-    {URL ? (
-      <a
-        className="transition hover:underline hover:text-cyan-300"
-        href={URL}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {title}{" "}
-        <FontAwesomeIcon className="text-sm" icon={faArrowUpRightFromSquare} />
-      </a>
-    ) : (
-      <p className="text-lg">{title}</p>
-    )}
-    {subtitle && <p className="italic text-zinc-500">{subtitle}</p>}
-  </>
-);
+const TimelineMeta = ({ title, subtitle, URL }: TimelineMetaInfo) => {
+  return (
+    <>
+      {URL ? (
+        <Link text={title} to={URL} className="w-fit" />
+      ) : (
+        <p className="text-lg">{title}</p>
+      )}
+      {subtitle && <p className="italic text-zinc-500 pt-2">{subtitle}</p>}
+    </>
+  );
+};
 
 export interface TimelineItem extends TimelineMetaInfo {
   time: string;
