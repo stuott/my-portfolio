@@ -1,74 +1,28 @@
 import BulletList from "components/common/BulletList";
 import Link from "components/common/Link";
 import Section from "components/Layout/Section";
+import data from "data/projects.json";
 
 export default function Projects() {
   return (
     <div className="bg-zinc-900/50">
-      <Complete />
       <InProgress />
       <UpNext />
+      <Complete />
     </div>
   );
 }
 
 const Complete = () => {
-  const projects = [
-    {
-      title: "Cost-Effective Pick Point System",
-      URL: "https://youtu.be/5CnoxZWs00k?si=rgVU8ebNp2aKR4Nv&t=232",
-      description: "An enterprise team project partnered with General Motors",
-      points: [
-        "Worked with a team of engineering student peers to create a system to grab and sort objects in 3D space using a 6-axis robotic arm, machine learning, and an array of cameras",
-        "Researched and selected a depth camera based on system constraints including the size of the workspace and necessary depth accuracy",
-        "Implemented height detection and end effector manipulation in Python using provided packages",
-      ],
-    },
-    {
-      title: "Recipe List",
-      URL: "/projects/recipe-list",
-      internal: true,
-      description:
-        "A Typescript and React based list of recipes that I have curated",
-      points: [
-        "Using React to create a list of recipes with search and filter functionality",
-        "Creating a recipe card component to display each recipe",
-        "Using Tailwind CSS to style the page",
-      ],
-    },
-  ];
-
-  return <ProjectList title="Complete" projects={projects} />;
+  return <ProjectList title="Complete" projects={data.complete} />;
 };
 
 const InProgress = () => {
-  const projects = [
-    {
-      title: "MTU Triangle Website Revamp",
-      URL: "https://mtutriangle.org/",
-      description:
-        "A website revamp for the Michigan Tech chapter of Triangle Fraternity",
-      points: [
-        "Redesigning the website to be more modern and user-friendly",
-        "Targeting specific user personas (prospective members, community members, alumni)",
-      ],
-    },
-  ];
-
-  return <ProjectList title="In Progress" projects={projects} />;
+  return <ProjectList title="In Progress" projects={data.in_progress} />;
 };
 
 const UpNext = () => {
-  const projects = [
-    {
-      title: "F1 Dashboard",
-      description:
-        "A dashboard that shows stats for drivers in real-time during an F1 event",
-      points: ["Real-time data", "Driver comparison"],
-    },
-  ];
-
-  return <ProjectList title="Up Next" projects={projects} />;
+  return <ProjectList title="Up Next" projects={data.up_next} />;
 };
 
 interface Project {

@@ -1,0 +1,52 @@
+{
+  "complete": [
+    {
+      "title": "Cost-Effective Pick Point System",
+      "URL": "https://youtu.be/5CnoxZWs00k?si=rgVU8ebNp2aKR4Nv&t=232",
+      "description": "An enterprise team project partnered with General Motors",
+      "points": [
+        "Worked with a team of engineering student peers to create a system to grab and sort objects in 3D space using a 6-axis robotic arm, machine learning, and an array of cameras",
+        "Researched and selected a depth camera based on system constraints including the size of the workspace and necessary depth accuracy",
+        "Implemented height detection and end effector manipulation in Python using provided packages"
+      ]
+    },
+    {
+      "title": "Dice Roller",
+      "URL": "/projects/dice-roller",
+      "internal": true,
+      "description": "A Typescript based dice rolling utility",
+      "points": [
+        "Created a simple and effective UI using Tailsince CSS",
+        "Used React hooks to store user input and dice roll results"
+      ]
+    },
+    {
+      "title": "Recipe List",
+      "URL": "/projects/recipe-list",
+      "internal": true,
+      "description": "A Typescript and React based list of recipes that I have curated",
+      "points": [
+        "Reads a list of json format recipes and uses React hooks to add search and filter functionality",
+        "Created a recipe card component to display each recipe and used Tailwind CSS to style the page"
+      ]
+    }
+  ],
+  "in_progress": [
+    {
+      "title": "MTU Triangle Website Revamp",
+      "URL": "https://mtutriangle.org/",
+      "description": "A website revamp for the Michigan Tech chapter of Triangle Fraternity",
+      "points": [
+        "Redesigning the website to be more modern and user-friendly",
+        "Targeting specific user personas (prospective members, community members, alumni)"
+      ]
+    }
+  ],
+  "up_next": [
+    {
+      "title": "F1 Dashboard",
+      "description": "A dashboard that shows stats for drivers in real-time during an F1 event",
+      "points": ["Real-time data", "Driver comparison"]
+    }
+  ]
+}
