@@ -1,4 +1,4 @@
-import Section from "components/common/Section";
+import Section from "components/Layout/Section";
 import aboutData from "data/about.json";
 
 export default function About() {

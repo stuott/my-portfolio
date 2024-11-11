@@ -1,6 +1,6 @@
 import BulletList from "components/common/BulletList";
 import Link from "components/common/Link";
-import Section from "components/common/Section";
+import Section from "components/Layout/Section";
 
 export default function Projects() {
   return (

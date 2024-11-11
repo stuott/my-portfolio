@@ -1,4 +1,4 @@
-import Section from "components/common/Section";
+import Section from "components/Layout/Section";
 import Timeline, { TimelineItem } from "components/common/Timeline";
 import educationData from "data/classes.json";
 

@@ -1,6 +1,6 @@
 import Badges from "components/common/Badges";
 import SearchBar from "components/common/SearchBar";
-import Section from "components/common/Section";
+import Section from "components/Layout/Section";
 import data from "data/recipes.json";
 import { useEffect, useState } from "react";
 

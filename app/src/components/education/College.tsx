@@ -1,5 +1,5 @@
 import Badges from "components/common/Badges";
-import Section from "components/common/Section";
+import Section from "components/Layout/Section";
 
 const College = () => {
   return (
