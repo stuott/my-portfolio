@@ -18,9 +18,6 @@ jobs:
         with:
           node-version: "14"
 
-      - name: Change to app directory
-        run: cd app
-
       - name: Install dependencies
         run: npm install
 
