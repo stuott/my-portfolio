@@ -21,6 +21,20 @@ function ScrollToTop() {
   return null;
 }
 
+const NotFound = () => {
+  return (
+    <div className="w-full text-center py-32 space-y-8 text-white">
+      <div>
+        <h1 className="text-5xl font-bold">Oops!</h1>
+        <h1 className="text-white text-2xl font-bold">Page Not Found</h1>
+      </div>
+      <h1 className="text-2xl italic">
+        Try one of the links above to get back
+      </h1>
+    </div>
+  );
+};
+
 function App() {
   return (
     <main className="bg-[url('../public/map-pattern.svg')]">
@@ -32,6 +46,7 @@ function App() {
             {pages.map(({ path, Component }) => {
               return <Route path={path} element={<Component />} />;
             })}
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer />
