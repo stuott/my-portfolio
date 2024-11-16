@@ -17,7 +17,7 @@ const College = () => {
         >
           <img
             alt="Michigan Techological University Logo"
-            src={process.env.PUBLIC_URL + "/MTU_Logo.png"}
+            src={process.env.PUBLIC_URL + "/images/MTU_Logo.png"}
           />
         </a>
         <div className="md:max-w-xs">
