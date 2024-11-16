@@ -10,7 +10,7 @@ The main structure is a React app that uses tailwind css for styling.
 
 `/components` - all of the React components which are used throughout the website, broken down more specifically into `common`, `education`, `home`, and `projects`
 
-> `/components/common` - components which might be useful more >generally throughout the entire website
+> `/components/common` - components which might be useful more generally throughout the entire website
 >
 > `/components/education` - components which are specific to the education page
 >

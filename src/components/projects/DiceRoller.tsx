@@ -1,10 +1,14 @@
-import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faDice, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import IconButton from "components/common/IconButton";
+import NumberInput from "components/common/NumberInput";
 import { useState } from "react";
 
-interface DiceRow {
+interface DiceRowData {
+  id: string;
   quantity: number | undefined;
   sides: number | undefined;
+  modifierPolarity: boolean;
   modifier: number | undefined;
 }
 
@@ -12,140 +16,191 @@ interface RollResult {
   rolls: number[];
   total: number;
   modifier: number;
+  modifierPolarity: boolean;
 }
 
-const rollDice = (sides: number, quantity: number) => {
-  if (sides === undefined || quantity === undefined) {
-    return { rolls: [], total: 0 };
+const rollDiceRow = (row: DiceRowData): RollResult => {
+  const { quantity, sides, modifier, modifierPolarity } = row;
+  const normal_mod = modifier ?? 0;
+
+  if (!quantity) {
+    return {
+      rolls: [],
+      total: normal_mod,
+      modifier: normal_mod,
+      modifierPolarity: modifierPolarity,
+    };
   }
 
   let rolls = [];
   for (let i = 0; i < quantity; i++) {
-    rolls.push(Math.floor(Math.random() * sides) + 1);
+    rolls.push(Math.floor(Math.random() * (sides ?? 1)) + 1);
   }
-  const total = rolls.reduce((acc, roll) => acc + roll, 0);
-  return { rolls, total };
+
+  const total = rolls.reduce((sum, roll) => sum + roll, 0);
+  const finalTotal = modifierPolarity ? total + normal_mod : total - normal_mod;
+
+  return {
+    rolls: rolls,
+    total: finalTotal,
+    modifier: normal_mod,
+    modifierPolarity: modifierPolarity,
+  };
+};
+
+let nextId = 0;
+
+interface DiceRowChangeArgs {
+  index: number;
+  field: "quantity" | "sides" | "modifier" | "modifierPolarity";
+  value: number | string | boolean;
+}
+
+interface DiceRowProps {
+  row: DiceRowData;
+  index: number;
+  handleChange: (props: DiceRowChangeArgs) => void;
+  handleRemoveRow: (index: number) => void;
+}
+
+const DiceRow = ({
+  row,
+  index,
+  handleChange,
+  handleRemoveRow,
+}: DiceRowProps) => {
+  return (
+    <div className="flex gap-2 items-center font-bold hover:bg-blue-900/20 p-2">
+      <NumberInput
+        value={row.quantity}
+        onChange={(value) => handleChange({ index, field: "quantity", value })}
+      />
+      <p>d</p>
+      <NumberInput
+        value={row.sides}
+        onChange={(value) => handleChange({ index, field: "sides", value })}
+      />
+      <NumberInput
+        value={row.modifier}
+        onChange={(value) => handleChange({ index, field: "modifier", value })}
+        polarity={row.modifierPolarity}
+        handlePolarity={(value) =>
+          handleChange({ index, field: "modifierPolarity", value })
+        }
+      />
+      <IconButton
+        icon={faTrash}
+        onClick={() => handleRemoveRow(index)}
+        bgColor="rose-950"
+        hoverColor="rose-900"
+      />
+    </div>
+  );
 };
 
 const DiceRoller = () => {
   const [result, setResult] = useState<RollResult[] | null>(null);
-  const [diceRows, setDiceRows] = useState<DiceRow[]>([
-    { quantity: undefined, sides: undefined, modifier: undefined },
+  const [diceRows, setDiceRows] = useState<DiceRowData[]>([
+    {
+      id: (nextId++).toString(),
+      quantity: undefined,
+      sides: undefined,
+      modifierPolarity: true,
+      modifier: undefined,
+    },
   ]);
 
+  // Roll the dice rows and update the result
   const handleRoll = () => {
-    const allResults = diceRows.map(({ quantity, sides, modifier }) => {
-      if (!sides || !quantity) {
-        return { rolls: [], total: 0, modifier: 0 };
-      }
-
-      const result = rollDice(sides ? sides : 0, quantity ? quantity : 0);
-
-      return {
-        rolls: result.rolls,
-        total: result.total + (modifier ? modifier : 0),
-        modifier: modifier ? modifier : 0,
-      };
-    });
-    setResult(allResults.filter((result) => result.rolls.length > 0));
+    const rowRollResults = diceRows.map(rollDiceRow);
+    setResult(
+      rowRollResults.filter((res) => res.rolls.length > 0 || res.modifier !== 0)
+    );
   };
 
+  // Add a new dice row when the add button is clicked
   const handleAddRow = () => {
     setDiceRows([
       ...diceRows,
-      { quantity: undefined, sides: undefined, modifier: undefined },
+      {
+        id: (nextId++).toString(),
+        quantity: undefined,
+        sides: undefined,
+        modifierPolarity: true,
+        modifier: undefined,
+      },
     ]);
   };
 
+  // Remove a dice row when the trash icon is clicked
   const handleRemoveRow = (index: number) => {
     const newDiceRows = diceRows.filter((_, i) => i !== index);
-    setDiceRows(newDiceRows);
+    setDiceRows(newDiceRows); // Update dice rows
   };
 
-  const handleChange = (
-    index: number,
-    field: "quantity" | "sides" | "modifier",
-    value: number | string
-  ) => {
+  // Update dice row values when they are changed and reset the displayed result
+  const handleChange = ({ index, field, value }: DiceRowChangeArgs) => {
     const newDiceRows = [...diceRows];
-    newDiceRows[index][field] = value === "" ? 0 : Number(value);
-    setDiceRows(newDiceRows);
+    if (field === "modifierPolarity") {
+      newDiceRows[index].modifierPolarity = value as boolean;
+    } else if (!Number.isNaN(Number(value))) {
+      newDiceRows[index][field] = Number(value); // Update field
+    }
+    setDiceRows(newDiceRows); // Update dice rows
+    setResult(null); // Reset result when changing dice values
   };
 
-  const numberClasses = "bg-zinc-900 text-white p-2 w-16 flex-grow";
-
-  let totalRoll = result?.reduce(
+  // Calculate the total roll from the results if there are any
+  const totalRoll = result?.reduce(
     (totalRoll, roll) => totalRoll + roll.total,
     0
   );
 
   return (
-    <div className="gap-3 text-white bg-zinc-800 p-5">
+    <div className="text-white bg-zinc-800 p-5">
       <div className="flex flex-col items-center space-y-4">
-        <h2 className="text-2xl font-bold">Dice Roller</h2>
-        {diceRows.map((row, index) => (
-          <div key={index} className="flex gap-2 items-center font-bold">
-            <input
-              type="text"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              value={row.quantity}
-              onChange={(e) => handleChange(index, "quantity", e.target.value)}
-              className={numberClasses}
-              min={1}
+        <h2 className="text-2xl font-bold">
+          Dice Roller <FontAwesomeIcon icon={faDice} />
+        </h2>
+        <div>
+          {diceRows.map((row, index) => (
+            <DiceRow
+              key={row.id}
+              row={row}
+              index={index}
+              handleChange={handleChange}
+              handleRemoveRow={handleRemoveRow}
             />
-            <p>d</p>
-            <input
-              type="text"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              value={row.sides}
-              onChange={(e) => handleChange(index, "sides", e.target.value)}
-              className={numberClasses}
-              min={1}
+          ))}
+        </div>
+        <div className="space-x-4">
+          <IconButton
+            icon={faPlus}
+            onClick={handleAddRow}
+            bgColor="green-900"
+            hoverColor="green-800"
+          />
+          {diceRows?.length > 0 && (
+            <IconButton
+              icon={faDice}
+              onClick={handleRoll}
+              bgColor="cyan-900"
+              hoverColor="cyan-800"
             />
-            <p>mod</p>
-            <input
-              type="text"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              value={row.modifier}
-              onChange={(e) => handleChange(index, "modifier", e.target.value)}
-              className={numberClasses}
-            />
-            {diceRows.length > 1 && (
-              <button
-                className="text-sm bg-rose-950 hover:bg-rose-900 text-white p-2 rounded"
-                onClick={() => handleRemoveRow(index)}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
-            )}
-          </div>
-        ))}
-        <button
-          className="text-sm bg-green-900 hover:bg-green-800 text-white p-2 rounded"
-          onClick={handleAddRow}
-        >
-          <FontAwesomeIcon icon={faPlus} />
-        </button>
-        <button
-          className="bg-cyan-900 hover:bg-cyan-800 text-white py-2 px-4 rounded"
-          onClick={handleRoll}
-        >
-          Roll
-        </button>
+          )}
+        </div>
         {result && (
           <div className="text-xl mt-4 text-center">
             {result.map((res, index) => (
               <div key={index}>
-                {res.rolls.join(" + ")} {res.modifier >= 0 ? " + " : " - "} (
-                {Math.abs(res.modifier)}) = <strong>{res.total}</strong>
+                {res.rolls.length > 0 ? res.rolls.join(" + ") : 0}{" "}
+                {res.modifierPolarity ? " + " : " - "} ({Math.abs(res.modifier)}
+                ) = <strong>{res.total}</strong>
               </div>
             ))}
           </div>
         )}
-        {totalRoll && (
+        {result?.some((res) => res.rolls.length > 0) && (
           <p className="font-bold text-xl">
             {result
               ?.map((res) => {
