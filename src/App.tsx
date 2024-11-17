@@ -8,8 +8,8 @@ import {
 import "./App.css";
 
 import { pages } from "components";
-import Footer from "components/Layout/Footer";
-import Navbar from "components/Layout/Navbar";
+import Footer from "components/layout/Footer";
+import Navbar from "components/layout/Navbar";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -37,7 +37,7 @@ const NotFound = () => {
 
 function App() {
   return (
-    <main className="bg-[url('../public/map-pattern.svg')]">
+    <main className="bg-[url('../public/graphics/map-pattern.svg')]">
       <Router>
         <ScrollToTop />
         <Navbar pages={pages} />

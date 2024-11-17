@@ -2,7 +2,7 @@ import { faGithubAlt, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import IconTable from "components/common/IconTable";
-import Section from "components/Layout/Section";
+import Section from "components/layout/Section";
 import { Icon } from "types";
 
 const icons: Icon[] = [

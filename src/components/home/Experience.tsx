@@ -1,6 +1,6 @@
 import Link from "components/common/Link";
 import Timeline, { TimelineItem } from "components/common/Timeline";
-import Section from "components/Layout/Section";
+import Section from "components/layout/Section";
 import experienceData from "data/experience.json";
 
 export default function Experience() {

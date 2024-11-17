@@ -1,4 +1,4 @@
-import Section from "components/Layout/Section";
+import Section from "components/layout/Section";
 import quotesData from "data/quotes.json";
 
 export default function Quotes() {

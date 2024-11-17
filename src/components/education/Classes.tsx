@@ -1,5 +1,5 @@
-import Section from "components/Layout/Section";
 import Timeline, { TimelineItem } from "components/common/Timeline";
+import Section from "components/layout/Section";
 import educationData from "data/classes.json";
 
 const Classes = () => {
