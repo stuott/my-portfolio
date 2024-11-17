@@ -4,6 +4,7 @@ import classNames from "classnames";
 
 interface IconButtonProps {
   icon: IconDefinition;
+  text?: string;
   onClick?: () => void;
   className?: string;
   iconClassName?: string;
@@ -11,10 +12,15 @@ interface IconButtonProps {
   hoverColor?: string;
 }
 
-const IconButton = (props: IconButtonProps) => {
-  const { icon, onClick, className, iconClassName, bgColor, hoverColor } =
-    props;
-
+const IconButton = ({
+  icon,
+  text,
+  onClick,
+  className,
+  iconClassName,
+  bgColor,
+  hoverColor,
+}: IconButtonProps) => {
   const buttonClassName = classNames("text-sm p-2", className, {
     [`bg-${bgColor}`]: bgColor,
     [`hover:bg-${hoverColor}`]: hoverColor,
@@ -23,6 +29,7 @@ const IconButton = (props: IconButtonProps) => {
   return (
     <button className={buttonClassName} onClick={onClick}>
       <FontAwesomeIcon className={iconClassName} icon={icon} />
+      {(text && <span className="ml-2 text-md">{text}</span>) || null}
     </button>
   );
 };

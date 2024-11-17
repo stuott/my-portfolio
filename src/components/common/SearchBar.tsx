@@ -1,10 +1,16 @@
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faFilter, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import Dropdown from "./Dropdown";
+import IconButton from "./IconButton";
 
 interface searchBarProps {
   placeholder: string;
   setSearch: (searchTerm: string) => void;
+  defaultOption?: string;
+  options?: string[];
+  setSelection?: (selection: string) => void;
+  onSearch?: () => void;
   filters?: string[];
   setFilter?: (filterTerm: string) => void;
   className?: string;
@@ -13,6 +19,10 @@ interface searchBarProps {
 const SearchBar = ({
   placeholder,
   setSearch,
+  defaultOption,
+  options,
+  setSelection,
+  onSearch,
   filters,
   setFilter,
   className,
@@ -37,14 +47,30 @@ const SearchBar = ({
         "flex flex-col justify-center items-center gap-6 w-full " + className
       }
     >
-      <input
-        type="text"
-        placeholder={placeholder}
-        className="px-8 py-4 text-white w-3/4 bg-zinc-900 rounded-2xl border border-zinc-700 border-2"
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <div className="flex flex-col md:flex-row gap-4 justify-center w-full ">
+        {options && setSelection && (
+          <Dropdown
+            options={options}
+            setSelection={setSelection}
+            placeholder={defaultOption}
+          />
+        )}
+        <div className="flex space-x-6 w-full">
+          <input
+            type="text"
+            placeholder={placeholder}
+            className="px-8 py-4 text-white flex-grow bg-zinc-900 border border-zinc-700 border-2"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <IconButton
+            className="bg-cyan-800 hover:bg-cyan-600 p-4"
+            icon={faMagnifyingGlass}
+            onClick={onSearch}
+          />
+        </div>
+      </div>
       {filters ? (
-        <div className="flex flex-col sm:flex-row gap-2 items-center">
+        <div className="flex flex- gap-2 items-center">
           <FontAwesomeIcon
             icon={faFilter}
             className="text-zinc-500 hover:text-white cursor-pointer"
