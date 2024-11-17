@@ -54,7 +54,7 @@ const SearchBar = ({
           <div className="flex gap-2 flex-wrap justify-center">
             {filters.map((tag, index) => (
               <button
-                className={`hover:bg-cyan-600 text-white px-8 py-2 rounded-lg ${
+                className={`hover:bg-cyan-600 text-white px-4 py-1 rounded-lg ${
                   activeFilter === index ? "bg-cyan-600" : "bg-cyan-800"
                 }`}
                 onClick={(e) => onFilterClick(tag, index)}

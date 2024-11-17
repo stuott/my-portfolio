@@ -11,6 +11,16 @@
       ]
     },
     {
+      "title": "D&D Spellbook",
+      "URL": "/projects/spellbook",
+      "internal": true,
+      "description": "A spell lookup utility for Dungeons and Dragons 5th Edition",
+      "points": [
+        "Calls a public API to get spell data and uses React hooks to store user input and spell data",
+        "Filters and displays spell data based on user input and uses Tailwind CSS to style the page"
+      ]
+    },
+    {
       "title": "Dice Roller",
       "URL": "/projects/dice-roller",
       "internal": true,
