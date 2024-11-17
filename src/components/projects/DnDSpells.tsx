@@ -59,11 +59,6 @@ interface DifficultyCheck {
   dc_success: ("none" | "half" | "other")[];
 }
 
-interface Damage {
-  damage_type: APIReference;
-  damage_dice: string;
-}
-
 const DnDSpells = () => {
   const [spellName, setSpellName] = useState("");
   const [spellSchool, setSpellSchool] = useState("");
