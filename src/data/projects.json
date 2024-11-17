@@ -16,7 +16,7 @@
       "internal": true,
       "description": "A Typescript based dice rolling utility",
       "points": [
-        "Created a simple and effective UI using Tailsince CSS",
+        "Created a simple and effective UI using Tailwind CSS",
         "Used React hooks to store user input and dice roll results"
       ]
     },
