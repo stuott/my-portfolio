@@ -1,3 +1,6 @@
+import { pages } from "components";
+import Footer from "components/layout/Footer";
+import Navbar from "components/layout/Navbar";
 import { useEffect } from "react";
 import {
   Route,
@@ -6,16 +9,20 @@ import {
   useLocation,
 } from "react-router-dom";
 import "./App.css";
+declare global {
+  interface Window {
+    gtag: (command: string, targetId: string, config: object) => void;
+  }
+}
 
-import { pages } from "components";
-import Footer from "components/layout/Footer";
-import Navbar from "components/layout/Navbar";
-
-function ScrollToTop() {
+function ScrollToTopAndTrack() {
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    window.gtag("config", "G-DBWJMWB5XZ", {
+      page_path: pathname,
+    });
   }, [pathname]);
 
   return null;
@@ -39,7 +46,7 @@ function App() {
   return (
     <main className="bg-[url('../public/graphics/map-pattern.svg')]">
       <Router>
-        <ScrollToTop />
+        <ScrollToTopAndTrack />
         <Navbar pages={pages} />
         <div className="mx-auto min-h-screen max-w-screen-lg">
           <Routes>
