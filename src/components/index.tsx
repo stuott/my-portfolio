@@ -5,6 +5,7 @@ import DiceRoller from "./projects/DiceRoller";
 import DnDSpells from "./projects/DnDSpells";
 import Projects from "./projects/Projects";
 import RecipeList from "./projects/RecipeList";
+import Sudoku from "./projects/Sudoku";
 
 const pages: Page[] = [
   { path: "/", name: "Home", Component: Home, showInNavbar: true },
@@ -37,6 +38,12 @@ const pages: Page[] = [
     name: "D&D Spellbook",
     Component: DnDSpells,
     showInNavbar: false,
+  },
+  {
+    path: "/sudoku",
+    name: "Sudoku",
+    Component: Sudoku,
+    showInNavbar: true,
   },
 ];
 
