@@ -8,7 +8,7 @@ interface DiceRowData {
   id: string;
   quantity: number | undefined;
   sides: number | undefined;
-  modifierPolarity: boolean;
+  modifierPolarity: boolean | undefined;
   modifier: number | undefined;
 }
 
@@ -16,7 +16,7 @@ interface RollResult {
   rolls: number[];
   total: number;
   modifier: number;
-  modifierPolarity: boolean;
+  modifierPolarity: boolean | undefined;
 }
 
 const rollDiceRow = (row: DiceRowData): RollResult => {
@@ -34,15 +34,22 @@ const rollDiceRow = (row: DiceRowData): RollResult => {
 
   let rolls = [];
   for (let i = 0; i < quantity; i++) {
+    if (sides === 0) {
+      rolls.push(0);
+      continue;
+    }
     rolls.push(Math.floor(Math.random() * (sides ?? 1)) + 1);
   }
 
-  const total = rolls.reduce((sum, roll) => sum + roll, 0);
-  const finalTotal = modifierPolarity ? total + normal_mod : total - normal_mod;
+  let total = rolls.reduce((sum, roll) => sum + roll, 0);
+
+  if (modifier !== undefined) {
+    total += modifierPolarity ? normal_mod : -normal_mod;
+  }
 
   return {
     rolls: rolls,
-    total: finalTotal,
+    total: total,
     modifier: normal_mod,
     modifierPolarity: modifierPolarity,
   };
@@ -53,7 +60,7 @@ let nextId = 0;
 interface DiceRowChangeArgs {
   index: number;
   field: "quantity" | "sides" | "modifier" | "modifierPolarity";
-  value: number | string | boolean;
+  value: number | string | boolean | undefined;
 }
 
 interface DiceRowProps {
@@ -83,8 +90,8 @@ const DiceRow = ({
       <NumberInput
         value={row.modifier}
         onChange={(value) => handleChange({ index, field: "modifier", value })}
-        polarity={row.modifierPolarity}
-        handlePolarity={(value) =>
+        showPolarity
+        onPolarityChange={(value) =>
           handleChange({ index, field: "modifierPolarity", value })
         }
       />
@@ -99,13 +106,13 @@ const DiceRow = ({
 };
 
 const DiceRoller = () => {
-  const [result, setResult] = useState<RollResult[] | null>(null);
+  const [results, setResults] = useState<RollResult[] | null>(null);
   const [diceRows, setDiceRows] = useState<DiceRowData[]>([
     {
       id: (nextId++).toString(),
       quantity: undefined,
       sides: undefined,
-      modifierPolarity: true,
+      modifierPolarity: undefined,
       modifier: undefined,
     },
   ]);
@@ -113,7 +120,7 @@ const DiceRoller = () => {
   // Roll the dice rows and update the result
   const handleRoll = () => {
     const rowRollResults = diceRows.map(rollDiceRow);
-    setResult(
+    setResults(
       rowRollResults.filter((res) => res.rolls.length > 0 || res.modifier !== 0)
     );
   };
@@ -126,7 +133,7 @@ const DiceRoller = () => {
         id: (nextId++).toString(),
         quantity: undefined,
         sides: undefined,
-        modifierPolarity: true,
+        modifierPolarity: undefined,
         modifier: undefined,
       },
     ]);
@@ -142,19 +149,18 @@ const DiceRoller = () => {
   const handleChange = ({ index, field, value }: DiceRowChangeArgs) => {
     const newDiceRows = [...diceRows];
     if (field === "modifierPolarity") {
-      newDiceRows[index].modifierPolarity = value as boolean;
+      if (value === undefined) {
+        newDiceRows[index].modifier = 0;
+        newDiceRows[index].modifierPolarity = undefined;
+      } else {
+        newDiceRows[index].modifierPolarity = value as boolean;
+      }
     } else if (!Number.isNaN(Number(value))) {
       newDiceRows[index][field] = Number(value); // Update field
     }
     setDiceRows(newDiceRows); // Update dice rows
-    setResult(null); // Reset result when changing dice values
+    setResults(null); // Reset result when changing dice values
   };
-
-  // Calculate the total roll from the results if there are any
-  const totalRoll = result?.reduce(
-    (totalRoll, roll) => totalRoll + roll.total,
-    0
-  );
 
   return (
     <div className="text-white bg-zinc-800 p-5">
@@ -189,28 +195,51 @@ const DiceRoller = () => {
             />
           )}
         </div>
-        {result && (
-          <div className="text-xl mt-4 text-center">
-            {result.map((res, index) => (
-              <div key={index}>
-                {res.rolls.length > 0 ? res.rolls.join(" + ") : 0}{" "}
-                {res.modifierPolarity ? " + " : " - "} ({Math.abs(res.modifier)}
-                ) = <strong>{res.total}</strong>
-              </div>
-            ))}
-          </div>
-        )}
-        {result?.some((res) => res.rolls.length > 0) && (
-          <p className="font-bold text-xl">
-            {result
-              ?.map((res) => {
-                return res.total;
-              })
-              .join(" + ")}{" "}
-            = {totalRoll}
-          </p>
-        )}
+        {results && <RollResults results={results} />}
       </div>
+    </div>
+  );
+};
+
+const RollResults = ({ results }: { results: RollResult[] }) => {
+  if (results.length === 0) {
+    return <></>;
+  }
+
+  const totalRoll = results.reduce((sum, res) => sum + res.total, 0);
+
+  const showTotal = results.length > 1;
+
+  return (
+    <div className="text-center">
+      {results && (
+        <div className="text-xl mt-4">
+          {results.map((res, index) => (
+            <div key={index}>
+              {res.rolls.length > 1 || results.length > 1 || res.modifier !== 0
+                ? res.rolls.join(" + ")
+                : ""}{" "}
+              {res.modifierPolarity !== undefined && (
+                <>
+                  {res.modifierPolarity ? " + " : " - "} (
+                  {Math.abs(res.modifier)}){" "}
+                </>
+              )}
+              = <strong>{res.total}</strong>
+            </div>
+          ))}
+        </div>
+      )}
+      {showTotal && (
+        <p className="font-bold text-xl">
+          {results
+            .map((res) => {
+              return res.total;
+            })
+            .join(" + ")}{" "}
+          = {totalRoll}
+        </p>
+      )}
     </div>
   );
 };
