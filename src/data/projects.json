@@ -16,28 +16,31 @@
       "internal": true,
       "description": "A spell lookup utility for Dungeons and Dragons 5th Edition",
       "points": [
-        "Calls a public API to get spell data and uses React hooks to store user input and spell data",
-        "Filters and displays spell data based on user input and uses Tailwind CSS to style the page"
+        "Built a user interface using TailwindCSS to display spell data",
+        "Created calls to a free, public API to get list/spell data and stored it in a React state",
+        "Implemented filters on both spell level and class to allow users to find spells quickly"
       ]
     },
     {
       "title": "Dice Roller",
       "URL": "/projects/dice-roller",
       "internal": true,
-      "description": "A Typescript based dice rolling utility",
+      "description": "Dice rolling utility for tabletop role-playing games",
       "points": [
-        "Created a simple and effective UI using Tailwind CSS",
-        "Used React hooks to store user input and dice roll results"
+        "Created a simple and effective UI using Tailwind CSS to display dice and roll results",
+        "Used React hooks to store user input and dice roll results",
+        "Targeted a user persona of a Game Master who needs to roll dice quickly and efficiently with multiple dice types"
       ]
     },
     {
       "title": "Recipe List",
       "URL": "/projects/recipe-list",
       "internal": true,
-      "description": "A Typescript and React based list of recipes that I have curated",
+      "description": "A curated recipe list lookup for storing and sharing recipes",
       "points": [
-        "Reads a list of json format recipes and uses React hooks to add search and filter functionality",
-        "Created a recipe card component to display each recipe and used Tailwind CSS to style the page"
+        "Created a search bar to filter recipes based on user input",
+        "Built a recipe card component to display each recipe and used Tailwind CSS to style the page",
+        "Used React hooks to store filtered recipes and user input"
       ]
     }
   ],
