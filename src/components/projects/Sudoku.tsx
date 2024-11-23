@@ -1,6 +1,6 @@
 import { faArrowRotateLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
+import IconButton from "components/common/IconButton";
 import Section from "components/layout/Section";
 import data from "data/sudoku.json";
 import { useCallback, useEffect, useState } from "react";
@@ -19,7 +19,7 @@ enum SudokuActions {
 }
 
 const cellDisabled = (row: SudokuValue, col: SudokuValue) => {
-  return data.puzzle.mask[row - 1][col - 1];
+  return data.puzzles[0].mask[row - 1][col - 1];
 };
 
 const getDisabledDigits = (sudoku: sudokuData): SudokuValue[] => {
@@ -50,7 +50,7 @@ const getDisabledDigits = (sudoku: sudokuData): SudokuValue[] => {
 
 const Sudoku = () => {
   const [sudoku, setSudoku] = useState<sudokuData>(
-    data.puzzle.values as sudokuData
+    data.puzzles[0].values as sudokuData
   );
   const [selected, setSelected] = useState<cell[]>([]);
   const [isMultiSelect, setIsMultiSelect] = useState(false);
@@ -58,20 +58,8 @@ const Sudoku = () => {
   const [currentAction, setCurrentAction] = useState<SudokuActions>(0);
   const [solvedDigits, setSolvedDigits] = useState<SudokuValue[]>([]);
 
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.ctrlKey || event.shiftKey) {
-      setIsMultiSelect(true);
-    }
-  };
-
-  const handleKeyUp = (event: KeyboardEvent) => {
-    if (event.ctrlKey || event.shiftKey) {
-      setIsMultiSelect(false);
-    }
-  };
-
-  const updateCell = useCallback(
-    (value: SudokuValue) => {
+  const updateCells = useCallback(
+    (value?: SudokuValue) => {
       if (selected.length === 0) return;
       const newSudoku = sudoku.map((r, i) =>
         r.map((c, j) => {
@@ -82,7 +70,7 @@ const Sudoku = () => {
             isSelected &&
             !cellDisabled((i + 1) as SudokuValue, (j + 1) as SudokuValue)
           ) {
-            return c === value ? null : value;
+            return value !== undefined ? (c === value ? null : value) : null;
           }
           return c;
         })
@@ -92,45 +80,62 @@ const Sudoku = () => {
     [selected, sudoku]
   );
 
-  const clearSelectedCells = useCallback(() => {
-    if (selected.length === 0) return;
-    const newSudoku = sudoku.map((r, i) =>
-      r.map((c, j) => {
-        const isSelected = selected.some(
-          ([row, col]) => row - 1 === i && col - 1 === j
-        );
-        if (
-          isSelected &&
-          !cellDisabled((i + 1) as SudokuValue, (j + 1) as SudokuValue)
-        ) {
-          return null;
-        }
-        return c;
-      })
-    );
-    setSudoku(newSudoku);
-  }, [selected, sudoku]);
+  const handleKeyChange = useCallback(
+    (event: KeyboardEvent, keyUp: boolean = false) => {
+      const keyActions = [
+        {
+          keys: ["Escape"],
+          action: () => {
+            if (!keyUp) {
+              setSelected([]);
+            }
+          },
+        },
+        {
+          keys: ["Delete", "Backspace"],
+          action: () => {
+            if (!keyUp) {
+              updateCells();
+            }
+          },
+        },
+        {
+          keys: ["Ctrl", "Shift"],
+          action: () => setIsMultiSelect(!keyUp),
+        },
+        {
+          keys: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+          action: () => {
+            if (keyUp) return;
+            const value = parseInt(event.key, 10);
+            if (value >= 1 && value <= 9) {
+              updateCells(value as SudokuValue);
+            }
+          },
+        },
+      ];
 
-  const handleKeyPress = useCallback(
-    (event: KeyboardEvent) => {
-      const value = parseInt(event.key, 10);
-      if (value >= 1 && value <= 9) {
-        updateCell(value as SudokuValue);
-      } else if (event.key === "Backspace") {
-        clearSelectedCells();
+      if (keyActions.some((action) => action.keys.includes(event.key))) {
+        keyActions.find((action) => action.keys.includes(event.key))?.action();
       }
     },
-    [updateCell, clearSelectedCells]
+    [updateCells]
   );
 
   useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      handleKeyChange(event);
+    };
+    const handleKeyUp = (event: KeyboardEvent) => {
+      handleKeyChange(event, true);
+    };
+
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
-    window.addEventListener("keypress", handleKeyPress);
 
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        if (sudoku[i][j] === data.puzzle.solution[i][j]) {
+        if (sudoku[i][j] === data.puzzles[0].solution[i][j]) {
           setSolvedDigits((prev) => [...prev, sudoku[i][j] as SudokuValue]);
         }
       }
@@ -141,9 +146,8 @@ const Sudoku = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
-      window.removeEventListener("keypress", handleKeyPress);
     };
-  }, [sudoku, handleKeyPress]);
+  }, [sudoku, handleKeyChange]);
 
   const selectCell = (
     row: SudokuValue,
@@ -197,7 +201,8 @@ const Sudoku = () => {
   const checkSolution = () => {
     const isCorrect = sudoku.every((row, rowIndex) =>
       row.every(
-        (cell, colIndex) => cell === data.puzzle.solution[rowIndex][colIndex]
+        (cell, colIndex) =>
+          cell === data.puzzles[0].solution[rowIndex][colIndex]
       )
     );
     if (isCorrect) {
@@ -210,7 +215,7 @@ const Sudoku = () => {
   return (
     <Section title="Sudoku" className="bg-zinc-900/30 items-center">
       <div
-        className="grid grid-row-3 bg-zinc-900 p-6 w-fit h-fit"
+        className="grid grid-row-3 bg-zinc-900 p-6"
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
       >
@@ -227,22 +232,20 @@ const Sudoku = () => {
         ))}
       </div>
       <div className="flex gap-8 items-center">
-        <button
-          className="bg-red-900 text-2xl p-3 hover:bg-red-800"
-          onClick={() => setSudoku(data.puzzle.values as sudokuData)}
-        >
-          <FontAwesomeIcon icon={faArrowRotateLeft} />
-        </button>
+        <IconButton
+          iconClassName="bg-red-900 text-2xl p-3 hover:bg-red-800"
+          onClick={() => setSudoku(data.puzzles[0].values as sudokuData)}
+          icon={faArrowRotateLeft}
+        />
         <NumberPad
-          onClick={(value: SudokuValue) => updateCell(value)}
+          onClick={(value: SudokuValue) => updateCells(value)}
           solvedDigits={solvedDigits}
         />
-        <button
-          className="bg-green-900 text-2xl p-3 hover:bg-green-800"
-          onClick={checkSolution}
-        >
-          <FontAwesomeIcon icon={faCheck} />
-        </button>
+        <IconButton
+          iconClassName="bg-green-900 text-2xl p-3 hover:bg-green-800"
+          onClick={() => checkSolution()}
+          icon={faCheck}
+        />
       </div>
     </Section>
   );
@@ -256,7 +259,7 @@ const NumberPad = ({
   solvedDigits: SudokuValue[];
 }) => {
   return (
-    <div className="grid grid-cols-3 gap-2 text-white">
+    <div className="grid grid-cols-3 gap-2 text-white p-4 bg-zinc-900">
       {Array.from({ length: 9 }, (_, i) => i + 1).map((num) => {
         const disabled = solvedDigits.includes(num as SudokuValue);
         const btnClasses = classNames("text-2xl px-4 py-3", {
@@ -296,7 +299,7 @@ const SudokoBoxRow = ({
   onMouseEnter,
 }: SudokoRowProps) => {
   return (
-    <div className="grid grid-cols-3 bg-zinc-900 w-fit h-fit">
+    <div className="grid grid-cols-3 bg-zinc-900">
       {Array.from({ length: 3 }, (_, i) => (
         <SukodkuBox
           key={i}
@@ -335,9 +338,7 @@ const SukodkuBox = ({
   onMouseDown,
   onMouseEnter,
 }: SukodkuBoxProps) => {
-  const boxClasses = classNames(
-    "grid grid-cols-3 bg-zinc-900 w-fit h-fit border"
-  );
+  const boxClasses = classNames("grid grid-cols-3 bg-zinc-900 border");
 
   const cells: SudokuValue[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -382,11 +383,11 @@ const SudokuCell = ({
   onMouseDown,
   onMouseEnter,
 }: SudokuCellProps) => {
-  const divClasses = classNames("border border-gray-700", {
+  const divClasses = classNames("border border-gray-700 h-12 w-12", {
     " bg-cyan-900": selected,
     " font-bold": cellDisabled(row, col),
   });
-  const cellClasses = classNames("text-center w-12 h-12 text-3xl");
+  const cellClasses = classNames("text-center h-full w-full text-3xl");
 
   return (
     <div
