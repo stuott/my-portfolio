@@ -334,7 +334,7 @@ const Sudoku = () => {
   };
 
   return (
-    <Section title="Sudoku" className="bg-zinc-900/30 items-center">
+    <Section title="Sudoku" className="bg-zinc-900/30 items-center px-0">
       <div className="mb-4">
         <label htmlFor="difficulty" className="mr-2 text-white">
           Select Difficulty:
