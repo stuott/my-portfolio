@@ -18,8 +18,8 @@ enum SudokuActions {
   DESELECT = 2,
 }
 
-const cellDisabled = (row: SudokuValue, col: SudokuValue) => {
-  return data.puzzles[0].mask[row - 1][col - 1];
+const cellDisabled = (row: SudokuValue, col: SudokuValue, puzzle: number) => {
+  return data.puzzles[puzzle].mask[row - 1][col - 1];
 };
 
 const getDisabledDigits = (sudoku: sudokuData): SudokuValue[] => {
@@ -48,15 +48,69 @@ const getDisabledDigits = (sudoku: sudokuData): SudokuValue[] => {
     .map((digit) => parseInt(digit) as SudokuValue);
 };
 
+const checkForDuplicates = (sudoku: sudokuData): boolean[][] => {
+  const duplicateFlags: boolean[][] = Array.from({ length: 9 }, () =>
+    Array(9).fill(false)
+  );
+
+  for (let i = 0; i < 9; i++) {
+    const row = sudoku[i];
+    const col = sudoku.map((row) => row[i]);
+
+    row.forEach((value, j) => {
+      if (value !== null && row.indexOf(value) !== j) {
+        duplicateFlags[i][j] = true;
+        duplicateFlags[i][row.indexOf(value)] = true;
+      }
+    });
+
+    col.forEach((value, j) => {
+      if (value !== null && col.indexOf(value) !== j) {
+        duplicateFlags[j][i] = true;
+        duplicateFlags[col.indexOf(value)][i] = true;
+      }
+    });
+  }
+
+  for (let boxRow = 0; boxRow < 3; boxRow++) {
+    for (let boxCol = 0; boxCol < 3; boxCol++) {
+      const boxValues: { [key in SudokuValue]?: [number, number] } = {};
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          const rowIndex = boxRow * 3 + i;
+          const colIndex = boxCol * 3 + j;
+          const value = sudoku[rowIndex][colIndex];
+          if (value !== null) {
+            if (boxValues[value]) {
+              duplicateFlags[rowIndex][colIndex] = true;
+              const [dupRow, dupCol] = boxValues[value] as [number, number];
+              duplicateFlags[dupRow][dupCol] = true;
+            } else {
+              boxValues[value] = [rowIndex, colIndex];
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return duplicateFlags;
+};
+
 const Sudoku = () => {
+  const [difficulty, setDifficulty] = useState(0);
   const [sudoku, setSudoku] = useState<sudokuData>(
-    data.puzzles[0].values as sudokuData
+    data.puzzles[difficulty].values as sudokuData
   );
   const [selected, setSelected] = useState<cell[]>([]);
   const [isMultiSelect, setIsMultiSelect] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [currentAction, setCurrentAction] = useState<SudokuActions>(0);
   const [solvedDigits, setSolvedDigits] = useState<SudokuValue[]>([]);
+  const [duplicateFlags, setDuplicateFlags] = useState<boolean[][]>(
+    Array.from({ length: 9 }, () => Array(9).fill(false))
+  );
+  const [solved, setSolved] = useState<boolean | undefined>(undefined);
 
   const updateCells = useCallback(
     (value?: SudokuValue) => {
@@ -68,16 +122,21 @@ const Sudoku = () => {
           );
           if (
             isSelected &&
-            !cellDisabled((i + 1) as SudokuValue, (j + 1) as SudokuValue)
+            !cellDisabled(
+              (i + 1) as SudokuValue,
+              (j + 1) as SudokuValue,
+              difficulty
+            )
           ) {
             return value !== undefined ? (c === value ? null : value) : null;
           }
           return c;
         })
       );
+      setDuplicateFlags(checkForDuplicates(newSudoku));
       setSudoku(newSudoku);
     },
-    [selected, sudoku]
+    [selected, sudoku, difficulty]
   );
 
   const handleKeyChange = useCallback(
@@ -113,13 +172,46 @@ const Sudoku = () => {
             }
           },
         },
+        {
+          keys: ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"],
+          action: () => {
+            if (!keyUp) {
+              event.preventDefault(); // Prevent default scrolling behavior
+              const [row, col] = selected[selected.length - 1];
+              let newRow = row;
+              let newCol = col;
+              switch (event.key) {
+                case "ArrowUp":
+                  newRow = row === 1 ? 9 : ((row - 1) as SudokuValue);
+                  break;
+                case "ArrowDown":
+                  newRow = row === 9 ? 1 : ((row + 1) as SudokuValue);
+                  break;
+                case "ArrowLeft":
+                  newCol = col === 1 ? 9 : ((col - 1) as SudokuValue);
+                  break;
+                case "ArrowRight":
+                  newCol = col === 9 ? 1 : ((col + 1) as SudokuValue);
+                  break;
+              }
+              if (isMultiSelect) {
+                setSelected((prevSelected) => [
+                  ...prevSelected,
+                  [newRow, newCol],
+                ]);
+              } else {
+                setSelected([[newRow, newCol]]);
+              }
+            }
+          },
+        },
       ];
 
       if (keyActions.some((action) => action.keys.includes(event.key))) {
         keyActions.find((action) => action.keys.includes(event.key))?.action();
       }
     },
-    [updateCells]
+    [updateCells, selected, isMultiSelect]
   );
 
   useEffect(() => {
@@ -133,14 +225,6 @@ const Sudoku = () => {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
 
-    for (let i = 0; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
-        if (sudoku[i][j] === data.puzzles[0].solution[i][j]) {
-          setSolvedDigits((prev) => [...prev, sudoku[i][j] as SudokuValue]);
-        }
-      }
-    }
-
     setSolvedDigits(getDisabledDigits(sudoku));
 
     return () => {
@@ -148,6 +232,26 @@ const Sudoku = () => {
       window.removeEventListener("keyup", handleKeyUp);
     };
   }, [sudoku, handleKeyChange]);
+
+  useEffect(() => {
+    setSolvedDigits(getDisabledDigits(sudoku));
+  }, [setSolvedDigits, sudoku]);
+
+  useEffect(() => {
+    setSudoku(data.puzzles[difficulty].values as sudokuData);
+  }, [difficulty]);
+
+  const getSelectedCellValue = (): SudokuValue | null => {
+    if (selected.length !== 1) return null;
+    const [row, col] = selected[0];
+    return sudoku[row - 1][col - 1];
+  };
+
+  const isSameValue = (row: SudokuValue, col: SudokuValue): boolean => {
+    const selectedValue = getSelectedCellValue();
+    if (selectedValue === null) return false;
+    return sudoku[row - 1][col - 1] === selectedValue;
+  };
 
   const selectCell = (
     row: SudokuValue,
@@ -206,14 +310,48 @@ const Sudoku = () => {
       )
     );
     if (isCorrect) {
-      alert("Congratulations! The solution is correct.");
+      setSolved(true);
     } else {
-      alert("The solution is incorrect. Please try again.");
+      setSolved(false);
     }
+  };
+
+  const handleDifficultyChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setDifficulty(parseInt(event.target.value, 10));
+  };
+
+  const isSameRowColOrBox = (row: SudokuValue, col: SudokuValue) => {
+    if (selected.length !== 1) return false;
+    const [selectedRow, selectedCol] = selected[0];
+    const sameRow = selectedRow === row;
+    const sameCol = selectedCol === col;
+    const sameBox =
+      Math.floor((selectedRow - 1) / 3) === Math.floor((row - 1) / 3) &&
+      Math.floor((selectedCol - 1) / 3) === Math.floor((col - 1) / 3);
+    return sameRow || sameCol || sameBox;
   };
 
   return (
     <Section title="Sudoku" className="bg-zinc-900/30 items-center">
+      <div className="mb-4">
+        <label htmlFor="difficulty" className="mr-2 text-white">
+          Select Difficulty:
+        </label>
+        <select
+          id="difficulty"
+          value={difficulty}
+          onChange={handleDifficultyChange}
+          className="bg-zinc-800 text-white p-2 border"
+        >
+          {data.puzzles.map((puzzle, index) => (
+            <option key={index} value={index}>
+              {puzzle.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <div
         className="grid grid-row-3 bg-zinc-900 p-6"
         onMouseUp={handleMouseUp}
@@ -228,13 +366,19 @@ const Sudoku = () => {
             selected={selected}
             onMouseDown={handleMouseDown}
             onMouseEnter={handleMouseEnter}
+            puzzle={difficulty}
+            isSameRowColOrBox={isSameRowColOrBox}
+            duplicateFlags={duplicateFlags}
+            isSameValue={isSameValue}
           />
         ))}
       </div>
       <div className="flex gap-8 items-center">
         <IconButton
           iconClassName="bg-red-900 text-2xl p-3 hover:bg-red-800"
-          onClick={() => setSudoku(data.puzzles[0].values as sudokuData)}
+          onClick={() =>
+            setSudoku(data.puzzles[difficulty].values as sudokuData)
+          }
           icon={faArrowRotateLeft}
         />
         <NumberPad
@@ -246,6 +390,13 @@ const Sudoku = () => {
           onClick={() => checkSolution()}
           icon={faCheck}
         />
+      </div>
+      <div className="bg-zinc-900 p-4">
+        {solved !== undefined && (
+          <p className={solved ? "text-green-400" : "text-red-400"}>
+            {solved ? "Solved!" : "Incorrect Solution. Take another look."}
+          </p>
+        )}
       </div>
     </Section>
   );
@@ -288,6 +439,8 @@ interface SudokoRowProps {
   selectCell: selectCell;
   onMouseDown: (row: SudokuValue, col: SudokuValue) => void;
   onMouseEnter: (row: SudokuValue, col: SudokuValue) => void;
+  puzzle: number;
+  isSameValue: (row: SudokuValue, col: SudokuValue) => boolean;
 }
 
 const SudokoBoxRow = ({
@@ -297,7 +450,14 @@ const SudokoBoxRow = ({
   selectCell,
   onMouseDown,
   onMouseEnter,
-}: SudokoRowProps) => {
+  puzzle,
+  isSameRowColOrBox,
+  duplicateFlags,
+  isSameValue,
+}: SudokoRowProps & {
+  isSameRowColOrBox: (row: SudokuValue, col: SudokuValue) => boolean;
+  duplicateFlags: boolean[][];
+}) => {
   return (
     <div className="grid grid-cols-3 bg-zinc-900">
       {Array.from({ length: 3 }, (_, i) => (
@@ -310,6 +470,10 @@ const SudokoBoxRow = ({
           selected={selected}
           onMouseDown={onMouseDown}
           onMouseEnter={onMouseEnter}
+          puzzle={puzzle}
+          isSameRowColOrBox={isSameRowColOrBox}
+          duplicateFlags={duplicateFlags}
+          isSameValue={isSameValue}
         />
       ))}
     </div>
@@ -318,6 +482,8 @@ const SudokoBoxRow = ({
 
 interface SukodkuBoxProps extends SudokoRowProps {
   boxColIndex: 1 | 2 | 3;
+  isSameRowColOrBox: (row: SudokuValue, col: SudokuValue) => boolean;
+  duplicateFlags: boolean[][];
 }
 
 const boxToGrid = (
@@ -337,7 +503,14 @@ const SukodkuBox = ({
   selected,
   onMouseDown,
   onMouseEnter,
-}: SukodkuBoxProps) => {
+  puzzle,
+  isSameRowColOrBox,
+  duplicateFlags,
+  isSameValue,
+}: SukodkuBoxProps & {
+  isSameRowColOrBox: (row: SudokuValue, col: SudokuValue) => boolean;
+  duplicateFlags: boolean[][];
+}) => {
   const boxClasses = classNames("grid grid-cols-3 bg-zinc-900 border");
 
   const cells: SudokuValue[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -359,6 +532,10 @@ const SukodkuBox = ({
             }
             onMouseDown={onMouseDown}
             onMouseEnter={onMouseEnter}
+            disabled={cellDisabled(gridRow, gridCol, puzzle)}
+            isSameRowColOrBox={isSameRowColOrBox(gridRow, gridCol)}
+            duplicate={duplicateFlags[gridRow - 1][gridCol - 1]}
+            isSameValue={isSameValue(gridRow, gridCol)}
           />
         );
       })}
@@ -373,6 +550,10 @@ interface SudokuCellProps {
   selected?: boolean;
   onMouseDown: (row: SudokuValue, col: SudokuValue) => void;
   onMouseEnter: (row: SudokuValue, col: SudokuValue) => void;
+  disabled?: boolean;
+  isSameRowColOrBox: boolean;
+  duplicate: boolean;
+  isSameValue: boolean;
 }
 
 const SudokuCell = ({
@@ -382,11 +563,22 @@ const SudokuCell = ({
   selected,
   onMouseDown,
   onMouseEnter,
-}: SudokuCellProps) => {
-  const divClasses = classNames("border border-gray-700 h-12 w-12", {
-    " bg-cyan-900": selected,
-    " font-bold": cellDisabled(row, col),
-  });
+  disabled,
+  isSameRowColOrBox,
+  duplicate,
+  isSameValue,
+}: SudokuCellProps & { duplicate: boolean }) => {
+  const divClasses = classNames(
+    "border border-gray-700 h-10 w-10 md:h-12 md:w-12",
+    {
+      " bg-cyan-900": selected,
+      " bg-cyan-950/30": isSameRowColOrBox && !selected && !duplicate,
+      " font-bold": disabled,
+      " bg-red-950 border-red-500 border-3": duplicate,
+      " bg-yellow-900/50": isSameValue && !selected, // Highlight same value cells
+    }
+  );
+
   const cellClasses = classNames("text-center h-full w-full text-3xl");
 
   return (
@@ -395,7 +587,7 @@ const SudokuCell = ({
       onMouseDown={() => onMouseDown(row, col)}
       onMouseEnter={() => onMouseEnter(row, col)}
     >
-      <button className={cellClasses} disabled={cellDisabled(row, col)}>
+      <button className={cellClasses} disabled={disabled}>
         {value ?? ""}
       </button>
     </div>
