@@ -10,6 +10,7 @@ interface IconButtonProps {
   iconClassName?: string;
   bgColor?: string;
   hoverColor?: string;
+  textSide?: "left" | "right" | "";
 }
 
 const IconButton = ({
@@ -20,16 +21,22 @@ const IconButton = ({
   iconClassName,
   bgColor,
   hoverColor,
+  textSide = "right",
 }: IconButtonProps) => {
-  const buttonClassName = classNames("text-sm p-2", className, {
+  const buttonClassName = classNames("p-2 ", className, {
     [`bg-${bgColor}`]: bgColor,
     [`hover:bg-${hoverColor}`]: hoverColor,
   });
 
   return (
     <button className={buttonClassName} onClick={onClick}>
+      {(text && textSide === "left" && (
+        <span className="ml-2 text-md">{text} </span>
+      )) || <></>}
       <FontAwesomeIcon className={iconClassName} icon={icon} />
-      {(text && <span className="ml-2 text-md">{text}</span>) || null}
+      {(text && textSide !== "left" && (
+        <span className="ml-2 text-md">{text}</span>
+      )) || <></>}
     </button>
   );
 };
