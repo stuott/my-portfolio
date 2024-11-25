@@ -222,7 +222,7 @@ const Sudoku = () => {
     const isCorrect = sudoku.every((row, rowIndex) =>
       row.every(
         (cell, colIndex) =>
-          cell === data.puzzles[0].solution[rowIndex][colIndex]
+          cell === data.puzzles[puzzle].solution[rowIndex][colIndex]
       )
     );
     if (isCorrect) {
