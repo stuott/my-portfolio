@@ -242,7 +242,7 @@ const Sudoku = () => {
     <Section title="Sudoku" className="items-center px-0 bg-zinc-900 mt-10">
       <div className="flex flex-col md:flex-row gap-6 ">
         <div
-          className="grid grid-row-3 bg-zinc-900 justify-items-center"
+          className="flex flex-col bg-zinc-900 justify-items-center border border-4"
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
         >

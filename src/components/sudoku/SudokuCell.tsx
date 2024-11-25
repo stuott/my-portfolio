@@ -23,16 +23,13 @@ const SudokuCell = ({
   highlight,
 }: SudokuCellProps) => {
   const divClasses =
-    classNames("border border-gray-700 h-10 w-10 md:h-12 md:w-12", {
-      " bg-cyan-900": selected,
-      " font-bold": isStatic,
-      " border-t-gray-100": row === 0,
-      " border-l-gray-100": col === 0,
-      " border-r-gray-100 ": col === 2 || col === 5 || col === 8,
-      " border-b-gray-100": row === 2 || row === 5 || row === 8,
+    classNames("border border-zinc-700 h-10 w-10 md:h-12 md:w-12", {
+      "bg-cyan-900": selected,
+      "font-bold": isStatic,
+      "border-b-2 border-b-white": row === 2 || row === 5,
+      "border-r-2 border-r-white": col === 2 || col === 5,
     }) +
-    " " +
-    highlight;
+    (" " + highlight);
 
   const cellClasses = classNames("text-center h-full w-full text-3xl");
 
