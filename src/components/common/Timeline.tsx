@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Badges from "components/common/Badges";
 import BulletList from "components/common/BulletList";
 import Link from "./Link";
@@ -10,7 +11,7 @@ export interface TimelineProps {
 const Timeline = ({ items, flipped }: TimelineProps) => (
   <div className="grid divide-y border-y sm:divide-none sm:border-none">
     {items.map((item) => (
-      <TimelineCard item={item} flipped={flipped ? true : false} />
+      <TimelineCard item={item} flipped={flipped} />
     ))}
   </div>
 );
@@ -22,8 +23,8 @@ interface TimelineCardProps {
 
 const TimelineCard = ({ item, flipped }: TimelineCardProps) => (
   <div className="flex flex-col sm:flex-row sm:divide-x">
-    {getTimeElement(item.time, true, flipped)}
-    <div className="grid sm:w-3/4 pb-6 sm:pl-5">
+    {!flipped && getTimeElement(item.time, true)}
+    <div className="grid sm:w-3/4 pb-12 sm:px-5">
       <TimelineMeta
         title={item.title}
         subtitle={item.subtitle}
@@ -32,27 +33,21 @@ const TimelineCard = ({ item, flipped }: TimelineCardProps) => (
       {item.badges ? <Badges className="pt-2" captions={item.badges} /> : <></>}
       {item.points ? <BulletList points={item.points} /> : <></>}
     </div>
-    {getTimeElement(item.time, false, flipped)}
+    {flipped && getTimeElement(item.time, false)}
   </div>
 );
 
 // Generate the time element based on the side that it's on
-const getTimeElement = (time: string, right: boolean, flipped?: boolean) => {
+const getTimeElement = (time: string, right: boolean) => {
+  const timeClasses = classNames("py-4 sm:px-4 sm:w-1/4", {
+    "sm:text-end": right,
+  });
+
   return (
-    <div className={getTimeClasses(right, flipped)}>
+    <div className={timeClasses}>
       <p className="italic text-zinc-500">{time}</p>
     </div>
   );
-};
-
-// If we have a flipped timeline, we want to show the time on the right
-// If the viewport is small, we want to show the time on the left again so it's above the content
-const getTimeClasses = (left: boolean, flipped?: boolean) => {
-  const baseClasses = "pt-4 pb-2 sm:w-1/4 sm:p-2";
-  if (flipped) {
-    return left ? `sm:hidden ${baseClasses}` : `hidden sm:block ${baseClasses}`;
-  }
-  return left ? baseClasses : `hidden ${baseClasses}`;
 };
 
 interface TimelineMetaInfo {

@@ -24,7 +24,7 @@ export default function Experience() {
         <Link
           text="View my resume"
           to={process.env.PUBLIC_URL + "/Resume.pdf"}
-          className="w-fit my-10"
+          className="w-fit my-5"
         />
       </div>
     </Section>
