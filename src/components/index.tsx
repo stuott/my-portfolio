@@ -6,6 +6,7 @@ import DnDSpells from "./projects/DnDSpells";
 import Projects from "./projects/Projects";
 import RecipeList from "./projects/RecipeList";
 import Sudoku from "./sudoku/Sudoku";
+import TestView from "./TestView";
 
 const pages: Page[] = [
   { path: "/", name: "Home", Component: Home, showInNavbar: true },
@@ -44,6 +45,12 @@ const pages: Page[] = [
     name: "Sudoku",
     Component: Sudoku,
     showInNavbar: true,
+  },
+  {
+    path: "/test-view",
+    name: "Test View",
+    Component: TestView,
+    showInNavbar: false,
   },
 ];
 

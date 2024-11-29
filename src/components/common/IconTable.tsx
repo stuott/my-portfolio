@@ -1,14 +1,15 @@
-import { Icon } from "types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconLink } from "types";
 
-export default function IconTable(props: { icons: Icon[] }) {
-  const { icons } = props;
+export default function IconTable(props: { links: IconLink[] }) {
+  const { links } = props;
 
   return (
     <div className="flex text-white text-xl gap-3">
-      {icons.map((icon) => {
+      {links.map((link) => {
         return (
-          <a href={icon.url} aria-label="link">
-            {icon.element}
+          <a href={link.url} aria-label="link">
+            <FontAwesomeIcon icon={link.icon} />
           </a>
         );
       })}

@@ -22,10 +22,10 @@ const Link = ({ to, text, internal, className }: linkProps) => {
 
 const getLinkClasses = (validLink: boolean) => {
   return (
-    "p-4 bg-cyan-800" +
+    "p-4 bg-cyan-800 w-fit" +
     (validLink
       ? " transition hover:bg-cyan-700 hover:scale-[1.02] hover:underline"
-      : "")
+      : " pointer-events-none opacity-80")
   );
 };
 
@@ -33,7 +33,7 @@ const ExternalLink = ({ to, text, className }: linkProps) => {
   return (
     <a
       className={getLinkClasses(!!to) + " " + className}
-      href={to}
+      href={to ?? ""}
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -49,10 +49,7 @@ const ExternalLink = ({ to, text, className }: linkProps) => {
 
 const InternalLink = ({ to, text, className }: linkProps) => {
   return (
-    <NavLink
-      to={to ? to : ""}
-      className={getLinkClasses(!!to) + " " + className}
-    >
+    <NavLink to={to ?? ""} className={getLinkClasses(!!to) + " " + className}>
       {text}{" "}
       {to ? <FontAwesomeIcon className="text-sm" icon={faLink} /> : <></>}
     </NavLink>

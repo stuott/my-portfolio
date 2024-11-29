@@ -36,14 +36,14 @@ const NumberInput = ({
           <IconButton
             className="p-1"
             bgColor={polarity !== undefined && polarity ? "green-900/50" : ""}
-            hoverColor="green-900"
+            hoverBgColor="green-900"
             icon={faPlus}
             onClick={() => handlePolarity(true)}
           />
           <IconButton
             className="p-1"
             bgColor={polarity !== undefined && !polarity ? "red-900/50" : ""}
-            hoverColor="rose-900"
+            hoverBgColor="rose-900"
             icon={faMinus}
             onClick={() => handlePolarity(false)}
           />
