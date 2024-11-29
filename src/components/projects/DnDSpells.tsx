@@ -111,14 +111,15 @@ const DnDSpells = () => {
     <Section title="D&D Spellbook" className="bg-zinc-900/50">
       <div className="flex flex-row">
         <SearchBar
-          placeholder="enter spell name"
-          options={schools}
-          defaultOption="select a school"
-          setSelection={setSpellSchool}
           setSearch={setSpellName}
-          filters={levels}
-          setFilter={setSpellLevel}
           onSearch={fetchSpellList}
+          placeholder="enter spell name"
+          filters={{ filters: levels, onFilter: setSpellLevel }}
+          dropdown={{
+            options: schools,
+            placeholder: "select a school",
+            setSelection: setSpellSchool,
+          }}
         />
       </div>
       {error && <p>{error}</p>}

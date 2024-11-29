@@ -1,14 +1,14 @@
-interface DropdownProps {
+export interface DropdownProps {
   options: string[];
-  setSelection: (value: string) => void;
   placeholder?: string;
+  setSelection?: (value: string) => void;
 }
 
 const Dropdown = ({ options, setSelection, placeholder }: DropdownProps) => {
   return (
     <select
       className="bg-zinc-900 p-4 border border-zinc-700 border-2"
-      onChange={(e) => setSelection(e.target.value)}
+      onChange={(e) => setSelection && setSelection(e.target.value)}
     >
       {placeholder && (
         <option value="" disabled selected>

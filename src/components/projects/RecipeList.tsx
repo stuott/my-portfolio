@@ -50,8 +50,10 @@ const RecipeList = () => {
       <SearchBar
         placeholder="Search for a recipe"
         setSearch={setSearchTerm}
-        filters={["breakfast", "lunch", "dinner", "snack"]}
-        setFilter={setFilterTerm}
+        filters={{
+          filters: ["breakfast", "lunch", "dinner", "snack"],
+          onFilter: setFilterTerm,
+        }}
         className="pt-6"
       />
       <Section>

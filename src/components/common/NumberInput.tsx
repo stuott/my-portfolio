@@ -4,6 +4,35 @@ import IconButton from "./IconButton";
 
 type PolarityState = true | false | undefined;
 
+interface PolarityButtonsProps {
+  polarity: PolarityState;
+  onPolarityChange: (value: PolarityState) => void;
+}
+
+const PolarityButtons = ({
+  polarity,
+  onPolarityChange,
+}: PolarityButtonsProps) => {
+  return (
+    <div className="flex flex-col">
+      <IconButton
+        className="p-1"
+        bgColor={polarity !== undefined && polarity ? "green-900/50" : ""}
+        hoverBgColor="green-900"
+        icon={faPlus}
+        onClick={() => onPolarityChange(true)}
+      />
+      <IconButton
+        className="p-1"
+        bgColor={polarity !== undefined && !polarity ? "red-900/50" : ""}
+        hoverBgColor="rose-900"
+        icon={faMinus}
+        onClick={() => onPolarityChange(false)}
+      />
+    </div>
+  );
+};
+
 interface NumberInputProps {
   value: number | undefined;
   onChange: (value: number) => void;
@@ -19,7 +48,7 @@ const NumberInput = ({
 }: NumberInputProps) => {
   const [polarity, setPolarity] = useState<PolarityState>(undefined);
 
-  const handlePolarity = (value: boolean) => {
+  const handlePolarityChange = (value: PolarityState) => {
     if (polarity === value) {
       setPolarity(undefined);
       onPolarityChange && onPolarityChange(undefined);
@@ -31,23 +60,11 @@ const NumberInput = ({
 
   return (
     <>
-      {showPolarity && (
-        <div className="flex flex-col">
-          <IconButton
-            className="p-1"
-            bgColor={polarity !== undefined && polarity ? "green-900/50" : ""}
-            hoverBgColor="green-900"
-            icon={faPlus}
-            onClick={() => handlePolarity(true)}
-          />
-          <IconButton
-            className="p-1"
-            bgColor={polarity !== undefined && !polarity ? "red-900/50" : ""}
-            hoverBgColor="rose-900"
-            icon={faMinus}
-            onClick={() => handlePolarity(false)}
-          />
-        </div>
+      {showPolarity && onPolarityChange && (
+        <PolarityButtons
+          polarity={polarity}
+          onPolarityChange={handlePolarityChange}
+        />
       )}
       <input
         type="text"
