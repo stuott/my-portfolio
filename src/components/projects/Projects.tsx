@@ -2,6 +2,7 @@ import BulletList from "components/common/BulletList";
 import Link from "components/common/Link";
 import Section from "components/layout/Section";
 import data from "data/projects.json";
+import { LinkInfo } from "types/index";
 
 export default function Projects() {
   return (
@@ -28,9 +29,8 @@ const UpNext = () => {
 interface Project {
   title: string;
   description: string;
-  URL?: string;
+  link?: LinkInfo;
   points?: string[];
-  internal?: boolean;
 }
 
 const ProjectList = ({
@@ -50,12 +50,11 @@ const ProjectList = ({
         {projects.map((project) => {
           return (
             <div className="flex flex-col gap-6 sm:flex-row sm:gap-10 items-center">
-              <Link
-                to={project.URL}
-                text={project.title}
-                internal={project.internal}
-                className="sm:w-1/4"
-              />
+              {project.link ? (
+                <Link {...project.link}>{project.title}</Link>
+              ) : (
+                <p className="p-4 bg-cyan-800 w-fit">{project.title}</p>
+              )}
               <div
                 className="sm:w-3/4"
                 style={{ textShadow: "1px 1px 10px black" }}

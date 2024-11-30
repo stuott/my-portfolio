@@ -1,9 +1,10 @@
 export { default as Badges } from "./Badges";
 export { default as BulletList } from "./BulletList";
+export { default as Button } from "./Button";
+export { default as ButtonTable } from "./ButtonTable";
 export { default as Dropdown } from "./Dropdown";
-export { default as IconButton } from "./IconButton";
-export { default as IconTable } from "./IconTable";
 export { default as Link } from "./Link";
+export { default as LinkTable } from "./LinkTable";
 export { default as NumberInput } from "./NumberInput";
 export { default as SearchBar } from "./SearchBar";
 export { default as Timeline } from "./Timeline";

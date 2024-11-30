@@ -1,57 +1,86 @@
 import {
   faArrowUpRightFromSquare,
   faLink,
+  IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { NavLink } from "react-router-dom";
+import { LinkInfo } from "types/index";
 
-interface LinkProps {
-  to: string | undefined;
-  text: string;
-  internal?: boolean;
-  className?: string;
+export interface LinkProps extends LinkInfo {
+  hoverColor?: string;
+  children?: React.ReactNode;
+  disabled?: boolean;
+  icon?: IconDefinition;
+  scale?: boolean;
+  tooltip?: string;
 }
 
-const Link = ({ internal, ...linkProps }: LinkProps) => {
+const Link = ({
+  internal,
+  scale,
+  children,
+  icon,
+  disabled,
+  hoverColor = "cyan-600",
+  ...linkProps
+}: LinkProps) => {
+  const linkClasses = classNames(
+    "flex gap-2 items-center w-fit transition hover:underline ",
+    {
+      [`hover:text-${hoverColor}`]: !disabled,
+      "hover:scale-[1.02]": scale,
+      "p-2": !children,
+      "pointer-events-none text-zinc-500": disabled,
+    }
+  );
+
   return internal ? (
-    <InternalLink {...linkProps} />
+    <InternalLink {...linkProps} className={linkClasses} hideIcon>
+      {icon && <FontAwesomeIcon icon={icon} className="text-xl" />}
+      {children}{" "}
+      {children && <FontAwesomeIcon className="text-sm" icon={faLink} />}
+    </InternalLink>
   ) : (
-    <ExternalLink {...linkProps} />
+    <ExternalLink {...linkProps} className={linkClasses}>
+      {icon && <FontAwesomeIcon icon={icon} className="text-xl" />}
+      {children}
+      {children && (
+        <FontAwesomeIcon className="text-sm" icon={faArrowUpRightFromSquare} />
+      )}
+    </ExternalLink>
   );
 };
 
-const getLinkClasses = (validLink: boolean) => {
-  return classNames("p-4 bg-cyan-800 w-fit", {
-    "transition hover:bg-cyan-700 hover:scale-[1.02] hover:underline":
-      validLink,
-    "pointer-events-none opacity-80": !validLink,
-  });
-};
+interface LinkPropsInternal extends LinkProps {
+  hideIcon?: boolean;
+  className?: string;
+}
 
-const ExternalLink = ({ to, text, className }: LinkProps) => {
+const ExternalLink = ({
+  tooltip,
+  to,
+  children,
+  className,
+}: LinkPropsInternal) => {
   return (
     <a
-      className={getLinkClasses(!!to) + " " + className}
+      title={tooltip ?? to}
+      className={className}
       href={to ?? ""}
       target="_blank"
       rel="noopener noreferrer"
     >
-      {text}{" "}
-      {to ? (
-        <FontAwesomeIcon className="text-sm" icon={faArrowUpRightFromSquare} />
-      ) : (
-        <></>
-      )}
+      {children}
     </a>
   );
 };
 
-const InternalLink = ({ to, text, className }: LinkProps) => {
+const InternalLink = ({ to, children, className }: LinkPropsInternal) => {
   return (
-    <NavLink to={to ?? ""} className={getLinkClasses(!!to) + " " + className}>
-      {text}{" "}
-      {to ? <FontAwesomeIcon className="text-sm" icon={faLink} /> : <></>}
+    <NavLink title={to} to={to ?? ""} className={className}>
+      {children}
     </NavLink>
   );
 };

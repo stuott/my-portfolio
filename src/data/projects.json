@@ -2,7 +2,10 @@
   "complete": [
     {
       "title": "Cost-Effective Pick Point System",
-      "URL": "https://youtu.be/5CnoxZWs00k?si=rgVU8ebNp2aKR4Nv&t=232",
+      "link": {
+        "to": "https://youtu.be/5CnoxZWs00k?si=rgVU8ebNp2aKR4Nv&t=232",
+        "internal": false
+      },
       "description": "An enterprise team project partnered with General Motors",
       "points": [
         "Worked with a team of engineering student peers to create a system to grab and sort objects in 3D space using a 6-axis robotic arm, machine learning, and an array of cameras",
@@ -12,8 +15,10 @@
     },
     {
       "title": "D&D Spellbook",
-      "URL": "/projects/spellbook",
-      "internal": true,
+      "link": {
+        "to": "/projects/spellbook",
+        "internal": true
+      },
       "description": "A spell lookup utility for Dungeons and Dragons 5th Edition",
       "points": [
         "Built a user interface using TailwindCSS to display spell data",
@@ -23,8 +28,10 @@
     },
     {
       "title": "Dice Roller",
-      "URL": "/projects/dice-roller",
-      "internal": true,
+      "link": {
+        "to": "/projects/dice-roller",
+        "internal": true
+      },
       "description": "Dice rolling utility for tabletop role-playing games",
       "points": [
         "Created a simple and effective UI using Tailwind CSS to display dice and roll results",
@@ -34,8 +41,10 @@
     },
     {
       "title": "Recipe List",
-      "URL": "/projects/recipe-list",
-      "internal": true,
+      "link": {
+        "to": "/projects/recipe-list",
+        "internal": true
+      },
       "description": "A curated recipe list lookup for storing and sharing recipes",
       "points": [
         "Created a search bar to filter recipes based on user input",
@@ -47,7 +56,10 @@
   "in_progress": [
     {
       "title": "MTU Triangle Website Revamp",
-      "URL": "https://mtutriangle.org/",
+      "link": {
+        "to": "https://mtutriangle.org/",
+        "internal": false
+      },
       "description": "A website revamp for the Michigan Tech chapter of Triangle Fraternity",
       "points": [
         "Redesigning the website to be more modern and user-friendly",

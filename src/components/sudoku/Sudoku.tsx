@@ -1,5 +1,5 @@
 import { faArrowRotateLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
-import IconButton from "components/common/IconButton";
+import IconButton from "components/common/Button";
 import Section from "components/layout/Section";
 import data from "data/sudoku.json";
 import { useCallback, useEffect, useState } from "react";
@@ -270,7 +270,7 @@ const Sudoku = () => {
           )}
         </div>
         <div className="flex md:flex-col items-center justify-center bg-zinc-900">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col gap-3 items-center">
             <select
               value={puzzle}
               onChange={handleDifficultyChange}
@@ -283,16 +283,16 @@ const Sudoku = () => {
                 </option>
               ))}
             </select>
-            <div className="flex">
+            <div className="flex gap-3">
               <IconButton
-                iconClassName="bg-red-900 text-2xl p-3 hover:bg-red-800"
+                className="bg-red-900 text-2xl p-3 hover:bg-red-800"
                 onClick={() =>
                   setSudoku(data.puzzles[puzzle].values as SudokuData)
                 }
                 icon={faArrowRotateLeft}
               />
               <IconButton
-                iconClassName="bg-green-900 text-2xl p-3 hover:bg-green-800"
+                className="bg-green-900 text-2xl p-3 hover:bg-green-800"
                 onClick={() => checkSolution()}
                 icon={faCheck}
               />

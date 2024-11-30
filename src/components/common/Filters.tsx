@@ -6,10 +6,22 @@ import { useState } from "react";
 export interface FiltersProps {
   filters: string[];
   onFilter?: (filter: string, index?: number) => void;
+  disabled?: boolean;
 }
 
-const Filters = ({ filters, onFilter }: FiltersProps) => {
+const Filters = ({ filters, onFilter, disabled }: FiltersProps) => {
   const [active, setActive] = useState<number>(-1);
+
+  if (filters.length === 0) return <></>;
+
+  const filterListClasses = classNames("flex gap-2 items-center", {
+    "cursor-not-allowed": disabled,
+  });
+
+  const filterButtonClasses = classNames("", {
+    "cursor-pointer text-zinc-500 hover:text-white": !disabled,
+    "cursor-not-allowed text-zinc-700": disabled,
+  });
 
   const handleFilters = (tag: string, index: number) => {
     if (!onFilter) return;
@@ -24,10 +36,10 @@ const Filters = ({ filters, onFilter }: FiltersProps) => {
   };
 
   return (
-    <div className="flex flex- gap-2 items-center">
+    <div className={filterListClasses}>
       <FontAwesomeIcon
         icon={faFilter}
-        className="text-zinc-500 hover:text-white cursor-pointer"
+        className={filterButtonClasses}
         onClick={() => handleFilters("", -1)}
         title="Clear filter"
       />
@@ -37,6 +49,7 @@ const Filters = ({ filters, onFilter }: FiltersProps) => {
             text={filter}
             active={active === index}
             onClick={() => handleFilters(filter, index)}
+            disabled={disabled}
           />
         ))}
       </div>
@@ -48,16 +61,21 @@ interface FilterButtonProps {
   text: string;
   active: boolean;
   onClick: () => void;
+  disabled?: boolean;
 }
 
-const FilterButton = ({ text, active, onClick }: FilterButtonProps) => {
-  const buttonClasses = classNames(
-    "hover:bg-cyan-600 text-white px-4 py-1 rounded-lg",
-    {
-      "bg-cyan-600": active,
-      "bg-cyan-800": !active,
-    }
-  );
+const FilterButton = ({
+  text,
+  active,
+  onClick,
+  disabled,
+}: FilterButtonProps) => {
+  const buttonClasses = classNames("px-4 py-1 rounded-lg", {
+    "bg-cyan-800": !active,
+    "bg-cyan-600": active,
+    "hover:bg-cyan-600 text-white": !disabled,
+    "cursor-not-allowed bg-zinc-800 text-zinc-500": disabled,
+  });
   return (
     <button className={buttonClasses} onClick={onClick}>
       {text}

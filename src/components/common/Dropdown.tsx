@@ -1,14 +1,29 @@
+import classNames from "classnames";
+
 export interface DropdownProps {
   options: string[];
   placeholder?: string;
   setSelection?: (value: string) => void;
+  disabled?: boolean;
 }
 
-const Dropdown = ({ options, setSelection, placeholder }: DropdownProps) => {
+const Dropdown = ({
+  options,
+  setSelection,
+  placeholder,
+  disabled,
+}: DropdownProps) => {
+  const selectClasses = classNames(
+    "p-4 border-zinc-700",
+    { "cursor-no-drop text-zinc-600 bg-zinc-800 border-0": disabled },
+    { "cursor-pointer bg-zinc-900 border-2": !disabled }
+  );
+
   return (
     <select
-      className="bg-zinc-900 p-4 border border-zinc-700 border-2"
+      className={selectClasses}
       onChange={(e) => setSelection && setSelection(e.target.value)}
+      disabled={disabled}
     >
       {placeholder && (
         <option value="" disabled selected>

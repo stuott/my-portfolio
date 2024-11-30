@@ -1,6 +1,6 @@
 import { faDice, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconButton from "components/common/IconButton";
+import IconButton from "components/common/Button";
 import NumberInput from "components/common/NumberInput";
 import { useState } from "react";
 
@@ -98,8 +98,8 @@ const DiceRow = ({
       <IconButton
         icon={faTrash}
         onClick={() => handleRemoveRow(index)}
-        bgColor="rose-950"
-        hoverBgColor="rose-900"
+        bg="rose-950"
+        hoverBg="rose-900"
       />
     </div>
   );
@@ -183,15 +183,15 @@ const DiceRoller = () => {
           <IconButton
             icon={faPlus}
             onClick={handleAddRow}
-            bgColor="green-900"
-            hoverBgColor="green-800"
+            bg="green-900"
+            hoverBg="green-800"
           />
           {diceRows?.length > 0 && (
             <IconButton
               icon={faDice}
               onClick={handleRoll}
-              bgColor="cyan-900"
-              hoverBgColor="cyan-800"
+              bg="cyan-900"
+              hoverBg="cyan-800"
             />
           )}
         </div>

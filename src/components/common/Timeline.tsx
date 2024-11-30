@@ -1,12 +1,13 @@
 import classNames from "classnames";
 import Badges from "components/common/Badges";
 import BulletList from "components/common/BulletList";
+import { LinkInfo } from "types/index";
 import Link from "./Link";
 
 interface TimelineMetaInfo {
   title: string;
   subtitle?: string;
-  URL?: string;
+  link?: LinkInfo;
 }
 export interface TimelineItem extends TimelineMetaInfo {
   time: string;
@@ -30,8 +31,13 @@ const Timeline = ({ items, flipped }: TimelineProps) => (
   </div>
 );
 
-const TimelineCard = (props: TimelineCardProps) => {
-  const { title, time, subtitle, URL, badges, points, flipped } = props;
+const TimelineCard = ({
+  time,
+  badges,
+  points,
+  flipped,
+  ...metaInfo
+}: TimelineCardProps) => {
   const cardClasses = classNames("flex flex-col pl-4 sm:flex-row sm:divide-x", {
     "flex-col-reverse": flipped,
     "flex-col": !flipped,
@@ -48,7 +54,7 @@ const TimelineCard = (props: TimelineCardProps) => {
     <div className={cardClasses}>
       {!flipped && <Time time={time} />}
       <div className={itemClasses}>
-        <TimelineMeta title={title} subtitle={subtitle} URL={URL} />
+        <TimelineMeta {...metaInfo} />
         {badges && <Badges className="pt-2" captions={badges} />}
         {points ? <BulletList points={points} /> : <></>}
       </div>
@@ -69,11 +75,14 @@ const Time = ({ time, flipped }: { time: string; flipped?: boolean }) => {
   );
 };
 
-const TimelineMeta = ({ title, subtitle, URL }: TimelineMetaInfo) => {
+const TimelineMeta = ({ title, subtitle, link }: TimelineMetaInfo) => {
   return (
     <>
-      {URL && <Link text={title} to={URL} className="w-fit" />}
-      {!URL && <p className="text-lg">{title}</p>}
+      {link ? (
+        <Link {...link}>{title}</Link>
+      ) : (
+        <p className="text-xl">{title}</p>
+      )}
       {subtitle && <p className="italic text-zinc-500 pt-2">{subtitle}</p>}
     </>
   );

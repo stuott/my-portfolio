@@ -1,31 +1,25 @@
 import Link from "components/common/Link";
 import Timeline, { TimelineItem } from "components/common/Timeline";
 import Section from "components/layout/Section";
-import experienceData from "data/experience.json";
+import data from "data/experience.json";
 
 export default function Experience() {
-  const timelineItems: TimelineItem[] = experienceData.data.map(
-    (experience) => {
-      return {
-        time: experience.time,
-        title: experience.title + ", " + experience.company,
-        subtitle: experience.location,
-        URL: experience.companyURL,
-        badges: experience.skills,
-        points: experience.points,
-      };
-    }
-  );
+  const timelineItems: TimelineItem[] = data.experiences.map((experience) => {
+    return {
+      time: experience.time,
+      title: experience.title + ", " + experience.company,
+      subtitle: experience.location,
+      link: experience.link,
+      badges: experience.skills,
+      points: experience.points,
+    };
+  });
 
   return (
     <Section id="experience" title="Experience" className="bg-zinc-900">
       <Timeline items={timelineItems}></Timeline>
       <div className="flex justify-center">
-        <Link
-          text="View my resume"
-          to={process.env.PUBLIC_URL + "/Resume.pdf"}
-          className="w-fit my-5"
-        />
+        <Link to={process.env.PUBLIC_URL + "/Resume.pdf"}>View my resume</Link>
       </div>
     </Section>
   );

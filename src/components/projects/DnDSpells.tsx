@@ -1,6 +1,6 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Badges from "components/common/Badges";
-import IconButton from "components/common/IconButton";
+import IconButton from "components/common/Button";
 import SearchBar from "components/common/SearchBar";
 import Section from "components/layout/Section";
 import { useState } from "react";
@@ -196,7 +196,7 @@ const SpellCell = ({ index, name, level, setSpellInfo }: SpellCellProps) => {
       </div>
       <IconButton
         icon={faArrowRight}
-        iconClassName="hover:text-cyan-800 text-lg"
+        className="hover:text-cyan-800 text-lg"
         onClick={fetchSpellInfo}
       />
     </div>
@@ -214,9 +214,10 @@ const SpellInfo = ({ spell, clearSpell }: SpellInfoProps) => {
       <IconButton
         icon={faArrowLeft}
         onClick={clearSpell}
-        text="back"
         className="hover:text-cyan-600 hover:font-bold p-2"
-      />
+      >
+        back
+      </IconButton>
       <div className="flex flex-col md:flex-row gap-6 w-full">
         <div className="flex flex-col gap-4 md:w-1/3">
           <div>

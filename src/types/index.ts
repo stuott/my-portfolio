@@ -3,6 +3,7 @@
  */
 
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 export interface Page {
   path: string;
@@ -11,9 +12,17 @@ export interface Page {
   showInNavbar: boolean;
 }
 
-export interface IconLink {
-  icon: IconDefinition;
-  url: string;
+export interface ButtonInfo {
+  onClick: () => void;
+  icon?: IconDefinition;
+  children?: React.ReactNode;
+}
+
+export interface LinkInfo {
+  to: string;
+  icon?: IconDefinition;
+  internal?: boolean;
+  children?: React.ReactNode;
 }
 
 interface Experience {

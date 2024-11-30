@@ -48,6 +48,7 @@ const RecipeList = () => {
   return (
     <div>
       <SearchBar
+        onSearch={() => {}}
         placeholder="Search for a recipe"
         setSearch={setSearchTerm}
         filters={{

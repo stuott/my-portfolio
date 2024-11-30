@@ -1,6 +1,6 @@
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import IconButton from "./IconButton";
+import IconButton from "./Button";
 
 type PolarityState = true | false | undefined;
 
@@ -17,15 +17,15 @@ const PolarityButtons = ({
     <div className="flex flex-col">
       <IconButton
         className="p-1"
-        bgColor={polarity !== undefined && polarity ? "green-900/50" : ""}
-        hoverBgColor="green-900"
+        bg={polarity !== undefined && polarity ? "green-900/50" : ""}
+        hoverBg="green-900"
         icon={faPlus}
         onClick={() => onPolarityChange(true)}
       />
       <IconButton
         className="p-1"
-        bgColor={polarity !== undefined && !polarity ? "red-900/50" : ""}
-        hoverBgColor="rose-900"
+        bg={polarity !== undefined && !polarity ? "red-900/50" : ""}
+        hoverBg="rose-900"
         icon={faMinus}
         onClick={() => onPolarityChange(false)}
       />

@@ -1,9 +1,12 @@
 {
-  "data": [
+  "experiences": [
     {
       "title": "Software Developer",
       "company": "Epic Systems",
-      "companyURL": "https://www.epic.com/",
+      "link": {
+        "to": "https://www.epic.com/",
+        "internal": false
+      },
       "location": "Madison, WI",
       "time": "June 2022 - Present",
       "points": [
@@ -28,7 +31,10 @@
     {
       "title": "Software Engineering Intern",
       "company": "Plexus",
-      "companyURL": "https://www.plexus.com/",
+      "link": {
+        "to": "https://www.plexus.com/",
+        "internal": false
+      },
       "location": "Neenah, WI",
       "time": "May - August 2021",
       "points": [
@@ -48,7 +54,10 @@
     {
       "title": "Optometric Technician",
       "company": "Your Eye Care Team",
-      "companyURL": "https://www.youreyecareteam.com/",
+      "link": {
+        "to": "https://www.youreyecareteam.com/",
+        "internal": false
+      },
       "location": "New Holstein, WI",
       "time": "May - August 2020",
       "points": [
@@ -61,7 +70,10 @@
     {
       "title": "Paint Line Operator",
       "company": "Amerequip",
-      "companyURL": "https://www.amerequip.com/",
+      "link": {
+        "to": "https://www.amerequip.com/",
+        "internal": false
+      },
       "location": "Kiel, WI",
       "time": "June - August 2019",
       "points": [

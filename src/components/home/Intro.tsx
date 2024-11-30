@@ -1,21 +1,28 @@
 import { faGithubAlt, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight, faBook } from "@fortawesome/free-solid-svg-icons";
-import IconButton from "components/common/IconButton";
-import IconTable from "components/common/IconTable";
+import IconButton from "components/common/Button";
+import { LinkProps } from "components/common/Link";
+import LinkTable from "components/common/LinkTable";
 import Section from "components/layout/Section";
 
-const iconLinks = [
+const iconLinks: LinkProps[] = [
   {
     icon: faLinkedinIn,
-    url: "https://www.linkedin.com/in/stevencott/",
+    to: "https://www.linkedin.com/in/stevencott/",
+    hoverColor: "cyan-600",
+    tooltip: "LinkedIn",
   },
   {
     icon: faGithubAlt,
-    url: "https://github.com/stuott",
+    to: "https://github.com/stuott",
+    hoverColor: "cyan-600",
+    tooltip: "Github",
   },
   {
     icon: faBook,
-    url: "https://app.thestorygraph.com/profile/stevenott",
+    to: "https://app.thestorygraph.com/profile/stevenott",
+    hoverColor: "cyan-600",
+    tooltip: "Storygraph",
   },
 ];
 
@@ -31,17 +38,18 @@ export default function Intro() {
           <p className="text-gray-400">
             (920) 286-1509 - steven.ott.tech@gmail.com
           </p>
-          <IconTable links={iconLinks} />
+          <LinkTable links={iconLinks} />
         </div>
         <div className="text-white">
           <IconButton
             icon={faArrowRight}
             className="text-xl text-zinc-400 hover:text-cyan-700"
-            text="contact me"
             onClick={() => document.getElementById("contact")?.scrollIntoView()}
             flipped
             scale
-          />
+          >
+            contact me
+          </IconButton>
         </div>
       </div>
     </Section>
