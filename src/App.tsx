@@ -44,7 +44,7 @@ const NotFound = () => {
 
 function App() {
   return (
-    <main className="bg-[url('../public/graphics/map-pattern.svg')]">
+    <main className="bg-[url('../public/graphics/cube.svg')]">
       <Router>
         <ScrollToTopAndTrack />
         <Navbar pages={pages} />
