@@ -6,7 +6,7 @@ import { LinkInfo } from "types/index";
 
 export default function Projects() {
   return (
-    <div className="bg-zinc-900/50">
+    <div>
       <InProgress />
       <UpNext />
       <Complete />
@@ -41,24 +41,21 @@ const ProjectList = ({
   projects: Project[];
 }) => {
   return (
-    <Section
-      id={title.toLowerCase()}
-      title={title}
-      className="px-6 md:px-12 lg:px-24"
-    >
+    <Section id={title.toLowerCase()} title={title} className="">
       <div className="flex flex-col gap-6 justify-evenly">
         {projects.map((project) => {
           return (
-            <div className="flex flex-col gap-6 sm:flex-row sm:gap-10 items-center">
-              {project.link ? (
-                <Link {...project.link}>{project.title}</Link>
-              ) : (
-                <p className="p-4 bg-cyan-800 w-fit">{project.title}</p>
-              )}
-              <div
-                className="sm:w-3/4"
-                style={{ textShadow: "1px 1px 10px black" }}
-              >
+            <div className="flex flex-col gap-6 sm:flex-row sm:gap-10 items-center p-6 border bg-zinc-800">
+              <div className="sm:w-1/4">
+                {project.link ? (
+                  <Link className="font-bold" {...project.link}>
+                    {project.title}
+                  </Link>
+                ) : (
+                  <p className="font-bold">{project.title}</p>
+                )}
+              </div>
+              <div className="sm:w-3/4">
                 {project.description}
                 {project.points ? (
                   <BulletList points={project.points} />

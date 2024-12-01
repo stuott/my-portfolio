@@ -15,6 +15,7 @@ export interface LinkProps extends LinkInfo {
   icon?: IconDefinition;
   scale?: boolean;
   tooltip?: string;
+  className?: string;
 }
 
 const Link = ({
@@ -23,11 +24,13 @@ const Link = ({
   children,
   icon,
   disabled,
+  className,
   hoverColor = "cyan-600",
   ...linkProps
 }: LinkProps) => {
   const linkClasses = classNames(
     "flex gap-2 items-center w-fit transition hover:underline ",
+    className,
     {
       [`hover:text-${hoverColor}`]: !disabled,
       "hover:scale-[1.02]": scale,

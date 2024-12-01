@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="w-full text-white p-4 bg-zinc-800 mt-10">
+    <div className="w-full text-white p-4 bg-zinc-800">
       Check out the source code on{" "}
       <a
         className="underline text-cyan-400"

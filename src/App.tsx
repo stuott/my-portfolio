@@ -44,22 +44,40 @@ const NotFound = () => {
 
 function App() {
   return (
-    <main className="bg-[url('../public/graphics/cube.svg')]">
+    <main className="bg-zinc-900">
       <Router>
         <ScrollToTopAndTrack />
         <Navbar pages={pages} />
-        <div className="mx-auto min-h-screen max-w-screen-lg">
-          <Routes>
-            {pages.map(({ path, Component }) => {
-              return <Route path={path} element={<Component />} />;
-            })}
-            <Route path="/*" element={<NotFound />} />
-          </Routes>
-        </div>
+        <PageContent />
         <Footer />
       </Router>
     </main>
   );
 }
+
+const PageContent = () => {
+  return (
+    <Routes>
+      {pages.map(({ background, path, Component }) => {
+        return (
+          <Route
+            path={path}
+            element={
+              <div
+                className={
+                  (background === "" ? "bg-map" : background ?? "bg-map") +
+                  " min-h-screen"
+                }
+              >
+                <Component />
+              </div>
+            }
+          />
+        );
+      })}
+      <Route path="/*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
 export default App;

@@ -10,7 +10,7 @@ interface sectionProps {
 
 const Section = ({ id, title, children, className }: sectionProps) => {
   const setionClasses = classNames(
-    "flex flex-col py-6 gap-4 text-white px-6 md:px-12 lg:px-24",
+    "flex flex-col py-6 gap-4 text-white px-6 md:px-12 lg:px-24 max-w-screen-lg mx-auto",
     className
   );
 

@@ -239,72 +239,74 @@ const Sudoku = () => {
   };
 
   return (
-    <Section title="Sudoku" className="items-center px-0 bg-zinc-900 mt-10">
-      <div className="flex flex-col md:flex-row gap-6 ">
-        <div
-          className="flex flex-col bg-zinc-900 justify-items-center border border-4"
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-        >
-          {Array.from({ length: 9 }, (_, i) => (
-            <SudokuRow
-              selectedCells={selectedCells}
-              row={sudoku[i]}
-              rowIndex={i}
-              onMouseDown={handleMouseDown}
-              onMouseEnter={handleMouseEnter}
-              disabled={data.puzzles[puzzle].mask[i].includes(true)}
-              duplicateFlags={duplicateFlags[i]}
-              isSameValueFlags={sudoku[i].map(
-                (value) => value === getSelectedCellValue()
-              )}
-              puzzle={puzzle}
-            />
-          ))}
-          {solved !== undefined && (
-            <div className="bg-zinc-900 p-4">
-              <p className={solved ? "text-green-400" : "text-red-400"}>
-                {solved ? "Solved!" : "That's not right! Take another look."}
-              </p>
-            </div>
-          )}
-        </div>
-        <div className="flex md:flex-col items-center justify-center bg-zinc-900">
-          <div className="flex flex-col gap-3 items-center">
-            <select
-              value={puzzle}
-              onChange={handleDifficultyChange}
-              className="bg-zinc-800 text-white p-2 border"
-              defaultValue={0}
-            >
-              {data.puzzles.map((puzzle, index) => (
-                <option key={index} value={index}>
-                  {puzzle.name}
-                </option>
-              ))}
-            </select>
-            <div className="flex gap-3">
-              <IconButton
-                className="bg-red-900 text-2xl p-3 hover:bg-red-800"
-                onClick={() =>
-                  setSudoku(data.puzzles[puzzle].values as SudokuData)
-                }
-                icon={faArrowRotateLeft}
+    <div className="pt-16">
+      <Section title="Sudoku" className="items-center bg-zinc-900">
+        <div className="flex flex-col md:flex-row gap-6 ">
+          <div
+            className="flex flex-col bg-zinc-900 justify-items-center border border-4"
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+          >
+            {Array.from({ length: 9 }, (_, i) => (
+              <SudokuRow
+                selectedCells={selectedCells}
+                row={sudoku[i]}
+                rowIndex={i}
+                onMouseDown={handleMouseDown}
+                onMouseEnter={handleMouseEnter}
+                disabled={data.puzzles[puzzle].mask[i].includes(true)}
+                duplicateFlags={duplicateFlags[i]}
+                isSameValueFlags={sudoku[i].map(
+                  (value) => value === getSelectedCellValue()
+                )}
+                puzzle={puzzle}
               />
-              <IconButton
-                className="bg-green-900 text-2xl p-3 hover:bg-green-800"
-                onClick={() => checkSolution()}
-                icon={faCheck}
-              />
-            </div>
+            ))}
+            {solved !== undefined && (
+              <div className="bg-zinc-900 p-4">
+                <p className={solved ? "text-green-400" : "text-red-400"}>
+                  {solved ? "Solved!" : "That's not right! Take another look."}
+                </p>
+              </div>
+            )}
           </div>
-          <NumberPad
-            onClick={(value: SudokuValue) => updateCells(value)}
-            solvedDigits={solvedDigits}
-          />
+          <div className="flex md:flex-col items-center justify-center bg-zinc-900">
+            <div className="flex flex-col gap-3 items-center">
+              <select
+                value={puzzle}
+                onChange={handleDifficultyChange}
+                className="bg-zinc-800 text-white p-2 border"
+                defaultValue={0}
+              >
+                {data.puzzles.map((puzzle, index) => (
+                  <option key={index} value={index}>
+                    {puzzle.name}
+                  </option>
+                ))}
+              </select>
+              <div className="flex gap-3">
+                <IconButton
+                  className="bg-red-900 text-2xl p-3 hover:bg-red-800"
+                  onClick={() =>
+                    setSudoku(data.puzzles[puzzle].values as SudokuData)
+                  }
+                  icon={faArrowRotateLeft}
+                />
+                <IconButton
+                  className="bg-green-900 text-2xl p-3 hover:bg-green-800"
+                  onClick={() => checkSolution()}
+                  icon={faCheck}
+                />
+              </div>
+            </div>
+            <NumberPad
+              onClick={(value: SudokuValue) => updateCells(value)}
+              solvedDigits={solvedDigits}
+            />
+          </div>
         </div>
-      </div>
-    </Section>
+      </Section>
+    </div>
   );
 };
 

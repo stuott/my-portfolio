@@ -13,11 +13,7 @@ const Classes = () => {
   });
 
   return (
-    <Section
-      id="classes"
-      title="Classes Taken"
-      className="bg-zinc-900 px-6 md:px-12 lg:px-24"
-    >
+    <Section id="classes" title="Classes Taken" className="bg-zinc-900">
       <Timeline items={timelineItems} flipped />
     </Section>
   );

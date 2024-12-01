@@ -8,6 +8,15 @@ import RecipeList from "./projects/RecipeList";
 import Sudoku from "./sudoku/Sudoku";
 import TestView from "./TestView";
 
+enum backgrounds {
+  NONE = "bg-transparent",
+  DARK = "bg-zinc-900",
+  LIGHT = "bg-zinc-800",
+  MAP = "bg-map",
+  CUBE = "bg-cube",
+  SUDOKU = "bg-sudoku",
+}
+
 const pages: Page[] = [
   { path: "/", name: "Home", Component: Home, showInNavbar: true },
   {
@@ -21,6 +30,7 @@ const pages: Page[] = [
     name: "Projects",
     Component: Projects,
     showInNavbar: true,
+    background: backgrounds.CUBE,
   },
   {
     path: "/projects/recipe-list",
@@ -45,6 +55,7 @@ const pages: Page[] = [
     name: "Sudoku",
     Component: Sudoku,
     showInNavbar: true,
+    background: backgrounds.SUDOKU,
   },
   {
     path: "/test-view",

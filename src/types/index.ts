@@ -10,6 +10,7 @@ export interface Page {
   name: string;
   Component: () => JSX.Element;
   showInNavbar: boolean;
+  background?: string;
 }
 
 export interface ButtonInfo {

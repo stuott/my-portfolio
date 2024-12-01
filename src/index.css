@@ -15,3 +15,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.bg-cube {
+  background-image: url("../public/graphics/cube.svg");
+}
+
+.bg-sudoku {
+  background-image: url("../public/graphics/sudoku.svg");
+}
+
+.bg-map {
+  background-image: url("../public/graphics/map.svg");
+}
