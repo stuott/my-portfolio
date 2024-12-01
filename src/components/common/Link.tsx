@@ -32,18 +32,23 @@ const Link = ({
       [`hover:text-${hoverColor}`]: !disabled,
       "hover:scale-[1.02]": scale,
       "p-2": !children,
-      "pointer-events-none text-zinc-500": disabled,
+      "cursor-not-allowed text-zinc-500": disabled,
     }
   );
 
   return internal ? (
-    <InternalLink {...linkProps} className={linkClasses} hideIcon>
+    <InternalLink
+      {...linkProps}
+      className={linkClasses}
+      hideIcon
+      disabled={disabled}
+    >
       {icon && <FontAwesomeIcon icon={icon} className="text-xl" />}
       {children}{" "}
       {children && <FontAwesomeIcon className="text-sm" icon={faLink} />}
     </InternalLink>
   ) : (
-    <ExternalLink {...linkProps} className={linkClasses}>
+    <ExternalLink {...linkProps} className={linkClasses} disabled={disabled}>
       {icon && <FontAwesomeIcon icon={icon} className="text-xl" />}
       {children}
       {children && (
@@ -63,7 +68,12 @@ const ExternalLink = ({
   to,
   children,
   className,
+  disabled,
 }: LinkPropsInternal) => {
+  if (disabled) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <a
       title={tooltip ?? to}
@@ -77,7 +87,16 @@ const ExternalLink = ({
   );
 };
 
-const InternalLink = ({ to, children, className }: LinkPropsInternal) => {
+const InternalLink = ({
+  to,
+  children,
+  className,
+  disabled,
+}: LinkPropsInternal) => {
+  if (disabled) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <NavLink title={to} to={to ?? ""} className={className}>
       {children}

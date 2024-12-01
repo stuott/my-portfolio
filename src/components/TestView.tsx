@@ -110,91 +110,101 @@ const TestView = () => {
         <BulletList points={points} />
       </Section>
       <Section title="Icon-only Buttons">
-        <Button icon={faWandMagicSparkles} onClick={onButtonClick} />
-        <Button
-          icon={faWandMagicSparkles}
-          {...hoverColors}
-          onClick={onButtonClick}
-        />
-        <Button
-          icon={faWandMagicSparkles}
-          {...hoverColors}
-          onClick={onButtonClick}
-          scale
-        />
-        <Button
-          icon={faWandMagicSparkles}
-          {...hoverColors}
-          onClick={onButtonClick}
-          disabled
-        />
+        <div className="flex flex-wrap gap-6">
+          <Button icon={faWandMagicSparkles} onClick={onButtonClick} />
+          <Button
+            icon={faWandMagicSparkles}
+            {...hoverColors}
+            onClick={onButtonClick}
+          />
+          <Button
+            icon={faWandMagicSparkles}
+            {...hoverColors}
+            onClick={onButtonClick}
+            scale
+          />
+          <Button
+            icon={faWandMagicSparkles}
+            {...hoverColors}
+            onClick={onButtonClick}
+            disabled
+          />
+        </div>
       </Section>
-      <Section title="Text-Only Buttons">
-        <Button onClick={onButtonClick}>simple</Button>
-        <Button icon={faWandMagicSparkles} onClick={onButtonClick}>
-          icon
-        </Button>
-        <Button icon={faWandMagicSparkles} onClick={onButtonClick} flipped>
-          flipped
-        </Button>
-        <Button
-          onClick={onButtonClick}
-          icon={faWandMagicSparkles}
-          {...hoverColors}
-        >
-          background w/ hover
-        </Button>
-        <Button
-          onClick={onButtonClick}
-          icon={faWandMagicSparkles}
-          {...hoverColors}
-          scale
-        >
-          scaling w/ hover
-        </Button>
-        <Button
-          onClick={onButtonClick}
-          icon={faWandMagicSparkles}
-          {...hoverColors}
-          disabled
-        >
-          disabled
-        </Button>
-      </Section>
-      <Section title="Link Table">
-        <LinkTable links={links} />
+      <Section title="Text Buttons">
+        <div className="flex flex-wrap gap-6">
+          <Button onClick={onButtonClick}>simple</Button>
+          <Button icon={faWandMagicSparkles} onClick={onButtonClick}>
+            icon
+          </Button>
+          <Button icon={faWandMagicSparkles} onClick={onButtonClick} flipped>
+            flipped
+          </Button>
+          <Button
+            onClick={onButtonClick}
+            icon={faWandMagicSparkles}
+            {...hoverColors}
+          >
+            background w/ hover
+          </Button>
+          <Button
+            onClick={onButtonClick}
+            icon={faWandMagicSparkles}
+            {...hoverColors}
+            scale
+          >
+            scaling w/ hover
+          </Button>
+          <Button
+            onClick={onButtonClick}
+            icon={faWandMagicSparkles}
+            {...hoverColors}
+            disabled
+          >
+            disabled
+          </Button>
+        </div>
       </Section>
       <Section title="Button Table">
         <ButtonTable buttons={buttons} />
+        <ButtonTable buttons={buttons} disabled />
       </Section>
       <Section title="Links">
-        <Link to="https://www.google.com" hoverColor="cyan-600">
-          external link (www.google.com)
-        </Link>
-        <Link to="/projects" internal hoverColor="cyan-600">
-          internal link (/projects)
-        </Link>
-        <Link to="" disabled>
-          disabled link (external)
-        </Link>
-        <Link to="" internal disabled>
-          disabled link (internal)
-        </Link>
+        <div className="flex flex-wrap gap-6">
+          <Link to="https://www.google.com" hoverColor="cyan-600">
+            external link
+          </Link>
+          <Link to="/projects" internal hoverColor="cyan-600">
+            internal link
+          </Link>
+          <Link to="" disabled>
+            disabled external
+          </Link>
+          <Link to="" internal disabled>
+            disabled internal
+          </Link>
+        </div>
       </Section>
       <Section title="Icon Links">
-        <Link
-          to="https://www.google.com"
-          icon={faGoogle}
-          hoverColor="cyan-600"
-        />
-        <Link
-          to="/projects"
-          icon={faProjectDiagram}
-          internal
-          hoverColor="cyan-600"
-        />
-        <Link to="https://www.google.com" icon={faGoogle} disabled />
-        <Link to="/projects" icon={faProjectDiagram} internal disabled />
+        <div className="flex">
+          <Link
+            to="https://www.google.com"
+            icon={faGoogle}
+            hoverColor="cyan-600"
+          />
+          <Link
+            to="/projects"
+            icon={faProjectDiagram}
+            internal
+            hoverColor="cyan-600"
+          />
+          <Link to="https://www.google.com" icon={faGoogle} disabled />
+          <Link to="/projects" icon={faProjectDiagram} internal disabled />
+        </div>
+      </Section>
+      <Section title="Link Table">
+        <LinkTable links={links} />
+        <LinkTable links={links} disabled />
       </Section>
       <Section title="Timeline">
         <Timeline items={timelineItems} />
