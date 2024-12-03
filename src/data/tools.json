@@ -1,0 +1,45 @@
+{
+  "roleplaying": [
+    {
+      "title": "D&D Spellbook",
+      "link": {
+        "to": "/tools/spellbook",
+        "internal": true
+      },
+      "description": "A spell lookup utility for Dungeons and Dragons 5th Edition",
+      "points": [
+        "Built a user interface using TailwindCSS to display spell data",
+        "Created calls to a free, public API to get list/spell data and stored it in a React state",
+        "Implemented filters on both spell level and class to allow users to find spells quickly"
+      ]
+    },
+    {
+      "title": "Dice Roller",
+      "link": {
+        "to": "/tools/dice-roller",
+        "internal": true
+      },
+      "description": "Dice rolling utility for tabletop role-playing games",
+      "points": [
+        "Created a simple and effective UI using Tailwind CSS to display dice and roll results",
+        "Used React hooks to store user input and dice roll results",
+        "Targeted a user persona of a Game Master who needs to roll dice quickly and efficiently with multiple dice types"
+      ]
+    }
+  ],
+  "financial": [
+    {
+      "title": "Loan Value Calculator",
+      "link": {
+        "to": "/tools/loan-calculator",
+        "internal": true
+      },
+      "description": "A simple loan calculator to determine the value of a loan based on interest rate and term",
+      "points": [
+        "Built a user interface using TailwindCSS to display loan data",
+        "Used React hooks to store user input and calculate loan value",
+        "Implemented a simple form validation to ensure user input is valid"
+      ]
+    }
+  ]
+}

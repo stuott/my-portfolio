@@ -1,4 +1,5 @@
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames";
 import { useState } from "react";
 import IconButton from "./Button";
 
@@ -7,11 +8,13 @@ type PolarityState = true | false | undefined;
 interface PolarityButtonsProps {
   polarity: PolarityState;
   onPolarityChange: (value: PolarityState) => void;
+  disabled?: boolean;
 }
 
 const PolarityButtons = ({
   polarity,
   onPolarityChange,
+  disabled,
 }: PolarityButtonsProps) => {
   return (
     <div className="flex flex-col">
@@ -20,14 +23,18 @@ const PolarityButtons = ({
         bg={polarity !== undefined && polarity ? "green-900/50" : ""}
         hoverBg="green-900"
         icon={faPlus}
+        iconSize="sm"
         onClick={() => onPolarityChange(true)}
+        disabled={disabled}
       />
       <IconButton
         className="p-1"
         bg={polarity !== undefined && !polarity ? "red-900/50" : ""}
         hoverBg="rose-900"
         icon={faMinus}
+        iconSize="sm"
         onClick={() => onPolarityChange(false)}
+        disabled={disabled}
       />
     </div>
   );
@@ -36,6 +43,10 @@ const PolarityButtons = ({
 interface NumberInputProps {
   value: number | undefined;
   onChange: (value: number) => void;
+  label?: string;
+  disabled?: boolean;
+  className?: string;
+  decimal?: boolean;
   showPolarity?: boolean;
   onPolarityChange?: (value: PolarityState) => void;
 }
@@ -43,6 +54,10 @@ interface NumberInputProps {
 const NumberInput = ({
   value,
   onChange,
+  label,
+  disabled,
+  className,
+  decimal,
   showPolarity = false,
   onPolarityChange = undefined,
 }: NumberInputProps) => {
@@ -58,24 +73,36 @@ const NumberInput = ({
     }
   };
 
+  const inputClasses = classNames("h-full p-2 w-16 border", className, {
+    "cursor-not-allowed bg-zinc-800 text-zinc-600": disabled,
+    "bg-zinc-900": !disabled,
+  });
+
+  const inputDisabled = (showPolarity && polarity === undefined) || disabled;
+
+  const inputMode = decimal ? "decimal" : "numeric";
+
   return (
-    <>
-      {showPolarity && onPolarityChange && (
-        <PolarityButtons
-          polarity={polarity}
-          onPolarityChange={handlePolarityChange}
+    <div className="flex flex-col gap-1">
+      {label}
+      <div className="flex gap-2 items-center">
+        {showPolarity && onPolarityChange && (
+          <PolarityButtons
+            polarity={polarity}
+            onPolarityChange={handlePolarityChange}
+            disabled={disabled}
+          />
+        )}
+        <input
+          type="text"
+          inputMode={inputMode}
+          value={value}
+          disabled={inputDisabled}
+          onChange={(e) => onChange(Number(e.target.value))}
+          className={inputClasses}
         />
-      )}
-      <input
-        type="text"
-        inputMode="numeric"
-        pattern="[0-9]"
-        value={value}
-        disabled={showPolarity && polarity === undefined}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="bg-zinc-900 p-2 w-16 flex-grow"
-      />
-    </>
+      </div>
+    </div>
   );
 };
 

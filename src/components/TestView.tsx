@@ -11,6 +11,7 @@ import {
   ButtonTable,
   Link,
   LinkTable,
+  NumberInput,
   SearchBar,
   Timeline,
 } from "components/common";
@@ -23,6 +24,7 @@ const TestView = () => {
   const [searching, setSearching] = useState<boolean>(false);
   const [filter, setFilter] = useState<string>("");
   const [option, setOption] = useState<string>("");
+  const [value, setValue] = useState<number>(0);
 
   const badges = ["Badge 1", "Badge 2", "Badge 3"];
 
@@ -102,6 +104,10 @@ const TestView = () => {
   ];
 
   const sectionClasses = "bg-zinc-900 border-2 border-zinc-700";
+
+  const handleNumber = (val: number) => {
+    setValue(val);
+  };
 
   return (
     <div className="bg-zinc-900/50 p-6 space-y-10">
@@ -207,6 +213,23 @@ const TestView = () => {
       <Section title="Link Table" className={sectionClasses}>
         <LinkTable links={links} />
         <LinkTable links={links} disabled />
+      </Section>
+      <Section title="Number Input" className={sectionClasses}>
+        <NumberInput value={value} onChange={handleNumber} />
+        <NumberInput
+          value={value}
+          onChange={handleNumber}
+          showPolarity
+          onPolarityChange={() => {}}
+        />
+        <NumberInput value={value} onChange={handleNumber} disabled />
+        <NumberInput
+          value={value}
+          onChange={handleNumber}
+          showPolarity
+          onPolarityChange={() => {}}
+          disabled
+        />
       </Section>
       <Section title="Timeline" className={sectionClasses}>
         <Timeline items={timelineItems} />

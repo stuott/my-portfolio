@@ -14,32 +14,6 @@
       ]
     },
     {
-      "title": "D&D Spellbook",
-      "link": {
-        "to": "/projects/spellbook",
-        "internal": true
-      },
-      "description": "A spell lookup utility for Dungeons and Dragons 5th Edition",
-      "points": [
-        "Built a user interface using TailwindCSS to display spell data",
-        "Created calls to a free, public API to get list/spell data and stored it in a React state",
-        "Implemented filters on both spell level and class to allow users to find spells quickly"
-      ]
-    },
-    {
-      "title": "Dice Roller",
-      "link": {
-        "to": "/projects/dice-roller",
-        "internal": true
-      },
-      "description": "Dice rolling utility for tabletop role-playing games",
-      "points": [
-        "Created a simple and effective UI using Tailwind CSS to display dice and roll results",
-        "Used React hooks to store user input and dice roll results",
-        "Targeted a user persona of a Game Master who needs to roll dice quickly and efficiently with multiple dice types"
-      ]
-    },
-    {
       "title": "Recipe List",
       "link": {
         "to": "/projects/recipe-list",
@@ -50,6 +24,20 @@
         "Created a search bar to filter recipes based on user input",
         "Built a recipe card component to display each recipe and used Tailwind CSS to style the page",
         "Used React hooks to store filtered recipes and user input"
+      ]
+    },
+
+    {
+      "title": "Sudoku Game",
+      "link": {
+        "to": "/projects/sudoku",
+        "internal": true
+      },
+      "description": "A Sudoku game with multiple puzzles and error checking",
+      "points": [
+        "Built a grid with React components to display the Sudoku board",
+        "Implemented multi-selection control for the user to select multiple cells at the same time",
+        "Added error checking to highlight incorrect cells in rows, columns, and boxes"
       ]
     }
   ],

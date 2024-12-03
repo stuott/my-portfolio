@@ -10,6 +10,7 @@ interface ButtonProps extends ButtonInfo {
   scale?: boolean;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  iconSize?: string;
 }
 
 const Button = ({
@@ -22,6 +23,7 @@ const Button = ({
   flipped,
   scale,
   disabled,
+  iconSize,
   type = "button",
 }: ButtonProps) => {
   const buttonClasses = classNames(
@@ -36,6 +38,11 @@ const Button = ({
     }
   );
 
+  const iconClasses = classNames({
+    [`text-${iconSize}`]: iconSize,
+    "text-xl": !iconSize,
+  });
+
   return (
     <button
       className={buttonClasses}
@@ -43,7 +50,7 @@ const Button = ({
       disabled={disabled}
       type={type}
     >
-      {icon && <FontAwesomeIcon className={"text-xl"} icon={icon} />}
+      {icon && <FontAwesomeIcon className={iconClasses} icon={icon} />}
       {children}
     </button>
   );

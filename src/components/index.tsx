@@ -1,12 +1,14 @@
 import { Page } from "types/index";
 import Education from "./education/Education";
 import Home from "./home/Home";
-import DiceRoller from "./projects/DiceRoller";
-import DnDSpells from "./projects/DnDSpells";
 import Projects from "./projects/Projects";
 import RecipeList from "./projects/RecipeList";
 import Sudoku from "./sudoku/Sudoku";
 import TestView from "./TestView";
+import DiceRoller from "./tools/DiceRoller";
+import DnDSpells from "./tools/DnDSpells";
+import LoanCalculator from "./tools/LoanCalculator";
+import Tools from "./tools/Tools";
 
 enum backgrounds {
   NONE = "bg-transparent",
@@ -39,23 +41,36 @@ const pages: Page[] = [
     showInNavbar: false,
   },
   {
-    path: "/projects/dice-roller",
+    path: "/projects/sudoku",
+    name: "Sudoku",
+    Component: Sudoku,
+    showInNavbar: false,
+    background: backgrounds.SUDOKU,
+  },
+  {
+    path: "/tools",
+    name: "Tools",
+    Component: Tools,
+    showInNavbar: true,
+    background: backgrounds.CUBE,
+  },
+  {
+    path: "/tools/dice-roller",
     name: "Dice Roller",
     Component: DiceRoller,
     showInNavbar: false,
   },
   {
-    path: "/projects/spellbook",
+    path: "/tools/spellbook",
     name: "D&D Spellbook",
     Component: DnDSpells,
     showInNavbar: false,
   },
   {
-    path: "/sudoku",
-    name: "Sudoku",
-    Component: Sudoku,
-    showInNavbar: true,
-    background: backgrounds.SUDOKU,
+    path: "/tools/loan-calculator",
+    name: "Loan Calculator",
+    Component: LoanCalculator,
+    showInNavbar: false,
   },
   {
     path: "/test-view",

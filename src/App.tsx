@@ -30,7 +30,7 @@ function ScrollToTopAndTrack() {
 
 const NotFound = () => {
   return (
-    <div className="w-full text-center py-32 space-y-8 text-white">
+    <div className="w-full min-h-screen bg-sudoku text-center py-32 space-y-8 text-white">
       <div>
         <h1 className="text-5xl font-bold">Oops!</h1>
         <h1 className="text-white text-2xl font-bold">Page Not Found</h1>
