@@ -6,7 +6,7 @@ import { LinkInfo } from "types/index";
 
 export default function Projects() {
   return (
-    <div>
+    <div className="bg-zinc-900/50">
       <InProgress />
       <UpNext />
       <Complete />
@@ -26,47 +26,46 @@ const UpNext = () => {
   return <ProjectList title="Up Next" projects={data.up_next} />;
 };
 
-interface Project {
+interface ProjectListProps {
+  title: string;
+  projects: ProjectProps[];
+}
+
+const ProjectList = ({ title, projects }: ProjectListProps) => {
+  return (
+    <Section id={title.toLowerCase()} title={title} className="">
+      <div className="flex flex-col gap-6 justify-evenly">
+        {projects.map((project) => (
+          <Project {...project} />
+        ))}
+      </div>
+    </Section>
+  );
+};
+
+interface ProjectProps {
   title: string;
   description: string;
   link?: LinkInfo;
   points?: string[];
 }
 
-const ProjectList = ({
-  title,
-  projects,
-}: {
-  title: string;
-  projects: Project[];
-}) => {
+const Project = ({ title, description, link, points }: ProjectProps) => {
   return (
-    <Section id={title.toLowerCase()} title={title} className="">
-      <div className="flex flex-col gap-6 justify-evenly">
-        {projects.map((project) => {
-          return (
-            <div className="flex flex-col gap-6 sm:flex-row sm:gap-10 items-center p-6 border bg-zinc-800">
-              <div className="sm:w-1/4">
-                {project.link ? (
-                  <Link className="font-bold" {...project.link}>
-                    {project.title}
-                  </Link>
-                ) : (
-                  <p className="font-bold">{project.title}</p>
-                )}
-              </div>
-              <div className="sm:w-3/4">
-                {project.description}
-                {project.points ? (
-                  <BulletList points={project.points} />
-                ) : (
-                  <></>
-                )}
-              </div>
-            </div>
-          );
-        })}
+    <div className="flex flex-col gap-6 sm:flex-row sm:gap-10 items-center p-6 border bg-zinc-800">
+      <div className="sm:w-1/4">
+        {link ? (
+          <Link className="font-bold" {...link}>
+            {title}
+          </Link>
+        ) : (
+          <p className="font-bold">{title}</p>
+        )}
       </div>
-    </Section>
+      <div className="sm:w-3/4">
+        {description}
+        {points ? <BulletList points={points} /> : <></>}
+      </div>
+    </div>
   );
 };

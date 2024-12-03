@@ -79,7 +79,9 @@ const TimelineMeta = ({ title, subtitle, link }: TimelineMetaInfo) => {
   return (
     <>
       {link ? (
-        <Link {...link}>{title}</Link>
+        <Link className="text-xl" {...link}>
+          {title}
+        </Link>
       ) : (
         <p className="text-xl">{title}</p>
       )}

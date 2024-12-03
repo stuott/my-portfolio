@@ -6,7 +6,7 @@ import Quotes from "./Quotes";
 
 export default function Home() {
   return (
-    <div>
+    <div className="bg-zinc-900/50">
       <Intro />
       <About />
       <Quotes />

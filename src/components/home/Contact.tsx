@@ -1,4 +1,7 @@
 import emailjs from "@emailjs/browser";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames";
+import { Button } from "components/common";
 import Section from "components/layout/Section";
 import React, { useRef, useState } from "react";
 
@@ -36,65 +39,101 @@ const Contact = () => {
     }
   };
 
-  const fieldClassName =
-    "bg-zinc-900 p-3 border border-zinc-700 placeholder-gray-400/30";
-
   return (
-    <Section id="contact" title="Contact Me" className="bg-zinc-900/30">
+    <Section id="contact" title="Contact Me">
       <form ref={form} onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-4">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="flex flex-col">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="from_name"
-                required
-                className={fieldClassName}
-                placeholder="Marcus Arelius"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="email">Your Email</label>
-              <input
-                type="email"
-                id="email"
-                name="reply_to"
-                required
-                className={fieldClassName}
-                placeholder="marelius@gmail.com"
-              />
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="subject">Subject</label>
-            <input
+        <div className="flex flex-col gap-4 mb-10 items-center">
+          <div className="grid sm:grid-cols-2 gap-4 w-full">
+            <ContactField
+              label="Your Name"
               type="text"
-              id="subject"
-              name="subject"
-              required
-              className={fieldClassName}
-              placeholder="I have a question"
+              id="name"
+              name="from_name"
+              placeholder="Marcus Arelius"
+            />
+            <ContactField
+              label="Your Email"
+              type="email"
+              id="email"
+              name="reply_to"
+              placeholder="marelius@gmail.com"
             />
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="message">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              required
-              className={fieldClassName + " min-h-32"}
-              placeholder="Hi Steven, I have a question about your work..."
-            />
-          </div>
-          <button className="bg-cyan-900 w-20 px-6 py-2" type="submit">
-            Send
-          </button>
+          <ContactField
+            label="Subject"
+            type="text"
+            id="subject"
+            name="subject"
+            placeholder="I have a question"
+          />
+          <ContactField
+            label="Message"
+            id="message"
+            name="message"
+            placeholder="Hi Steven, I have a question about your work..."
+            expandable
+          />
+          <Button
+            type="submit"
+            className="w-20"
+            bg="cyan-900"
+            hoverBg="cyan-800"
+            icon={faPaperPlane}
+            flipped
+          >
+            send
+          </Button>
           {status && <p>{status}</p>}
         </div>
       </form>
     </Section>
+  );
+};
+
+interface ContactFieldProps {
+  label: string;
+  id: string;
+  name: string;
+  placeholder: string;
+  type?: string;
+  expandable?: boolean;
+}
+
+const ContactField = ({
+  label,
+  id,
+  type,
+  name,
+  placeholder,
+  expandable,
+}: ContactFieldProps) => {
+  const fieldClassName = classNames(
+    "bg-zinc-900 p-3 border border-zinc-700 placeholder-gray-400/30",
+    { "min-h-32": expandable }
+  );
+
+  return (
+    <div className="flex flex-col w-full">
+      <label htmlFor={id}>{label}</label>
+      {expandable ? (
+        <textarea
+          id={id}
+          name={name}
+          className={fieldClassName}
+          placeholder={placeholder}
+          required
+        />
+      ) : (
+        <input
+          type={type}
+          id={id}
+          name={name}
+          className={fieldClassName}
+          placeholder={placeholder}
+          required
+        />
+      )}
+    </div>
   );
 };
 

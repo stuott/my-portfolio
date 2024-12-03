@@ -3,7 +3,7 @@ import Section from "components/layout/Section";
 
 const College = () => {
   return (
-    <Section id="education" title="Education" className="bg-zinc-900/30">
+    <Section id="education" title="Education">
       <div className="flex flex-col md:flex-row w-full gap-6">
         <a
           className="transition max-w-xs hover:scale-[1.02] p-4 bg-cyan-900 hover:bg-cyan-700"

@@ -236,12 +236,16 @@ const Sudoku = () => {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setPuzzle(parseInt(event.target.value, 10));
+    setSolved(undefined);
   };
 
   return (
-    <div className="pt-16">
-      <Section title="Sudoku" className="items-center bg-zinc-900">
-        <div className="flex flex-col md:flex-row gap-6 ">
+    <div className="pt-16 bg-zinc-900/50 min-h-screen">
+      <Section
+        title="Sudoku"
+        className="items-center bg-zinc-900 py-8 md:pb-16"
+      >
+        <div className="flex flex-col md:flex-row md:gap-6">
           <div
             className="flex flex-col bg-zinc-900 justify-items-center border border-4"
             onMouseUp={handleMouseUp}
@@ -262,13 +266,6 @@ const Sudoku = () => {
                 puzzle={puzzle}
               />
             ))}
-            {solved !== undefined && (
-              <div className="bg-zinc-900 p-4">
-                <p className={solved ? "text-green-400" : "text-red-400"}>
-                  {solved ? "Solved!" : "That's not right! Take another look."}
-                </p>
-              </div>
-            )}
           </div>
           <div className="flex md:flex-col items-center justify-center bg-zinc-900">
             <div className="flex flex-col gap-3 items-center">
@@ -287,9 +284,10 @@ const Sudoku = () => {
               <div className="flex gap-3">
                 <IconButton
                   className="bg-red-900 text-2xl p-3 hover:bg-red-800"
-                  onClick={() =>
-                    setSudoku(data.puzzles[puzzle].values as SudokuData)
-                  }
+                  onClick={() => {
+                    setSudoku(data.puzzles[puzzle].values as SudokuData);
+                    setSolved(undefined);
+                  }}
                   icon={faArrowRotateLeft}
                 />
                 <IconButton
@@ -305,6 +303,13 @@ const Sudoku = () => {
             />
           </div>
         </div>
+        {solved !== undefined && (
+          <div className="bg-zinc-900 md:pt-6">
+            <p className={solved ? "text-green-400" : "text-red-400"}>
+              {solved ? "Solved!" : "That's not right! Take another look."}
+            </p>
+          </div>
+        )}
       </Section>
     </div>
   );

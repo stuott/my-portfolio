@@ -14,7 +14,7 @@ export interface Page {
 }
 
 export interface ButtonInfo {
-  onClick: () => void;
+  onClick?: () => void;
   icon?: IconDefinition;
   children?: React.ReactNode;
 }

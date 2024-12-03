@@ -28,7 +28,7 @@ const iconLinks: LinkProps[] = [
 
 export default function Intro() {
   return (
-    <Section id="intro" className="bg-zinc-900/30 py-10">
+    <Section id="intro">
       <div className="flex justify-between items-center">
         <div
           className="grid gap-1"

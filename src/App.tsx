@@ -47,7 +47,7 @@ function App() {
     <main className="bg-zinc-900">
       <Router>
         <ScrollToTopAndTrack />
-        <Navbar pages={pages} />
+        <Navbar pages={pages.filter((page) => page.showInNavbar)} />
         <PageContent />
         <Footer />
       </Router>

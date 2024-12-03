@@ -101,15 +101,17 @@ const TestView = () => {
     { icon: faWandMagicSparkles, onClick: onButtonClick, ...hoverColors },
   ];
 
+  const sectionClasses = "bg-zinc-900 border-2 border-zinc-700";
+
   return (
-    <div className="bg-zinc-900/50 p-6">
-      <Section title="Badges">
+    <div className="bg-zinc-900/50 p-6 space-y-10">
+      <Section title="Badges" className={sectionClasses}>
         <Badges captions={badges} />
       </Section>
-      <Section title="Bullet List">
+      <Section title="Bullet List" className={sectionClasses}>
         <BulletList points={points} />
       </Section>
-      <Section title="Icon-only Buttons">
+      <Section title="Icon-only Buttons" className={sectionClasses}>
         <div className="flex flex-wrap gap-6">
           <Button icon={faWandMagicSparkles} onClick={onButtonClick} />
           <Button
@@ -131,7 +133,7 @@ const TestView = () => {
           />
         </div>
       </Section>
-      <Section title="Text Buttons">
+      <Section title="Text Buttons" className={sectionClasses}>
         <div className="flex flex-wrap gap-6">
           <Button onClick={onButtonClick}>simple</Button>
           <Button icon={faWandMagicSparkles} onClick={onButtonClick}>
@@ -165,11 +167,11 @@ const TestView = () => {
           </Button>
         </div>
       </Section>
-      <Section title="Button Table">
+      <Section title="Button Table" className={sectionClasses}>
         <ButtonTable buttons={buttons} />
         <ButtonTable buttons={buttons} disabled />
       </Section>
-      <Section title="Links">
+      <Section title="Links" className={sectionClasses}>
         <div className="flex flex-wrap gap-6">
           <Link to="https://www.google.com" hoverColor="cyan-600">
             external link
@@ -185,7 +187,7 @@ const TestView = () => {
           </Link>
         </div>
       </Section>
-      <Section title="Icon Links">
+      <Section title="Icon Links" className={sectionClasses}>
         <div className="flex">
           <Link
             to="https://www.google.com"
@@ -202,24 +204,24 @@ const TestView = () => {
           <Link to="/projects" icon={faProjectDiagram} internal disabled />
         </div>
       </Section>
-      <Section title="Link Table">
+      <Section title="Link Table" className={sectionClasses}>
         <LinkTable links={links} />
         <LinkTable links={links} disabled />
       </Section>
-      <Section title="Timeline">
+      <Section title="Timeline" className={sectionClasses}>
         <Timeline items={timelineItems} />
       </Section>
-      <Section title="Flipped Timeline">
+      <Section title="Flipped Timeline" className={sectionClasses}>
         <Timeline items={timelineItems} flipped />
       </Section>
-      <Section title="Basic Searchbar">
+      <Section title="Basic Searchbar" className={sectionClasses}>
         <SearchBar
           placeholder="searchbar"
           onSearch={() => {}}
           setSearch={() => {}}
         />
       </Section>
-      <Section title="Searchbar w/ Dropdown">
+      <Section title="Searchbar w/ Dropdown" className={sectionClasses}>
         <SearchBar
           placeholder="searchbar"
           onSearch={() => {}}
@@ -227,7 +229,7 @@ const TestView = () => {
           dropdown={dropdown}
         />
       </Section>
-      <Section title="Searchbar w/ Filters">
+      <Section title="Searchbar w/ Filters" className={sectionClasses}>
         <SearchBar
           placeholder="searchbar"
           onSearch={() => {}}
@@ -235,7 +237,10 @@ const TestView = () => {
           filters={filters}
         />
       </Section>
-      <Section title="Searchbar w/ Filters & Dropdown">
+      <Section
+        title="Searchbar w/ Filters & Dropdown"
+        className={sectionClasses}
+      >
         <SearchBar
           placeholder="searchbar"
           setSearch={(term) => {
@@ -250,7 +255,7 @@ const TestView = () => {
         {searching && filter && <p>Selected filter: {filter}</p>}
         {searching && option && <p>Selected option: {option}</p>}
       </Section>
-      <Section title="Disabled Searchbar">
+      <Section title="Disabled Searchbar" className={sectionClasses}>
         <SearchBar
           disabled
           placeholder="searchbar"
