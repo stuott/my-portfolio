@@ -179,7 +179,7 @@ const DiceRoller = () => {
             />
           ))}
         </div>
-        <div className="space-x-4">
+        <div className="flex gap-4">
           <IconButton
             icon={faPlus}
             onClick={handleAddRow}

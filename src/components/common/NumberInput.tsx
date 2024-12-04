@@ -41,7 +41,7 @@ const PolarityButtons = ({
 };
 
 interface NumberInputProps {
-  value: number | undefined;
+  value?: number | undefined;
   onChange: (value: number) => void;
   label?: string;
   disabled?: boolean;
@@ -49,6 +49,7 @@ interface NumberInputProps {
   decimal?: boolean;
   showPolarity?: boolean;
   onPolarityChange?: (value: PolarityState) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const NumberInput = ({
@@ -59,6 +60,7 @@ const NumberInput = ({
   className,
   decimal,
   showPolarity = false,
+  onKeyDown,
   onPolarityChange = undefined,
 }: NumberInputProps) => {
   const [polarity, setPolarity] = useState<PolarityState>(undefined);
@@ -81,6 +83,7 @@ const NumberInput = ({
   const inputDisabled = (showPolarity && polarity === undefined) || disabled;
 
   const inputMode = decimal ? "decimal" : "numeric";
+  const pattern = decimal ? "" : "[0-9]*";
 
   return (
     <div className="flex flex-col gap-1">
@@ -95,10 +98,20 @@ const NumberInput = ({
         )}
         <input
           type="text"
+          onKeyDown={onKeyDown}
           inputMode={inputMode}
           value={value}
           disabled={inputDisabled}
-          onChange={(e) => onChange(Number(e.target.value))}
+          pattern={pattern}
+          onChange={(e) => {
+            const inputValue = e.target.value;
+            if (inputValue === "" || isNaN(Number(inputValue))) {
+              onChange(0);
+              return;
+            }
+
+            onChange(decimal ? parseFloat(inputValue) : Number(inputValue));
+          }}
           className={inputClasses}
         />
       </div>
