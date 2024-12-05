@@ -1,7 +1,7 @@
 import {
-  faArrowUpRightFromSquare,
-  faLink,
+  faArrowUpRightFromSquare as externalIcon,
   IconDefinition,
+  faLink as internalIcon,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
@@ -16,6 +16,7 @@ export interface LinkProps extends LinkInfo {
   scale?: boolean;
   tooltip?: string;
   className?: string;
+  hideIcon?: boolean;
 }
 
 const Link = ({
@@ -25,6 +26,7 @@ const Link = ({
   icon,
   disabled,
   className,
+  hideIcon,
   hoverColor = "cyan-600",
   ...linkProps
 }: LinkProps) => {
@@ -39,24 +41,19 @@ const Link = ({
     }
   );
 
+  const showIcon = children && !hideIcon;
+
   return internal ? (
-    <InternalLink
-      {...linkProps}
-      className={linkClasses}
-      hideIcon
-      disabled={disabled}
-    >
+    <InternalLink {...linkProps} className={linkClasses} disabled={disabled}>
       {icon && <FontAwesomeIcon icon={icon} className="text-xl" />}
       {children}{" "}
-      {children && <FontAwesomeIcon className="text-sm" icon={faLink} />}
+      {showIcon && <FontAwesomeIcon className="text-sm" icon={internalIcon} />}
     </InternalLink>
   ) : (
     <ExternalLink {...linkProps} className={linkClasses} disabled={disabled}>
       {icon && <FontAwesomeIcon icon={icon} className="text-xl" />}
       {children}
-      {children && (
-        <FontAwesomeIcon className="text-sm" icon={faArrowUpRightFromSquare} />
-      )}
+      {showIcon && <FontAwesomeIcon className="text-sm" icon={externalIcon} />}
     </ExternalLink>
   );
 };

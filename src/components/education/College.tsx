@@ -1,27 +1,27 @@
-import Badges from "components/common/Badges";
+import { Link } from "components/common";
 import Section from "components/layout/Section";
 
 const College = () => {
   return (
-    <Section id="education" title="Education">
-      <div className="flex flex-col md:flex-row w-full gap-6">
-        <a
-          className="transition max-w-xs hover:scale-[1.02] p-4 bg-cyan-900 hover:bg-cyan-700"
-          href="https://www.mtu.edu/"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Section id="education">
+      <div className="flex flex-col md:flex-row gap-4 w-full items-center md:justify-around">
+        <Link
+          className="transition max-w-xs"
+          to="https://www.mtu.edu/"
+          scale
+          hideIcon
         >
           <img
+            className="p-4 transition bg-cyan-900 hover:bg-cyan-800"
             alt="Michigan Techological University Logo"
             src={process.env.PUBLIC_URL + "/images/MTU_Logo.png"}
           />
-        </a>
-        <div className="md:max-w-xs">
+        </Link>
+        <div>
           <p className="text-zinc-200 font-bold">BS Computer Engineering</p>
-          <Badges
-            className="pt-2"
-            captions={["3.93 GPA", "Summa Cum Laude", "Dean's List"]}
-          />
+          <p className="text-zinc-200 italic">
+            3.93 GPA | Summa Cum Laude | Dean's List x8
+          </p>
         </div>
       </div>
     </Section>
