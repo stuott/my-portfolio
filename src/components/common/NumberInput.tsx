@@ -75,12 +75,13 @@ const NumberInput = ({
     }
   };
 
-  const inputClasses = classNames("h-full p-2 w-16 border", className, {
-    "cursor-not-allowed bg-zinc-800 text-zinc-600": disabled,
-    "bg-zinc-900 focus:bg-zinc-800 hover:bg-zinc-800": !disabled,
-  });
-
   const inputDisabled = (showPolarity && polarity === undefined) || disabled;
+
+  const inputClasses = classNames("h-full p-2 w-16 border", className, {
+    "cursor-not-allowed bg-zinc-800 text-zinc-600": disabled || inputDisabled,
+    "bg-zinc-900 focus:bg-zinc-800 hover:bg-zinc-800":
+      !disabled && !inputDisabled,
+  });
 
   const inputMode = decimal ? "decimal" : "numeric";
   const pattern = decimal ? "" : "[0-9]*";

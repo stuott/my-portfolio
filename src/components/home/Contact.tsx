@@ -109,6 +109,7 @@ const ContactField = ({
 }: ContactFieldProps) => {
   const fieldClassName = classNames(
     "bg-zinc-900 p-3 border border-zinc-700 placeholder-gray-400/30",
+    "hover:bg-zinc-800 focus:bg-zinc-800",
     { "min-h-32": expandable }
   );
 

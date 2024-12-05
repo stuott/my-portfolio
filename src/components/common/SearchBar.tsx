@@ -30,7 +30,8 @@ const SearchBar = ({
 
   const barClasses = classNames("px-8 py-4 flex-grow border-zinc-700", {
     "cursor-not-allowed bg-zinc-800 placeholder:text-zinc-600": disabled,
-    "bg-zinc-900 border-2 text-white": !disabled,
+    "bg-zinc-900 border-2 text-white hover:bg-zinc-800 focus:bg-zinc-800":
+      !disabled,
   });
 
   const buttonClasses = classNames("p-4", {
