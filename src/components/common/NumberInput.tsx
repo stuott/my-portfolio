@@ -77,13 +77,23 @@ const NumberInput = ({
 
   const inputClasses = classNames("h-full p-2 w-16 border", className, {
     "cursor-not-allowed bg-zinc-800 text-zinc-600": disabled,
-    "bg-zinc-900": !disabled,
+    "bg-zinc-900 focus:bg-zinc-800 hover:bg-zinc-800": !disabled,
   });
 
   const inputDisabled = (showPolarity && polarity === undefined) || disabled;
 
   const inputMode = decimal ? "decimal" : "numeric";
   const pattern = decimal ? "" : "[0-9]*";
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    if (inputValue === "" || isNaN(Number(inputValue))) {
+      onChange(0);
+      return;
+    }
+
+    onChange(decimal ? parseFloat(inputValue) : Number(inputValue));
+  };
 
   return (
     <div className="flex flex-col gap-1">
@@ -103,15 +113,7 @@ const NumberInput = ({
           value={value}
           disabled={inputDisabled}
           pattern={pattern}
-          onChange={(e) => {
-            const inputValue = e.target.value;
-            if (inputValue === "" || isNaN(Number(inputValue))) {
-              onChange(0);
-              return;
-            }
-
-            onChange(decimal ? parseFloat(inputValue) : Number(inputValue));
-          }}
+          onChange={onInputChange}
           className={inputClasses}
         />
       </div>

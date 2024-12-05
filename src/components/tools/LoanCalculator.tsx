@@ -37,7 +37,6 @@ const LoanCalculator = () => {
 
   const handleLoanAmountChange = (value: number) => {
     setLoanAmount(value);
-    clearCalculatedData();
   };
 
   const handleLoanTermChange = (value: number) => {
@@ -47,7 +46,6 @@ const LoanCalculator = () => {
 
   const handleInterestRateChange = (value: number) => {
     setInterestRate(value);
-    //clearCalculatedData();
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -65,6 +63,9 @@ const LoanCalculator = () => {
   };
 
   const calculateMonthlyPayment = () => {
+    if (loanAmount <= 0 || loanTerm <= 0 || interestRate <= 0) {
+      return;
+    }
     const monthlyInterestRate = interestRate / 100 / 12;
     const numberOfPayments = loanTerm * 12;
     const payment =
@@ -100,7 +101,6 @@ const LoanCalculator = () => {
       payments.push(totalPaid);
       interests.push(totalInterest);
     }
-    balances.push(0); // Ensure the balance is zero at the end of the loan term
     payments.push(totalPaid);
     interests.push(totalInterest);
     setLoanBalanceData(balances);
@@ -108,45 +108,95 @@ const LoanCalculator = () => {
     setLoanInterestData(interests);
   };
 
-  const formatNumber = (num: number) => {
-    return num.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  };
+  return (
+    <div className="bg-zinc-900/50 min-h-screen">
+      <Section title="Loan Calculator">
+        <div className="flex flex-col items-center gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            <NumberInput
+              className="w-32"
+              label="Loan Amount"
+              onChange={handleLoanAmountChange}
+              onKeyDown={handleKeyPress}
+            />
+            <NumberInput
+              className="w-32"
+              label="Loan Term (years):"
+              onChange={handleLoanTermChange}
+              onKeyDown={handleKeyPress}
+            />
+            <NumberInput
+              className="w-32"
+              label="Interest Rate (%):"
+              onChange={handleInterestRateChange}
+              decimal
+              onKeyDown={handleKeyPress}
+            />
+          </div>
+          <Button
+            type="button"
+            onClick={calculateMonthlyPayment}
+            bg="cyan-900"
+            hoverBg="cyan-800"
+            scale
+          >
+            calculate
+          </Button>
+        </div>
+        {loanBalanceData.length > 0 && (
+          <BalanceChart
+            monthlyPayment={monthlyPayment}
+            months={loanTerm <= 2}
+            balanceData={loanBalanceData}
+            paymentData={loanPaymentsData}
+            interestData={loanInterestData}
+          />
+        )}
+      </Section>
+    </div>
+  );
+};
 
+interface BalanceChartProps {
+  monthlyPayment: number;
+  months: boolean;
+  balanceData: number[];
+  paymentData: number[];
+  interestData: number[];
+}
+
+const BalanceChart = ({
+  monthlyPayment,
+  months,
+  balanceData,
+  paymentData,
+  interestData,
+}: BalanceChartProps) => {
   const data = {
     labels: Array.from(
-      { length: loanTerm <= 2 ? loanTerm * 12 : loanTerm },
-      (_, i) => (loanTerm <= 2 ? i + 1 : i + 1)
+      { length: months ? balanceData.length : balanceData.length / 12 },
+      (_, i) => (months ? i + 1 : i + 1)
     ),
     datasets: [
       {
         label: "Loan Balance",
-        data:
-          loanTerm <= 2
-            ? loanBalanceData
-            : loanBalanceData.filter((_, i) => i % 12 === 0),
+        data: months ? balanceData : balanceData.filter((_, i) => i % 12 === 0),
         fill: false,
         backgroundColor: "rgb(75, 192, 192)",
         borderColor: "rgba(75, 192, 192, 0.2)",
       },
       {
         label: "Total Paid",
-        data:
-          loanTerm <= 2
-            ? loanPaymentsData
-            : loanPaymentsData.filter((_, i) => i % 12 === 0),
+        data: months ? paymentData : paymentData.filter((_, i) => i % 12 === 0),
         fill: false,
         backgroundColor: "rgb(255, 99, 132)",
         borderColor: "rgba(255, 99, 132, 0.2)",
       },
       {
         label: "Total Interest",
-        data:
-          loanTerm <= 2
-            ? loanInterestData
-            : loanInterestData.filter((_, i) => i % 12 === 0),
+        data: months
+          ? interestData
+          : interestData.filter((_, i) => i % 12 === 0),
         fill: false,
         backgroundColor: "rgb(54, 162, 235)",
         borderColor: "rgba(54, 162, 235, 0.2)",
@@ -169,7 +219,7 @@ const LoanCalculator = () => {
       x: {
         title: {
           display: true,
-          text: loanTerm <= 2 ? "Months" : "Years",
+          text: months ? "Months" : "Years",
         },
         grid: {
           display: false,
@@ -189,47 +239,23 @@ const LoanCalculator = () => {
     },
   };
 
+  const formatNumber = (num: number) => {
+    return num.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
+
   return (
-    <Section title="Loan Calculator" className="bg-zinc-900/50 min-h-screen">
-      <form className="space-y-6">
-        <NumberInput
-          className="w-32"
-          label="Loan Amount"
-          onChange={handleLoanAmountChange}
-          onKeyDown={handleKeyPress}
-        />
-        <NumberInput
-          className="w-32"
-          label="Loan Term (years):"
-          onChange={handleLoanTermChange}
-          onKeyDown={handleKeyPress}
-        />
-        <NumberInput
-          className="w-32"
-          label="Interest Rate (%):"
-          onChange={handleInterestRateChange}
-          decimal
-          onKeyDown={handleKeyPress}
-        />
-        <Button type="button" onClick={calculateMonthlyPayment} bg="cyan-900">
-          Calculate
-        </Button>
-      </form>
-      {monthlyPayment > 0 && (
-        <h2 className="text-2xl">
-          Monthly Payment: ${formatNumber(monthlyPayment)}
-        </h2>
-      )}
-      {loanPaymentsData.length > 0 && (
-        <h2 className="text-2xl">
-          Total Payment: $
-          {formatNumber(loanPaymentsData[loanPaymentsData.length - 1])}
-        </h2>
-      )}
-      {loanBalanceData.length > 0 && (
-        <Line className="bg-zinc-900" data={data} options={options} />
-      )}
-    </Section>
+    <div className="space-y-4 bg-zinc-900 p-4 border">
+      <h2 className="text-2xl">
+        Monthly Payment: ${formatNumber(monthlyPayment)}
+      </h2>
+      <h2 className="text-2xl">
+        Total Payment: ${formatNumber(paymentData[paymentData.length - 1])}
+      </h2>
+      <Line className="bg-zinc-900" data={data} options={options} />
+    </div>
   );
 };
 

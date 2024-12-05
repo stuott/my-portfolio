@@ -71,6 +71,7 @@ const pages: Page[] = [
     name: "Loan Calculator",
     Component: LoanCalculator,
     showInNavbar: false,
+    background: backgrounds.SUDOKU,
   },
   {
     path: "/test-view",
