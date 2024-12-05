@@ -26,6 +26,10 @@ const iconLinks: LinkProps[] = [
   },
 ];
 
+const scrollToContact = () => {
+  document.getElementById("contact")?.scrollIntoView();
+};
+
 export default function Intro() {
   return (
     <Section id="intro">
@@ -40,17 +44,15 @@ export default function Intro() {
           </p>
           <LinkTable links={iconLinks} />
         </div>
-        <div className="text-white">
-          <IconButton
-            icon={faArrowRight}
-            className="text-xl text-zinc-400 hover:text-cyan-700"
-            onClick={() => document.getElementById("contact")?.scrollIntoView()}
-            flipped
-            scale
-          >
-            contact me
-          </IconButton>
-        </div>
+        <IconButton
+          icon={faArrowRight}
+          className="text-xl text-white hover:text-cyan-600"
+          onClick={scrollToContact}
+          flipped
+          scale
+        >
+          contact me
+        </IconButton>
       </div>
     </Section>
   );
