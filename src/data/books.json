@@ -2,6 +2,8 @@
   "books": [
     {
       "index": 0,
+      "isbn10": "1250236215",
+      "isbn13": "9781250236210",
       "title": "A Psalm For the Wild-Built",
       "series": "Monk & Robot",
       "series_number": 1,
@@ -16,7 +18,9 @@
     },
     {
       "index": 1,
-      "title": "A Crown for the Crown-Shy",
+      "isbn10": "1250236231",
+      "isbn13": "9781250236234",
+      "title": "A Prayer for the Crown-Shy",
       "series": "Monk & Robot",
       "series_number": 2,
       "author": "Becky Chambers",
@@ -30,14 +34,8 @@
     },
     {
       "index": 2,
-      "title": "The House in the Cerulean Sea",
-      "author": "TJ Klune",
-      "genre": "Fantasy",
-      "year": 2020,
-      "description": []
-    },
-    {
-      "index": 3,
+      "isbn10": "0765387565",
+      "isbn13": "9780765387561",
       "title": "The Invisible Life of Addie LaRue",
       "author": "V.E. Schwab",
       "genre": "Fantasy",
@@ -49,7 +47,9 @@
       ]
     },
     {
-      "index": 4,
+      "index": 3,
+      "isbn10": "1250313074",
+      "isbn13": "9781250313072",
       "title": "Ninth House",
       "series": "Alex Stern",
       "series_number": 1,
@@ -63,7 +63,9 @@
       ]
     },
     {
-      "index": 5,
+      "index": 4,
+      "isbn10": "1250313104",
+      "isbn13": "9781250313102",
       "title": "Hell Bent",
       "series": "Alex Stern",
       "series_number": 2,
@@ -76,7 +78,9 @@
       ]
     },
     {
-      "index": 6,
+      "index": 5,
+      "isbn10": "0525556532",
+      "isbn13": "9780525555216",
       "title": "The Anthropocene Reviewed",
       "author": "John Green",
       "genre": "Non-Fiction",
@@ -87,7 +91,9 @@
       ]
     },
     {
-      "index": 7,
+      "index": 6,
+      "isbn10": "0063021420",
+      "isbn13": "9780063021426",
       "title": "Babel",
       "author": "R.F. Kuang",
       "genre": "Fantasy",
@@ -100,7 +106,9 @@
       ]
     },
     {
-      "index": 8,
+      "index": 7,
+      "isbn10": "0759557330",
+      "isbn13": "9780759557338",
       "title": "Kaikeyi",
       "author": "Vaishnavi Patel",
       "genre": "Fantasy",
@@ -113,7 +121,9 @@
       ]
     },
     {
-      "index": 9,
+      "index": 8,
+      "isbn10": "0316556343",
+      "isbn13": "9780316556347",
       "title": "Circe",
       "author": "Madeline Miller",
       "genre": "Fantasy",
