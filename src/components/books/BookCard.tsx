@@ -19,7 +19,7 @@ const BookCard = ({ bookData, clearBookData }: BookCardProps) => {
         back
       </Button>
       <div className="p-4 space-y-2 bg-zinc-800 border border-zinc-500">
-        <div className="flex items-center gap-6">
+        <div className="flex flex-col sm:flex-row items-center gap-6">
           <img
             src={`https://covers.openlibrary.org/b/isbn/${bookData.isbn13}-L.jpg`}
             alt={bookData.title}
