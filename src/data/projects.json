@@ -53,6 +53,18 @@
         "Redesigning the website to be more modern and user-friendly",
         "Targeting specific user personas (prospective members, community members, alumni)"
       ]
+    },
+    {
+      "title": "Book Reviews",
+      "link": {
+        "to": "/projects/book-reviews",
+        "internal": true
+      },
+      "description": "A list of book reviews",
+      "points": [
+        "Redesigning the website to be more modern and user-friendly",
+        "Targeting specific user personas (prospective members, community members, alumni)"
+      ]
     }
   ],
   "up_next": [

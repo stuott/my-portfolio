@@ -40,6 +40,19 @@
         "Used React hooks to store user input and calculate loan value",
         "Implemented a simple form validation to ensure user input is valid"
       ]
+    },
+    {
+      "title": "Interest Rate Calculator",
+      "link": {
+        "to": "/tools/interest-calculator",
+        "internal": true
+      },
+      "description": "A simple interest rate calculator to determine the value of an investment based on interest rate and term",
+      "points": [
+        "Built a user interface using TailwindCSS to display loan data",
+        "Used React hooks to store user input and calculate loan value",
+        "Implemented a simple form validation to ensure user input is valid"
+      ]
     }
   ]
 }

@@ -1,4 +1,5 @@
 import { Page } from "types/index";
+import BookReviews from "./books/BookReviews";
 import Education from "./education/Education";
 import Home from "./home/Home";
 import Projects from "./projects/Projects";
@@ -7,6 +8,7 @@ import Sudoku from "./sudoku/Sudoku";
 import TestView from "./TestView";
 import DiceRoller from "./tools/DiceRoller";
 import DnDSpells from "./tools/DnDSpells";
+import InterestCalculator from "./tools/InterestCalculator";
 import LoanCalculator from "./tools/LoanCalculator";
 import Tools from "./tools/Tools";
 
@@ -17,6 +19,7 @@ enum backgrounds {
   MAP = "bg-map",
   CUBE = "bg-cube",
   SUDOKU = "bg-sudoku",
+  INTERSECT = "bg-intersect",
 }
 
 const pages: Page[] = [
@@ -48,6 +51,13 @@ const pages: Page[] = [
     background: backgrounds.SUDOKU,
   },
   {
+    path: "/projects/book-reviews",
+    name: "Book Reviews",
+    Component: BookReviews,
+    showInNavbar: false,
+    background: backgrounds.INTERSECT,
+  },
+  {
     path: "/tools",
     name: "Tools",
     Component: Tools,
@@ -70,6 +80,13 @@ const pages: Page[] = [
     path: "/tools/loan-calculator",
     name: "Loan Calculator",
     Component: LoanCalculator,
+    showInNavbar: false,
+    background: backgrounds.SUDOKU,
+  },
+  {
+    path: "/tools/interest-calculator",
+    name: "Interest Calculator",
+    Component: InterestCalculator,
     showInNavbar: false,
     background: backgrounds.SUDOKU,
   },

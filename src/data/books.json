@@ -1,0 +1,129 @@
+{
+  "books": [
+    {
+      "index": 0,
+      "title": "A Psalm For the Wild-Built",
+      "series": "Monk & Robot",
+      "series_number": 1,
+      "author": "Becky Chambers",
+      "genre": "Science Fiction",
+      "year": 2021,
+      "description": [
+        "It's been centuries since the robots of Panga gained self-awareness and laid down their tools; centuries since they wandered, en masse, into the wilderness, never to be seen again; centuries since they faded into myth and urban legend.",
+        "One day, the life of a tea monk is upended by the arrival of a robot, there to honor the old promise of checking in. The robot cannot go back until the question of 'what do people need?' is answered.",
+        "But the answer to that question could uncover long buried truths. For a robot, asking to be of service is asking to be seen as a person. And for a monk, it's the stepping stone to a new life."
+      ]
+    },
+    {
+      "index": 1,
+      "title": "A Crown for the Crown-Shy",
+      "series": "Monk & Robot",
+      "series_number": 2,
+      "author": "Becky Chambers",
+      "genre": "Science Fiction",
+      "year": 2022,
+      "description": [
+        "After touring the rural areas of Panga, Sibling Dex and Mosscap turn their attentiaon to the villages and cities of the little moon they call home.",
+        "They hope to find the answers they seek, while making new friends, learning new concepts, and experiencing the entropic nature of the universe.",
+        "In a world where people have what they want, does having more even matter?"
+      ]
+    },
+    {
+      "index": 2,
+      "title": "The House in the Cerulean Sea",
+      "author": "TJ Klune",
+      "genre": "Fantasy",
+      "year": 2020,
+      "description": []
+    },
+    {
+      "index": 3,
+      "title": "The Invisible Life of Addie LaRue",
+      "author": "V.E. Schwab",
+      "genre": "Fantasy",
+      "year": 2020,
+      "description": [
+        "France, 1714: in a moment of desperation, a young woman makes a Faustian bargain to live forever and is cursed to be forgotten by everyone she meets.",
+        "Thus begins the extraordinary life of Addie LaRue, and a dazzling adventure that will play out across centuries and continents, across history and art, as Addie attempts to leave her mark on the world.",
+        "What does it mean to be remembered? Is there a difference between being remembered and being known?"
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Ninth House",
+      "series": "Alex Stern",
+      "series_number": 1,
+      "author": "Leigh Bardugo",
+      "genre": "Fantasy",
+      "year": 2019,
+      "description": [
+        "Galaxy “Alex” Stern is the most unlikely member of Yale's freshman class. Raised in the Los Angeles hinterlands by a hippie mom, Alex dropped out of school early and into a world of shady drug-dealer boyfriends, dead-end jobs, and much, much worse. In fact, by age twenty, she is the sole survivor of a horrific, unsolved multiple homicide. Some might say she's thrown her life away. But at her hospital bedside, Alex is offered a second chance: to attend one of the world's most prestigious universities on a full rid",
+        "What's the catch, and why her?",
+        "Still searching for answers, Alex arrives in New Haven tasked by her mysterious benefactors with monitoring the activities of Yale's secret societies. Their eight windowless “tombs” are the well-known haunts of the rich and powerful, from high-ranking politicos to Wall Street's biggest players. But their occult activities are more sinister and more extraordinary than any paranoid imagination might conceive. They tamper with forbid-den magic. They raise the dead. And, sometimes, they prey on the living."
+      ]
+    },
+    {
+      "index": 5,
+      "title": "Hell Bent",
+      "series": "Alex Stern",
+      "series_number": 2,
+      "author": "Leigh Bardugo",
+      "genre": "Fantasy",
+      "year": 2023,
+      "description": [
+        "Find a gateway to the underworld. Steal a soul out of hell. A simple plan, except people who make this particular journey rarely come back. But Galaxy 'Alex' Stern is determined to break Darlington's out of purgatory - even if it endangers her future at Lethe and at Yale.",
+        "Forbidden from attempting a rescue, Alex and Dawes can't call on the Ninth House for help, so they assemble a team of dubious allies to save the gentleman of Lethe. Together, they will have to navigate a maze of arcane texts and bizarre artifacts to uncover the societies' most closely guarded secrets, and break every rule doing it."
+      ]
+    },
+    {
+      "index": 6,
+      "title": "The Anthropocene Reviewed",
+      "author": "John Green",
+      "genre": "Non-Fiction",
+      "year": 2021,
+      "description": [
+        "The Anthropocene is the current geological age, in which human activity has profoundly shaped the planet and its biodiversity. In this remarkable symphony of essays adapted and expanded from his groundbreaking podcast, John Green reviews different facets of the human-centered planet—from the QWERTY keyboard and Staphylococcus aureus to the Taco Bell breakfast menu—on a five-star scale.",
+        "Complex and rich with detail, the Anthropocene's reviews have been praised as “observations that double as exercises in memoiristic empathy.” John Green's gift for storytelling shines throughout this artfully curated collection that includes both beloved essays and all-new pieces exclusive to the book."
+      ]
+    },
+    {
+      "index": 7,
+      "title": "Babel",
+      "author": "R.F. Kuang",
+      "genre": "Fantasy",
+      "year": 2022,
+      "description": [
+        "1828. Robin Swift, orphaned by cholera in Canton, is brought to London by the mysterious Professor Lovell. There, he trains for years in Latin, Ancient Greek, and Chinese, all in preparation for the day he'll enroll in Oxford University's prestigious Royal Institute of Translation—also known as Babel.",
+        "Babel is the world's center for translation and, more importantly, magic. Silver working—the art of manifesting the meaning lost in translation using enchanted silver bars—has made the British unparalleled in power, as its knowledge serves the Empire's quest for colonization.",
+        "For Robin, Oxford is a utopia dedicated to the pursuit of knowledge. But knowledge obeys power, and as a Chinese boy raised in Britain, Robin realizes serving Babel means betraying his motherland. As his studies progress, Robin finds himself caught between Babel and the shadowy Hermes Society, an organization dedicated to stopping imperial expansion. When Britain pursues an unjust war with China over silver and opium, Robin must decide…",
+        "Can powerful institutions be changed from within, or does revolution always require violence? "
+      ]
+    },
+    {
+      "index": 8,
+      "title": "Kaikeyi",
+      "author": "Vaishnavi Patel",
+      "genre": "Fantasy",
+      "year": 2022,
+      "description": [
+        "“I was born on the full moon under an auspicious constellation, the holiest of positions—much good it did me.”",
+        "So begins Kaikeyi's story. The only daughter of the kingdom of Kekaya, she is raised on tales about the might and benevolence of the gods: how they churned the vast ocean to obtain the nectar of immortality, how they vanquish evil and ensure the land of Bharat prospers, and how they offer powerful boons to the devout and the wise. Yet she watches as her father unceremoniously banishes her mother, listens as her own worth is reduced to how great a marriage alliance she can secure. And when she calls upon the gods for help, they never seem to hear.",
+        "Desperate for some measure of independence, she turns to the texts she once read with her mother and discovers a magic that is hers alone. With this power, Kaikeyi transforms herself from an overlooked princess into a warrior, diplomat, and most favored queen, determined to carve a better world for herself and the women around her.",
+        "But as the evil from her childhood stories threatens the cosmic order, the path she has forged clashes with the destiny the gods have chosen for her family. And Kaikeyi must decide if resistance is worth the destruction it will wreak—and what legacy she intends to leave behind."
+      ]
+    },
+    {
+      "index": 9,
+      "title": "Circe",
+      "author": "Madeline Miller",
+      "genre": "Fantasy",
+      "year": 2018,
+      "description": [
+        "In the house of Helios, god of the sun and mightiest of the Titans, a daughter is born. But Circe is a strange child--not powerful, like her father, nor viciously alluring like her mother. Turning to the world of mortals for companionship, she discovers that she does possess power--the power of witchcraft, which can transform rivals into monsters and menace the gods themselves.",
+        "Threatened, Zeus banishes her to a deserted island, where she hones her occult craft, tames wild beasts and crosses paths with many of the most famous figures in all of mythology, including the Minotaur, Daedalus and his doomed son Icarus, the murderous Medea, and, of course, wily Odysseus.",
+        "But there is danger, too, for a woman who stands alone, and Circe unwittingly draws the wrath of both men and gods, ultimately finding herself pitted against one of the most terrifying and vengeful of the Olympians. To protect what she loves most, Circe must summon all her strength and choose, once and for all, whether she belongs with the gods she is born from, or the mortals she has come to love.",
+        "With unforgettably vivid characters, mesmerizing language and page-turning suspense, Circe is a triumph of storytelling, an intoxicating epic of family rivalry, palace intrigue, love and loss, as well as a celebration of indomitable female strength in a man's world."
+      ]
+    }
+  ]
+}

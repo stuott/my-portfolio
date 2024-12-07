@@ -5,6 +5,7 @@ export interface DropdownProps {
   placeholder?: string;
   setSelection?: (value: string) => void;
   disabled?: boolean;
+  label?: string;
 }
 
 const Dropdown = ({
@@ -12,6 +13,7 @@ const Dropdown = ({
   setSelection,
   placeholder,
   disabled,
+  label,
 }: DropdownProps) => {
   const selectClasses = classNames(
     "p-4 border-zinc-700",
@@ -23,22 +25,25 @@ const Dropdown = ({
   );
 
   return (
-    <select
-      className={selectClasses}
-      onChange={(e) => setSelection && setSelection(e.target.value)}
-      disabled={disabled}
-    >
-      {placeholder && (
-        <option value="" disabled selected>
-          {placeholder}
-        </option>
-      )}
-      {options.map((option, index) => (
-        <option key={index} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
+    <div className="flex flex-col gap-1">
+      {label}
+      <select
+        className={selectClasses}
+        onChange={(e) => setSelection && setSelection(e.target.value)}
+        disabled={disabled}
+      >
+        {placeholder && (
+          <option value="" disabled selected>
+            {placeholder}
+          </option>
+        )}
+        {options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 

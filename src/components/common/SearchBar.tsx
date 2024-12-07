@@ -39,8 +39,14 @@ const SearchBar = ({
     "bg-cyan-800 hover:bg-cyan-600": !disabled,
   });
 
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSearch();
+    }
+  };
+
   return (
-    <div className={elementClasses}>
+    <div className={elementClasses} onKeyDown={onKeyDown}>
       <div className="flex flex-col sm:flex-row gap-4 justify-center w-full">
         {dropdown && <Dropdown {...dropdown} disabled={disabled} />}
         <div className="flex space-x-6 w-full">

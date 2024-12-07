@@ -27,3 +27,7 @@ code {
 .bg-map {
   background-image: url("../public/graphics/map.svg");
 }
+
+.bg-intersect {
+  background-image: url("../public/graphics/happy-intersection.svg");
+}
