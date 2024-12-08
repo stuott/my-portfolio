@@ -6,7 +6,7 @@ import BookCard from "./BookCard";
 import BookTable from "./BookTable";
 import { book } from "./types";
 
-const BookReviews = () => {
+const Books = () => {
   const [bookData, setBookData] = useState<book | null>(null);
   const [search, setSearch] = useState<string>("");
   const [filteredBooks, setFilteredBooks] = useState<book[]>(data.books);
@@ -92,4 +92,4 @@ const ListCap = ({ displayed, total, showAllBooks }: ListCapProps) => {
   );
 };
 
-export default BookReviews;
+export default Books;
