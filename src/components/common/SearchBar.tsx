@@ -11,6 +11,7 @@ interface searchBarProps {
   className?: string;
   dropdown?: DropdownProps;
   filters?: FiltersProps;
+  search?: string;
   disabled?: boolean;
 }
 
@@ -21,6 +22,7 @@ const SearchBar = ({
   className,
   dropdown,
   filters,
+  search,
   disabled,
 }: searchBarProps) => {
   const elementClasses = classNames(
@@ -56,6 +58,7 @@ const SearchBar = ({
             className={barClasses}
             onChange={(e) => setSearch(e.target.value)}
             disabled={disabled}
+            value={search}
           />
           <IconButton
             onClick={onSearch}

@@ -94,6 +94,7 @@ const MobileMenu = ({ pages, menuOpen, toggleMenu }: MobileMenuProps) => {
       <div className="flex flex-col gap-1 py-2">
         {pages.map((page) => (
           <NavLink
+            key={page.name}
             to={page.path}
             className={getMobileLinkClasses}
             onClick={toggleMenu}

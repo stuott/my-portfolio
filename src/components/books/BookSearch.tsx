@@ -1,20 +1,20 @@
 import { Button, SearchBar } from "components/common";
 import { Section } from "components/layout";
 import data from "data/books.json";
-import { useState } from "react";
-import BookCard from "./BookCard";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import BookTable from "./BookTable";
 import { book } from "./types";
 
 const Books = () => {
-  const [bookData, setBookData] = useState<book | null>(null);
-  const [search, setSearch] = useState<string>("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState<string>(
+    searchParams.get("search") || ""
+  );
   const [filteredBooks, setFilteredBooks] = useState<book[]>(data.books);
   const [booksDisplayed, setBooksDisplayed] = useState<number>(5);
 
-  const onSearch = () => {
-    setBookData(null);
-
+  useEffect(() => {
     if (search === "") {
       setFilteredBooks(data.books);
       return;
@@ -26,11 +26,11 @@ const Books = () => {
       (book.series && book.series.toLowerCase().includes(search.toLowerCase()));
 
     setFilteredBooks(data.books.filter(bookMatchesSearch));
+  }, [search]);
+
+  const onSearch = () => {
+    setSearchParams({ search });
   };
-
-  const showTable = !bookData;
-
-  const clearBookData = () => setBookData(null);
 
   const showAllBooks = () => setBooksDisplayed(filteredBooks.length);
 
@@ -38,26 +38,17 @@ const Books = () => {
     <div className="bg-zinc-900/50 min-h-screen">
       <Section title="Book Reviews">
         <SearchBar
+          search={search}
           setSearch={setSearch}
           onSearch={onSearch}
           placeholder="search for a book"
         />
-        {showTable && (
-          <BookTable
-            books={filteredBooks.slice(0, booksDisplayed)}
-            setBookData={setBookData}
-          />
-        )}
-        {showTable && (
-          <ListCap
-            displayed={booksDisplayed}
-            total={filteredBooks.length}
-            showAllBooks={showAllBooks}
-          />
-        )}
-        {bookData && (
-          <BookCard bookData={bookData} clearBookData={clearBookData} />
-        )}
+        <BookTable books={filteredBooks.slice(0, booksDisplayed)} />
+        <ListCap
+          displayed={booksDisplayed}
+          total={filteredBooks.length}
+          showAllBooks={showAllBooks}
+        />
       </Section>
     </div>
   );

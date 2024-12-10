@@ -7,6 +7,7 @@ import React from "react";
 
 export interface Page {
   path: string;
+  registerPath?: string;
   name: string;
   Component: () => JSX.Element;
   showInNavbar: boolean;

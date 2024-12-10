@@ -58,10 +58,11 @@ function App() {
 const PageContent = () => {
   return (
     <Routes>
-      {pages.map(({ background, path, Component }) => {
+      {pages.map(({ background, path, registerPath, Component }) => {
         return (
           <Route
-            path={path}
+            key={path}
+            path={registerPath ?? path}
             element={
               <div
                 className={

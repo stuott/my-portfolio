@@ -1,5 +1,6 @@
 import { Page } from "types/index";
-import Books from "./books/Books";
+import BookCard from "./books/BookCard";
+import Books from "./books/BookSearch";
 import Education from "./education/Education";
 import Home from "./home/Home";
 import Projects from "./projects/Projects";
@@ -51,10 +52,17 @@ const pages: Page[] = [
     background: backgrounds.SUDOKU,
   },
   {
-    path: "/books",
+    path: "/books/",
     name: "Books",
     Component: Books,
     showInNavbar: true,
+    background: backgrounds.INTERSECT,
+  },
+  {
+    path: "/book/:isbn13",
+    name: "Book",
+    Component: BookCard,
+    showInNavbar: false,
     background: backgrounds.INTERSECT,
   },
   {
