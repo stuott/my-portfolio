@@ -15,8 +15,13 @@ const Badges = ({ captions, className, itemClassName }: BadgesProps) => {
 
   return (
     <ul className={listClasses}>
-      {captions.map((caption) => {
-        return <li className={itemClasses}>{caption}</li>;
+      {captions.map((caption, index) => {
+        const itemKey = "badge_" + index + "_" + caption.slice(0, 3).trim();
+        return (
+          <li key={itemKey} className={itemClasses}>
+            {caption}
+          </li>
+        );
       })}
     </ul>
   );
