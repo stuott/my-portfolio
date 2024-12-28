@@ -9,4 +9,5 @@ export interface book {
   genre: string;
   year: number;
   description?: string[];
+  rating?: string;
 }

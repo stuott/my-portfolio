@@ -1,5 +1,4 @@
-import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
-import { Button, Link } from "components/common";
+import { Link } from "components/common";
 import { Section } from "components/layout";
 import data from "data/books.json";
 import { book } from "./types";
@@ -21,6 +20,9 @@ interface ShowcaseCardProps {
 }
 
 const ShowcaseCard = ({ book }: ShowcaseCardProps) => {
+  const ratingURL =
+    process.env.PUBLIC_URL + "/graphics/rating/" + book.rating + ".svg";
+
   return (
     <div
       key={book.isbn13}
@@ -33,15 +35,16 @@ const ShowcaseCard = ({ book }: ShowcaseCardProps) => {
       />
       <Link
         to={"/book/" + book.isbn13}
-        className="w-full hover:no-underline"
+        className="w-full h-full hover:no-underline"
         hideIcon
         internal
       >
-        <div>
-          <h3 className="text-lg font-semibold">{book.title}</h3>
-          <p className="text-sm">{book.author}</p>
-          <p className="text-sm">{book.genre}</p>
-          <Button icon={faArrowCircleRight} />
+        <div className="h-full sm:h-auto space-y-4 flex flex-col justify-between text-balance">
+          <div>
+            <h3 className="text-lg font-semibold">{book.title}</h3>
+            <p className="text-sm italic">{book.author}</p>
+          </div>
+          <img className="w-24" src={ratingURL} alt="rating" />
         </div>
       </Link>
     </div>
