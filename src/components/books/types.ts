@@ -1,6 +1,6 @@
 export interface book {
   index: number;
-  isbn10: string;
+  isbn10?: string;
   isbn13: string;
   title: string;
   series?: string;

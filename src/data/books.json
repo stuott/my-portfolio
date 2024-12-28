@@ -1,4 +1,44 @@
 {
+  "showcase": [
+    {
+      "index": 0,
+      "isbn13": "9781867239345",
+      "title": "The Keeper of Night",
+      "series": "The Keeper of Night",
+      "series_number": 1,
+      "author": "Kylie Lee Baker",
+      "genre": "Fantasy",
+      "year": 2021
+    },
+    {
+      "index": 1,
+      "isbn13": "9781250217325",
+      "title": "The House in the Cerulean Sea",
+      "series": "Cerulean Chronicles",
+      "series_number": 1,
+      "author": "TJ Klune",
+      "genre": "Fantasy",
+      "year": 2020
+    },
+    {
+      "index": 2,
+      "isbn13": "9781250811783",
+      "title": "Four Treasures of the Sky",
+      "author": "Jenny Tinghui Zhang",
+      "genre": "Historical Fiction",
+      "year": 2020
+    },
+    {
+      "index": 3,
+      "isbn13": "9780062662569",
+      "title": "The Poppy War",
+      "series": "The Poppy War",
+      "series_number": 1,
+      "author": "R.F. Kuang",
+      "genre": "Fantasy",
+      "year": 2018
+    }
+  ],
   "books": [
     {
       "index": 0,

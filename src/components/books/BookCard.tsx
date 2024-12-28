@@ -10,7 +10,19 @@ const BookCard = () => {
   const bookData = data.books.find((book) => book.isbn13 === isbn13);
 
   if (!bookData) {
-    return <></>;
+    return (
+      <div className="w-full min-h-screen py-32 text-white">
+        <div className="flex flex-col items-center gap-12">
+          <h1 className="text-5xl font-bold">Sorry</h1>
+          <h1 className="text-white text-2xl font-bold">
+            We couldn't find that book - we'll check in the back!
+          </h1>
+          <Link className="text-2xl italic" internal to="/books">
+            back to the main library
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (

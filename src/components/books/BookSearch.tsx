@@ -1,12 +1,14 @@
-import { Button, SearchBar } from "components/common";
-import { Section } from "components/layout";
-import data from "data/books.json";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+
+import { Button, SearchBar } from "components/common";
+import { Section } from "components/layout";
 import BookTable from "./BookTable";
+
+import data from "data/books.json";
 import { book } from "./types";
 
-const Books = () => {
+const BookSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState<string>(
     searchParams.get("search") || ""
@@ -35,22 +37,20 @@ const Books = () => {
   const showAllBooks = () => setBooksDisplayed(filteredBooks.length);
 
   return (
-    <div className="bg-zinc-900/50 min-h-screen">
-      <Section title="Book Reviews">
-        <SearchBar
-          search={search}
-          setSearch={setSearch}
-          onSearch={onSearch}
-          placeholder="search for a book"
-        />
-        <BookTable books={filteredBooks.slice(0, booksDisplayed)} />
-        <ListCap
-          displayed={booksDisplayed}
-          total={filteredBooks.length}
-          showAllBooks={showAllBooks}
-        />
-      </Section>
-    </div>
+    <Section title="Book Search">
+      <SearchBar
+        search={search}
+        setSearch={setSearch}
+        onSearch={onSearch}
+        placeholder="search for a book"
+      />
+      <BookTable books={filteredBooks.slice(0, booksDisplayed)} />
+      <ListCap
+        displayed={booksDisplayed}
+        total={filteredBooks.length}
+        showAllBooks={showAllBooks}
+      />
+    </Section>
   );
 };
 
@@ -83,4 +83,4 @@ const ListCap = ({ displayed, total, showAllBooks }: ListCapProps) => {
   );
 };
 
-export default Books;
+export default BookSearch;

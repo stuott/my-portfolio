@@ -1,6 +1,6 @@
 import { Page } from "types/index";
 import BookCard from "./books/BookCard";
-import Books from "./books/BookSearch";
+import Books from "./books/Books";
 import Education from "./education/Education";
 import Home from "./home/Home";
 import Projects from "./projects/Projects";
