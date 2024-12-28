@@ -13,9 +13,9 @@ function Navbar(props: { pages: Page[] }) {
 
   return (
     <>
-      <nav className="fixed w-full text-white">
+      <nav className="fixed w-full bg-zinc-900 text-white">
         {/* Mobile menu button, logo, and desktop menu (actual navbar) */}
-        <div className="flex bg-zinc-900 items-center px-2 md:px-6 lg:px-12 max-w-screen-lg mx-auto">
+        <div className="flex items-center px-2 md:px-6 lg:px-12 max-w-screen-lg mx-auto">
           <div className="sm:hidden absolute left-4">
             <Button icon={faBars} onClick={toggleMenu} />
           </div>
