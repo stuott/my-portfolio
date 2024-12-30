@@ -1,5 +1,5 @@
 import { Page } from "types/index";
-import BookCard from "./books/BookCard";
+import BookPage from "./books/BookPage";
 import Books from "./books/Books";
 import Education from "./education/Education";
 import Home from "./home/Home";
@@ -61,7 +61,7 @@ const pages: Page[] = [
   {
     path: "/book/:isbn13",
     name: "Book",
-    Component: BookCard,
+    Component: BookPage,
     showInNavbar: false,
     background: backgrounds.INTERSECT,
   },
