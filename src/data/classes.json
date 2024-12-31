@@ -8,12 +8,7 @@
         "Computer Networks",
         "Computer Systems Engineering & Performance",
         "Formal Models of Computation",
-        "Embedded System Interfacing",
-        "Understanding the Earth",
-        "Introduction to Archaeology",
-        "Electric Energy Systems",
-        "Blue Marble Security",
-        "Communication Contexts"
+        "Embedded System Interfacing"
       ],
       "callouts": [
         "Triangle Fraternity President",
@@ -29,12 +24,7 @@
         "Electronics",
         "Signals and Systems",
         "Systems Programming",
-        "HW/SW System Integration",
-        "Engineering Statistics",
-        "Design Fundamentals",
-        "Statistical Programming and Analysis",
-        "Technical and Professional Communication",
-        "Mythology"
+        "HW/SW System Integration"
       ],
       "callouts": [
         "Triangle Fraternity Vice President Internal",
@@ -50,13 +40,7 @@
         "Electric Circuits II and Lab",
         "Digital Logic and Lab",
         "Discrete Structures",
-        "Data Structures",
-        "Elementary Linear Algebra",
-        "Elementary Differential Equations",
-        "Physics by Inquiry II",
-        "University Physics II - Electricity & Magnetism",
-        "Beginning Acting",
-        "Introduction to Literature"
+        "Data Structures"
       ]
     },
     {
@@ -65,15 +49,9 @@
       "classes": [
         "Intro to Programming II",
         "Programming at the HW/SW Interface",
-        "Essential Math for EE",
-        "ECE 1.0",
         "Engineering Analysis & Problem Solving",
-        "Calculus Plus w/ Technology I",
         "Calculus with Technology II",
-        "Physics by Inquiry I",
-        "University Physics I - Mechanics",
-        "Global Issues",
-        "Introduction to Sociology"
+        "University Physics I - Mechanics"
       ]
     }
   ]

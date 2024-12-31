@@ -40,7 +40,7 @@ const Contact = () => {
   };
 
   return (
-    <Section id="contact" title="Contact Me">
+    <Section id="contact" title="Contact Me" className="py-16">
       <form ref={form} onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4 mb-10 items-center">
           <div className="grid sm:grid-cols-2 gap-4 w-full">

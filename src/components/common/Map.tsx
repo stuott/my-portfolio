@@ -16,11 +16,12 @@ const Map = ({ position, marker }: MapProps) => {
     <Section id="map" noPad>
       <MapContainer
         center={center}
-        zoom={14}
+        zoom={7}
         scrollWheelZoom={false}
         className="h-80"
         zoomControl={false}
         attributionControl={false}
+        dragging={false}
       >
         <TileLayer url={tileURL} />
         {marker && (

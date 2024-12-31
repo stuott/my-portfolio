@@ -32,12 +32,9 @@ const scrollToContact = () => {
 
 export default function Intro() {
   return (
-    <Section id="intro">
-      <div className="flex justify-between items-center">
-        <div
-          className="grid gap-1"
-          style={{ textShadow: "1px 1px 10px black" }}
-        >
+    <Section id="intro" className="h-96">
+      <div className="flex justify-between items-center my-auto">
+        <div className="grid gap-1">
           <h1 className="text-white text-4xl md:text-5xl">Steven Ott</h1>
           <p className="text-gray-400">
             (920) 286-1509 - steven.ott.tech@gmail.com

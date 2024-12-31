@@ -6,8 +6,8 @@ export default function Education() {
   return (
     <div className="bg-zinc-900/50">
       <College />
-      <Map position={[47.121111, -88.569444]} />
       <Classes />
+      <Map position={[47.121111, -88.569444]} marker="Houghton, MI" />
     </div>
   );
 }
