@@ -77,7 +77,7 @@ const InterestCalculator = () => {
     for (let i = 0; i < totalPeriods; i++) {
       investment.push(initialInvestment + periodicInvestment * i);
       totalInterestAmount += currentAmount * ratePerPeriod;
-      interest.push(currentAmount * ratePerPeriod);
+      interest.push(totalInterestAmount);
       totalValue.push(currentAmount);
       currentAmount =
         (currentAmount + periodicInvestment) * (1 + ratePerPeriod);
@@ -144,14 +144,16 @@ const InterestCalculator = () => {
           </Button>
           {finalAmount > 0 && (
             <>
-              <div className="text-2xl">
-                Final Amount: ${formatNumber(finalAmount)}
-              </div>
-              <div className="text-xl">
-                Total Invested: ${formatNumber(totalInvested)}
-              </div>
-              <div className="text-xl">
-                Total Interest Earned: ${formatNumber(totalInterest)}
+              <div className="text-center space-y-2">
+                <div className="text-xl text-zinc-400 italic">
+                  Total Amount Invested: ${formatNumber(totalInvested)}
+                </div>
+                <div className="text-xl text-zinc-400 italic">
+                  Total Interest Earned: ${formatNumber(totalInterest)}
+                </div>
+                <div className="text-2xl">
+                  Final Amount: ${formatNumber(finalAmount)}
+                </div>
               </div>
               <InvestmentChart
                 investmentData={investmentData}
