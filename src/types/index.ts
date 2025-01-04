@@ -2,6 +2,7 @@
  * @description This file contains TypeScript interfaces used throughout the application.
  */
 
+import { SizeProp } from "@fortawesome/fontawesome-svg-core";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
@@ -23,6 +24,7 @@ export interface ButtonInfo {
 export interface LinkInfo {
   to: string;
   icon?: IconDefinition;
+  iconSize?: SizeProp;
   internal?: boolean;
   children?: React.ReactNode;
 }

@@ -1,3 +1,6 @@
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import classNames from "classnames";
 import { Section } from "components/layout";
 import { LinkInfo } from "types/index";
 import BulletList from "./BulletList";
@@ -6,14 +9,20 @@ import Link from "./Link";
 interface ShowcaseProps {
   title: string;
   items: ShowcaseItemProps[];
+  minimal?: boolean;
 }
 
-const Showcase = ({ title, items }: ShowcaseProps) => {
+const Showcase = ({ title, items, minimal }: ShowcaseProps) => {
+  const displayClasses = classNames("gap-6", {
+    "flex flex-col justify-evenly": !minimal,
+    "grid grid-cols-2": minimal,
+  });
+
   return (
     <Section id={title.toLowerCase()} title={title} className="">
-      <div className="flex flex-col gap-6 justify-evenly">
+      <div className={displayClasses}>
         {items.map((item) => (
-          <ShowcaseItem {...item} />
+          <ShowcaseItem {...item} minimal={minimal} />
         ))}
       </div>
     </Section>
@@ -22,20 +31,31 @@ const Showcase = ({ title, items }: ShowcaseProps) => {
 
 interface ShowcaseItemProps {
   title: string;
+  icon?: IconDefinition;
   description: string;
   link?: LinkInfo;
   points?: string[];
+  minimal?: boolean;
 }
 
 const ShowcaseItem = ({
   title,
   description,
+  icon,
   link,
   points,
+  minimal,
 }: ShowcaseItemProps) => {
+  const linkClasses = classNames({
+    "sm:w-1/4": !minimal,
+  });
+
   return (
     <div className="flex flex-col gap-6 sm:flex-row sm:gap-10 items-center p-6 border bg-zinc-800">
-      <div className="sm:w-1/4">
+      {icon && (
+        <FontAwesomeIcon icon={icon} size="2x" className="text-zinc-400" />
+      )}
+      <div className={linkClasses}>
         {link ? (
           <Link className="font-bold" {...link}>
             {title}
@@ -44,10 +64,12 @@ const ShowcaseItem = ({
           <p className="font-bold">{title}</p>
         )}
       </div>
-      <div className="sm:w-3/4">
-        {description}
-        {points ? <BulletList points={points} /> : <></>}
-      </div>
+      {!minimal && (
+        <div className="sm:w-3/4">
+          {description}
+          {points ? <BulletList points={points} /> : <></>}
+        </div>
+      )}
     </div>
   );
 };

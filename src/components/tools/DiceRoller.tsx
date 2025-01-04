@@ -163,7 +163,7 @@ const DiceRoller = () => {
   };
 
   return (
-    <div className="text-white bg-zinc-800 p-5">
+    <div className="text-white bg-zinc-900/50 min-h-screen p-5">
       <div className="flex flex-col items-center space-y-4">
         <h2 className="text-2xl font-bold">
           Dice Roller <FontAwesomeIcon icon={faDice} />

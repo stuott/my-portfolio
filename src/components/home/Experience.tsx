@@ -1,12 +1,15 @@
-import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "components/common/Link";
+import {
+  faCalendarMinus,
+  faCalendarPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { Button } from "components/common";
 import Timeline, { TimelineItem } from "components/common/Timeline";
 import Section from "components/layout/Section";
 import data from "data/experience.json";
+import { useState } from "react";
 
-export default function Experience() {
-  const timelineItems: TimelineItem[] = data.experiences.map((experience) => {
+const Experience = () => {
+  const dataItems: TimelineItem[] = data.experiences.map((experience) => {
     return {
       time: experience.time,
       title: experience.title + ", " + experience.company,
@@ -17,13 +20,31 @@ export default function Experience() {
     };
   });
 
+  const [timelineItems, setTimelineItems] = useState<TimelineItem[]>(
+    dataItems.slice(0, 2)
+  );
+
+  const [showMore, setShowMore] = useState(false);
+
+  const onClick = () => {
+    setTimelineItems(showMore ? dataItems.splice(0, 2) : dataItems);
+    setShowMore(!showMore);
+  };
+
   return (
     <Section id="experience" title="Experience" className="bg-zinc-900">
       <Timeline items={timelineItems}></Timeline>
-      <div className="flex items-center justify-center my-8 text-xl">
-        <FontAwesomeIcon icon={faFilePdf} className="mr-2" />
-        <Link to={process.env.PUBLIC_URL + "/Resume.pdf"}>View my resume</Link>
-      </div>
+      <Button
+        onClick={onClick}
+        className="my-4 mx-auto"
+        bg="cyan-800"
+        hoverBg="cyan-600"
+        icon={showMore ? faCalendarMinus : faCalendarPlus}
+      >
+        {showMore ? "see less" : "see more"}
+      </Button>
     </Section>
   );
-}
+};
+
+export default Experience;

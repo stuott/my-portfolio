@@ -1,5 +1,10 @@
 import emailjs from "@emailjs/browser";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faPaperPlane,
+  faPhone,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { Button } from "components/common";
 import Section from "components/layout/Section";
@@ -40,10 +45,18 @@ const Contact = () => {
   };
 
   return (
-    <Section id="contact" title="Contact Me" className="py-16">
+    <Section id="contact" title="Contact Me" className="xl:pl-0 xl:pr-16">
+      <div className="flex gap-4">
+        <FontAwesomeIcon icon={faPhone} size="xl" />
+        <p>(920) 286-1509</p>
+      </div>
+      <div className="flex gap-4">
+        <FontAwesomeIcon icon={faEnvelope} size="xl" />
+        <p>steven.ott.tech@gmail.com</p>
+      </div>
       <form ref={form} onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4 mb-10 items-center">
-          <div className="grid sm:grid-cols-2 gap-4 w-full">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-4 w-full">
             <ContactField
               label="Your Name"
               type="text"

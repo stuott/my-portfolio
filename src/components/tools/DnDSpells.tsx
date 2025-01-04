@@ -108,7 +108,7 @@ const DnDSpells = () => {
   const showSpellInfo = spellInfo !== null;
 
   return (
-    <Section title="D&D Spellbook" className="bg-zinc-900/50">
+    <Section title="D&D Spellbook" className="bg-zinc-900/50 min-h-screen">
       <div className="flex flex-row">
         <SearchBar
           setSearch={setSpellName}

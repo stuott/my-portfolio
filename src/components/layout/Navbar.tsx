@@ -19,7 +19,7 @@ function Navbar(props: { pages: Page[] }) {
           <div className="sm:hidden absolute left-4">
             <Button icon={faBars} onClick={toggleMenu} />
           </div>
-          <div className="flex w-full justify-center items-center sm:justify-between">
+          <div className="flex w-full justify-center items-center sm:justify-evenly">
             <Logo />
             <DesktopMenu pages={pages} />
           </div>
@@ -53,7 +53,7 @@ const DesktopMenu = (props: { pages: Page[] }) => {
 
   return (
     <div className="hidden sm:block flex-grow px-6">
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-evenly">
         {pages.map((page) => (
           <NavLink
             key={page.path}

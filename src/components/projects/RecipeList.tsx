@@ -46,7 +46,7 @@ const RecipeList = () => {
   }, [searchTerm, filterTerm]);
 
   return (
-    <div>
+    <div className="min-h-screen bg-zinc-900/50 p-4">
       <SearchBar
         onSearch={() => {}}
         placeholder="Search for a recipe"

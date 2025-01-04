@@ -55,7 +55,7 @@ const pages: Page[] = [
     path: "/books/",
     name: "Books",
     Component: Books,
-    showInNavbar: true,
+    showInNavbar: false,
     background: backgrounds.INTERSECT,
   },
   {

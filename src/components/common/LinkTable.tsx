@@ -14,7 +14,7 @@ const LinkTable = ({ links, disabled }: LinkTableProps) => {
   return (
     <div className="flex text-white text-xl gap-3">
       {links.map((link) => (
-        <Link {...link} icon={link.icon} disabled={disabled} />
+        <Link {...link} disabled={disabled} />
       ))}
     </div>
   );

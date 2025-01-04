@@ -1,4 +1,31 @@
 {
+  "general": [
+    {
+      "title": "Recipe List",
+      "link": {
+        "to": "/projects/recipe-list",
+        "internal": true
+      },
+      "description": "A curated recipe list lookup for storing and sharing recipes",
+      "points": [
+        "Created a search bar to filter recipes based on user input",
+        "Built a recipe card component to display each recipe and used Tailwind CSS to style the page",
+        "Used React hooks to store filtered recipes and user input"
+      ]
+    },
+    {
+      "title": "Book Reviews",
+      "link": {
+        "to": "/books",
+        "internal": true
+      },
+      "description": "A list of book reviews",
+      "points": [
+        "Redesigning the website to be more modern and user-friendly",
+        "Targeting specific user personas (prospective members, community members, alumni)"
+      ]
+    }
+  ],
   "roleplaying": [
     {
       "title": "D&D Spellbook",

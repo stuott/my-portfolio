@@ -1,6 +1,5 @@
 import {
   faArrowUpRightFromSquare as externalIcon,
-  IconDefinition,
   faLink as internalIcon,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,9 +9,7 @@ import { LinkInfo } from "types/index";
 
 export interface LinkProps extends LinkInfo {
   hoverColor?: string;
-  children?: React.ReactNode;
   disabled?: boolean;
-  icon?: IconDefinition;
   scale?: boolean;
   tooltip?: string;
   className?: string;
@@ -24,6 +21,7 @@ const Link = ({
   scale,
   children,
   icon,
+  iconSize,
   disabled,
   className,
   hideIcon,
@@ -45,13 +43,13 @@ const Link = ({
 
   return internal ? (
     <InternalLink {...linkProps} className={linkClasses} disabled={disabled}>
-      {icon && <FontAwesomeIcon icon={icon} className="text-xl" />}
+      {icon && <FontAwesomeIcon icon={icon} size={iconSize} />}
       {children}{" "}
       {showIcon && <FontAwesomeIcon className="text-sm" icon={internalIcon} />}
     </InternalLink>
   ) : (
     <ExternalLink {...linkProps} className={linkClasses} disabled={disabled}>
-      {icon && <FontAwesomeIcon icon={icon} className="text-xl" />}
+      {icon && <FontAwesomeIcon icon={icon} size={iconSize} />}
       {children}
       {showIcon && <FontAwesomeIcon className="text-sm" icon={externalIcon} />}
     </ExternalLink>
@@ -70,7 +68,7 @@ const ExternalLink = ({
   className,
   disabled,
 }: LinkPropsInternal) => {
-  if (disabled) {
+  if (disabled || !to) {
     return <div className={className}>{children}</div>;
   }
 
