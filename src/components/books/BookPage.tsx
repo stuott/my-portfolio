@@ -54,13 +54,14 @@ const BookDescription = ({
   description: string[] | undefined;
 }) => {
   if (!description) {
-    return null;
+    return <p className="italic">No description found</p>;
   }
 
   return (
     <>
-      {description &&
-        description.map((line) => <p className="text-gray-400">{line}</p>)}
+      {description.map((line) => (
+        <p className="text-gray-400">{line}</p>
+      ))}
     </>
   );
 };

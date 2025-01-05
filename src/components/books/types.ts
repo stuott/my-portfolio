@@ -1,5 +1,4 @@
 export interface book {
-  index: number;
   isbn10?: string;
   isbn13: string;
   title: string;
@@ -9,5 +8,5 @@ export interface book {
   genre: string;
   year: number;
   description?: string[];
-  rating?: string;
+  rating?: number;
 }

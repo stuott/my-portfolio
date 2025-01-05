@@ -23,7 +23,7 @@ const BookTable = ({ books }: BookTableProps) => {
           hideIcon
           internal
         >
-          <div key={book.index} className="w-full">
+          <div className="w-full">
             <div className={bookCardClasses}>
               <div className="flex items-center gap-6">
                 <img

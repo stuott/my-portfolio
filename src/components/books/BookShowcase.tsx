@@ -8,30 +8,35 @@ const BookShowcase = () => {
   return (
     <Section title="My Recent Reads">
       <div className="grid grid-cols-2 gap-4">
-        {data.showcase.map((book) => (
-          <ShowcaseCard book={book} />
+        {data.showcase.map((isbn) => (
+          <ShowcaseCard
+            book={data.books.find((book) => book.isbn13 === isbn)}
+          />
         ))}
       </div>
     </Section>
   );
 };
 
-const ShowcaseCard = ({ book }: { book: book }) => {
+const ShowcaseCard = ({ book }: { book: book | undefined }) => {
   return (
-    <div
-      key={book.isbn13}
-      className="bg-zinc-900 p-4 border border-zinc-500 flex gap-4 flex-col sm:flex-row"
-    >
-      <BookImage isbn13={book.isbn13} quality="L" alt={book.title} size="M" />
-      <BookLink book={book} />
+    <div className="bg-zinc-900 p-4 border border-zinc-500 flex gap-4 flex-col sm:flex-row">
+      {book && (
+        <>
+          <BookImage
+            isbn13={book.isbn13}
+            quality="L"
+            alt={book.title}
+            size="M"
+          />
+          <BookLink book={book} />
+        </>
+      )}
     </div>
   );
 };
 
 const BookLink = ({ book }: { book: book }) => {
-  const ratingURL =
-    process.env.PUBLIC_URL + "/graphics/rating/" + book.rating + ".svg";
-
   return (
     <Link
       to={"/book/" + book.isbn13}
@@ -44,10 +49,24 @@ const BookLink = ({ book }: { book: book }) => {
           <h3 className="text-lg font-semibold">{book.title}</h3>
           <p className="text-sm italic">{book.author}</p>
         </div>
-        <img className="w-24" src={ratingURL} alt="rating" />
+        <BookRating rating={book.rating} />
       </div>
     </Link>
   );
+};
+
+const BookRating = ({ rating }: { rating: number | undefined }) => {
+  if (!rating) {
+    return <p className="text-gray-400 italic">no rating found</p>;
+  }
+
+  const roundedRating = Math.floor(rating);
+  const baseURL = process.env.PUBLIC_URL + "/graphics/rating/" + roundedRating;
+  const ratingURL = Number.isInteger(rating)
+    ? baseURL + ".svg"
+    : baseURL + "_5.svg";
+
+  return <img className="w-24" src={ratingURL} alt="book rating" />;
 };
 
 export default BookShowcase;
