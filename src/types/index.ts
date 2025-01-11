@@ -5,12 +5,13 @@
 import { SizeProp } from "@fortawesome/fontawesome-svg-core";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import { jsx } from "react/jsx-runtime";
 
 export interface Page {
   path: string;
   registerPath?: string;
   name: string;
-  Component: () => JSX.Element;
+  Component: () => React.ReactElement;
   showInNavbar: boolean;
   background?: string;
 }

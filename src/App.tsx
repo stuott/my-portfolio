@@ -1,6 +1,6 @@
+import { usePageTracking } from "analytics";
 import { pages } from "components";
-import Footer from "components/layout/Footer";
-import Navbar from "components/layout/Navbar";
+import { Footer, Navbar } from "components/layout";
 import { useEffect } from "react";
 import {
   Route,
@@ -9,20 +9,18 @@ import {
   useLocation,
 } from "react-router-dom";
 import "./App.css";
+
 declare global {
   interface Window {
     gtag: (command: string, targetId: string, config: object) => void;
   }
 }
 
-function ScrollToTopAndTrack() {
+function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    window.gtag("config", "G-DBWJMWB5XZ", {
-      page_path: pathname,
-    });
   }, [pathname]);
 
   return null;
@@ -46,7 +44,7 @@ function App() {
   return (
     <main className="bg-zinc-900">
       <Router>
-        <ScrollToTopAndTrack />
+        <ScrollToTop />
         <Navbar pages={pages.filter((page) => page.showInNavbar)} />
         <PageContent />
         <Footer />
@@ -56,6 +54,8 @@ function App() {
 }
 
 const PageContent = () => {
+  usePageTracking();
+
   return (
     <Routes>
       {pages.map(({ background, path, registerPath, Component }) => {
