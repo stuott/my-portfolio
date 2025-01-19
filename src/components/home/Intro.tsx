@@ -39,7 +39,7 @@ const scrollToContact = () => {
 
 export default function Intro() {
   return (
-    <Section id="intro" className="h-screen sm:h-lvh">
+    <Section id="intro" className="h-screen">
       <div className="flex flex-col gap-8 items-center justify-center my-auto">
         <h1 className="text-white text-4xl md:text-5xl">
           Hi, I'm <span className="text-cyan-500">Steven Ott</span>!
