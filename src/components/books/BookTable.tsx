@@ -1,7 +1,7 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 import { Button, Link } from "components/common";
-import { book } from "./types";
+import { book } from "types/books";
 
 interface BookTableProps {
   books: book[];

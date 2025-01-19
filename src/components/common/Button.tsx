@@ -1,8 +1,8 @@
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import { ButtonInfo } from "types/index";
 
-interface ButtonProps extends ButtonInfo {
+export interface ButtonProps {
   className?: string;
   bg?: string;
   hoverBg?: string;
@@ -11,6 +11,9 @@ interface ButtonProps extends ButtonInfo {
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
   iconSize?: string;
+  onClick?: () => void;
+  icon?: IconDefinition;
+  children?: React.ReactNode;
 }
 
 const Button = ({

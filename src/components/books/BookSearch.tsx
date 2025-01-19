@@ -6,7 +6,7 @@ import { Section } from "components/layout";
 import BookTable from "./BookTable";
 
 import data from "data/books.json";
-import { book } from "./types";
+import { book } from "types/books";
 
 const BookSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();

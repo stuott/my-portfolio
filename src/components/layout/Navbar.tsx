@@ -3,9 +3,9 @@ import classNames from "classnames";
 import { Button } from "components/common";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Page } from "types";
+import { page } from "types/pages";
 
-function Navbar(props: { pages: Page[] }) {
+function Navbar(props: { pages: page[] }) {
   const { pages } = props;
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -42,7 +42,7 @@ const Logo = () => (
   </div>
 );
 
-const DesktopMenu = (props: { pages: Page[] }) => {
+const DesktopMenu = (props: { pages: page[] }) => {
   const { pages } = props;
 
   function getDesktopLinkClasses({ isActive }: { isActive: boolean }) {
@@ -69,7 +69,7 @@ const DesktopMenu = (props: { pages: Page[] }) => {
 };
 
 interface MobileMenuProps {
-  pages: Page[];
+  pages: page[];
   menuOpen: boolean;
   toggleMenu: () => void;
 }

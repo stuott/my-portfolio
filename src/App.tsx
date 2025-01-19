@@ -1,6 +1,6 @@
 import { usePageTracking } from "analytics";
-import { pages } from "components";
 import { Footer, Navbar } from "components/layout";
+import { pages } from "pages";
 import { useEffect } from "react";
 import {
   Route,

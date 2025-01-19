@@ -1,13 +1,12 @@
 import classNames from "classnames";
 import Badges from "components/common/Badges";
 import BulletList from "components/common/BulletList";
-import { LinkInfo } from "types/index";
-import Link from "./Link";
+import Link, { LinkProps } from "./Link";
 
 interface TimelineMetaInfo {
   title: string;
   subtitle?: string;
-  link?: LinkInfo;
+  link?: LinkProps;
 }
 export interface TimelineItem extends TimelineMetaInfo {
   time: string;

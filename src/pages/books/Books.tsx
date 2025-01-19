@@ -1,5 +1,4 @@
-import BookSearch from "./BookSearch";
-import BookShowcase from "./BookShowcase";
+import { BookSearch, BookShowcase } from "components/books";
 
 const Books = () => {
   return (

@@ -1,8 +1,7 @@
-import { ButtonInfo } from "types";
-import Button from "./Button";
+import Button, { ButtonProps } from "./Button";
 
 interface ButtonTableProps {
-  buttons: ButtonInfo[];
+  buttons: ButtonProps[];
   disabled?: boolean;
 }
 

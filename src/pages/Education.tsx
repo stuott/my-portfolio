@@ -1,6 +1,5 @@
 import Map from "components/common/Map";
-import Classes from "./Classes";
-import College from "./College";
+import { Classes, College } from "components/education";
 
 export default function Education() {
   return (

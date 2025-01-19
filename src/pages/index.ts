@@ -1,17 +1,17 @@
-import { Page } from "types/index";
+import { page } from "types/pages";
 import BookPage from "./books/BookPage";
 import Books from "./books/Books";
-import Education from "./education/Education";
-import Home from "./home/Home";
-import Projects from "./projects/Projects";
+import Education from "./Education";
+import Home from "./Home";
+import Projects from "./Projects";
 import RecipeList from "./projects/RecipeList";
 import Sudoku from "./sudoku/Sudoku";
 import TestView from "./TestView";
+import Tools from "./Tools";
 import DiceRoller from "./tools/DiceRoller";
 import DnDSpells from "./tools/DnDSpells";
 import InterestCalculator from "./tools/InterestCalculator";
 import LoanCalculator from "./tools/LoanCalculator";
-import Tools from "./tools/Tools";
 
 enum backgrounds {
   NONE = "bg-transparent",
@@ -23,7 +23,7 @@ enum backgrounds {
   INTERSECT = "bg-intersect",
 }
 
-const pages: Page[] = [
+const pages: page[] = [
   { path: "/", name: "Home", Component: Home, showInNavbar: true },
   {
     path: "/education",

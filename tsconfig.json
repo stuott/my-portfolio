@@ -20,7 +20,8 @@
       "components/*": ["components/*"],
       "data/*": ["data/*"],
       "types/*": ["types/*"],
-      "analytics/*": ["analytics/*"]
+      "analytics/*": ["analytics/*"],
+      "pages/*": ["[pages]/*"]
     }
   },
   "include": ["src"]

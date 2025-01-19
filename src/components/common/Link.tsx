@@ -1,19 +1,25 @@
+import { SizeProp } from "@fortawesome/fontawesome-svg-core";
 import {
   faArrowUpRightFromSquare as externalIcon,
+  IconDefinition,
   faLink as internalIcon,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { NavLink } from "react-router-dom";
-import { LinkInfo } from "types/index";
 
-export interface LinkProps extends LinkInfo {
+export interface LinkProps {
+  to: string;
   hoverColor?: string;
   disabled?: boolean;
   scale?: boolean;
   tooltip?: string;
   className?: string;
   hideIcon?: boolean;
+  icon?: IconDefinition;
+  iconSize?: SizeProp;
+  internal?: boolean;
+  children?: React.ReactNode;
 }
 
 const Link = ({
@@ -56,18 +62,13 @@ const Link = ({
   );
 };
 
-interface LinkPropsInternal extends LinkProps {
-  hideIcon?: boolean;
-  className?: string;
-}
-
 const ExternalLink = ({
   tooltip,
   to,
   children,
   className,
   disabled,
-}: LinkPropsInternal) => {
+}: LinkProps) => {
   if (disabled || !to) {
     return <div className={className}>{children}</div>;
   }
@@ -85,12 +86,7 @@ const ExternalLink = ({
   );
 };
 
-const InternalLink = ({
-  to,
-  children,
-  className,
-  disabled,
-}: LinkPropsInternal) => {
+const InternalLink = ({ to, children, className, disabled }: LinkProps) => {
   if (disabled) {
     return <div className={className}>{children}</div>;
   }

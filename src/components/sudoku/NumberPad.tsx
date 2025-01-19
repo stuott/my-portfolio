@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { SudokuValue } from "./sudokuUtilts";
+import { SudokuValue } from "./sudokuUtils";
 
 interface NumberPadProps {
   onClick: (value: SudokuValue) => void;

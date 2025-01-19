@@ -1,6 +1,4 @@
-import Contact from "./Contact";
-import Experience from "./Experience";
-import Intro from "./Intro";
+import { Contact, Experience, Intro } from "components/home";
 
 export default function Home() {
   return (

@@ -1,5 +1,5 @@
 import SudokuCell from "./SudokuCell";
-import { CellPosition, isCellStatic, SudokuValue } from "./sudokuUtilts";
+import { CellPosition, isCellStatic, SudokuValue } from "./sudokuUtils";
 
 interface SudokuRowProps {
   row: (SudokuValue | null)[];

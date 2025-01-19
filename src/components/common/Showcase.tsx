@@ -2,9 +2,8 @@ import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { Section } from "components/layout";
-import { LinkInfo } from "types/index";
 import BulletList from "./BulletList";
-import Link from "./Link";
+import Link, { LinkProps } from "./Link";
 
 interface ShowcaseProps {
   title: string;
@@ -33,7 +32,7 @@ interface ShowcaseItemProps {
   title: string;
   icon?: IconDefinition;
   description: string;
-  link?: LinkInfo;
+  link?: LinkProps;
   points?: string[];
   minimal?: boolean;
 }

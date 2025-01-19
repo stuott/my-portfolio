@@ -1,8 +1,7 @@
-import { LinkInfo } from "types";
-import Link from "./Link";
+import Link, { LinkProps } from "./Link";
 
 interface LinkTableProps {
-  links: LinkInfo[];
+  links: LinkProps[];
   disabled?: boolean;
 }
 

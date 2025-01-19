@@ -1,10 +1,7 @@
 import { faArrowRotateLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "components/common/Button";
 import Section from "components/layout/Section";
-import data from "data/sudoku.json";
-import { useCallback, useEffect, useState } from "react";
-import NumberPad from "./NumberPad";
-import SudokuRow from "./SudokuRow";
+import { NumberPad, SudokuRow } from "components/sudoku";
 import {
   CellPosition,
   getDuplicateFlags,
@@ -12,7 +9,9 @@ import {
   MouseActions,
   SudokuData,
   SudokuValue,
-} from "./sudokuUtilts";
+} from "components/sudoku/sudokuUtils";
+import data from "data/sudoku.json";
+import { useCallback, useEffect, useState } from "react";
 
 const Sudoku = () => {
   const [puzzle, setPuzzle] = useState(0);

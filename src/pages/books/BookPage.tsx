@@ -1,12 +1,12 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 
+import { BookImage } from "components/books";
 import { Link } from "components/common";
 import { Section } from "components/layout";
-import BookImage from "./BookImage";
 
 import data from "data/books.json";
-import { book } from "./types";
+import { book } from "types/books";
 
 const BookPage = () => {
   let { isbn13 } = useParams();

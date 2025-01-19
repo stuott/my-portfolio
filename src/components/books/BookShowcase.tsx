@@ -1,8 +1,9 @@
 import { Link } from "components/common";
 import { Section } from "components/layout";
+
 import data from "data/books.json";
+import { book } from "types/books";
 import BookImage from "./BookImage";
-import { book } from "./types";
 
 const BookShowcase = () => {
   return (
