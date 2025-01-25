@@ -1,5 +1,5 @@
-import { Link } from "components/common";
-import Section from "components/layout/Section";
+import { Link } from "@components/common";
+import Section from "@components/layout/Section";
 
 const College = () => {
   return (
@@ -14,13 +14,13 @@ const College = () => {
           <img
             className="p-4 transition bg-cyan-900 hover:bg-cyan-800"
             alt="Michigan Techological University Logo"
-            src={process.env.PUBLIC_URL + "/images/MTU_Logo.png"}
+            src={"/images/MTU_Logo.png"}
           />
         </Link>
         <div>
           <p className="text-zinc-200 font-bold">BS Computer Engineering</p>
           <p className="text-zinc-200 italic">
-            3.93 GPA | Summa Cum Laude | Dean's List x8
+            3.93 GPA | Summa Cum Laude | Dean's List
           </p>
         </div>
       </div>

@@ -10,8 +10,6 @@ import TestView from "./TestView";
 import Tools from "./Tools";
 import DiceRoller from "./tools/DiceRoller";
 import DnDSpells from "./tools/DnDSpells";
-import InterestCalculator from "./tools/InterestCalculator";
-import LoanCalculator from "./tools/LoanCalculator";
 
 enum backgrounds {
   NONE = "bg-transparent",
@@ -83,20 +81,6 @@ const pages: page[] = [
     name: "D&D Spellbook",
     Component: DnDSpells,
     showInNavbar: false,
-  },
-  {
-    path: "/tools/loan-calculator",
-    name: "Loan Calculator",
-    Component: LoanCalculator,
-    showInNavbar: false,
-    background: backgrounds.SUDOKU,
-  },
-  {
-    path: "/tools/interest-calculator",
-    name: "Interest Calculator",
-    Component: InterestCalculator,
-    showInNavbar: false,
-    background: backgrounds.SUDOKU,
   },
   {
     path: "/test-view",

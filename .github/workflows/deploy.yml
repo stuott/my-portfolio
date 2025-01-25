@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "16"
 
       - name: Install dependencies
         run: npm install
@@ -32,4 +32,4 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 50.6.154.46 >> ~/.ssh/known_hosts
-          rsync -avz -e "ssh -i ~/.ssh/id_rsa" build/ lfytttmy@50.6.154.46:/home1/lfytttmy/public_html/
+          rsync -avz -e "ssh -i ~/.ssh/id_rsa" dist/ lfytttmy@50.6.154.46:/home1/lfytttmy/public_html/

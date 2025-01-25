@@ -1,5 +1,5 @@
-import Showcase from "components/common/Showcase";
-import data from "data/projects.json";
+import Showcase from "@components/common/Showcase";
+import data from "@data/projects.json";
 
 export default function Projects() {
   return (

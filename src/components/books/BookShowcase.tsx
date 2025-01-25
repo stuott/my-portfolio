@@ -1,7 +1,7 @@
-import { Link } from "components/common";
-import { Section } from "components/layout";
+import { Link } from "@components/common";
+import { Section } from "@components/layout";
 
-import data from "data/books.json";
+import data from "@data/books.json";
 import { book } from "types/books";
 import BookImage from "./BookImage";
 
@@ -62,7 +62,7 @@ const BookRating = ({ rating }: { rating: number | undefined }) => {
   }
 
   const roundedRating = Math.floor(rating);
-  const baseURL = process.env.PUBLIC_URL + "/graphics/rating/" + roundedRating;
+  const baseURL = "/graphics/rating/" + roundedRating;
   const ratingURL = Number.isInteger(rating)
     ? baseURL + ".svg"
     : baseURL + "_5.svg";

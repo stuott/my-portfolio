@@ -1,7 +1,7 @@
-import Badges from "components/common/Badges";
-import SearchBar from "components/common/SearchBar";
-import Section from "components/layout/Section";
-import data from "data/recipes.json";
+import Badges from "@components/common/Badges";
+import SearchBar from "@components/common/SearchBar";
+import Section from "@components/layout/Section";
+import data from "@data/recipes.json";
 import { useEffect, useState } from "react";
 
 interface recipe {

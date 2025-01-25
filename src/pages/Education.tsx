@@ -1,12 +1,10 @@
-import Map from "components/common/Map";
-import { Classes, College } from "components/education";
+import { Classes, College } from "@components/education";
 
 export default function Education() {
   return (
     <div className="bg-zinc-900/50">
       <College />
       <Classes />
-      <Map position={[47.121111, -88.569444]} marker="Houghton, MI" />
     </div>
   );
 }

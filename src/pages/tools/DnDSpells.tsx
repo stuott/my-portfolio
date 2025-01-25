@@ -1,8 +1,8 @@
+import Badges from "@components/common/Badges";
+import IconButton from "@components/common/Button";
+import SearchBar from "@components/common/SearchBar";
+import Section from "@components/layout/Section";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import Badges from "components/common/Badges";
-import IconButton from "components/common/Button";
-import SearchBar from "components/common/SearchBar";
-import Section from "components/layout/Section";
 import { useState } from "react";
 
 interface SpellList {
@@ -267,7 +267,7 @@ const SpellInfo = ({ spell, clearSpell }: SpellInfoProps) => {
           )}
         </div>
         <div className="md:w-2/3 space-y-2">
-          {spell.desc && spell.desc.map((desc, index) => <p>{desc}</p>)}
+          {spell.desc && spell.desc.map((desc, _index) => <p>{desc}</p>)}
         </div>
       </div>
     </div>

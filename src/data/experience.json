@@ -26,7 +26,8 @@
         "Git",
         "Visual Studio",
         "VS Code"
-      ]
+      ],
+      "hidden": false
     },
     {
       "title": "Software Engineering Intern",
@@ -49,7 +50,8 @@
         "Git",
         "Visual Studio",
         "Integrated Testing"
-      ]
+      ],
+      "hidden": false
     },
     {
       "title": "Optometric Technician",
@@ -65,7 +67,8 @@
         "Managed sensitive health information for all patients seen by adhering to HIPAA procedures and security guidelines",
         "Supported optometrists conducting comprehensive medical eye exams for several patients daily by preparing and cleaning equipment"
       ],
-      "skills": ["Customer Focus", "Care Coordination", "HIPAA"]
+      "skills": ["Customer Focus", "Care Coordination", "HIPAA"],
+      "hidden": true
     },
     {
       "title": "Paint Line Operator",
@@ -80,7 +83,8 @@
         "Consulted with management and engineers to ensure strict quality guidelines and efficiency in the production process",
         "Completed logistical and strategic operations to provide components to assembly line workers during second shift"
       ],
-      "skills": ["Teamwork", "Safety Focus", "Quality Driven"]
+      "skills": ["Teamwork", "Safety Focus", "Quality Driven"],
+      "hidden": true
     }
   ]
 }

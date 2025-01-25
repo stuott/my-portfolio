@@ -1,5 +1,5 @@
-import Showcase from "components/common/Showcase";
-import data from "data/tools.json";
+import Showcase from "@components/common/Showcase";
+import data from "@data/tools.json";
 
 const Tools = () => {
   return (

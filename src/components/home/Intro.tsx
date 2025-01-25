@@ -1,13 +1,13 @@
+import IconButton from "@components/common/Button";
+import Link, { LinkProps } from "@components/common/Link";
+import LinkTable from "@components/common/LinkTable";
+import Section from "@components/layout/Section";
 import { faGithubAlt, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import {
   faArrowDown,
   faBook,
   faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
-import IconButton from "components/common/Button";
-import Link, { LinkProps } from "components/common/Link";
-import LinkTable from "components/common/LinkTable";
-import Section from "components/layout/Section";
 
 const iconLinks: LinkProps[] = [
   {
@@ -33,14 +33,10 @@ const iconLinks: LinkProps[] = [
   },
 ];
 
-const scrollToContact = () => {
-  document.getElementById("contact")?.scrollIntoView();
-};
-
 export default function Intro() {
   return (
     <Section id="intro" className="h-screen">
-      <div className="flex flex-col gap-8 items-center justify-center my-auto">
+      <div className="flex flex-col gap-8 items-center justify-center h-full">
         <h1 className="text-white text-4xl md:text-5xl">
           Hi, I'm <span className="text-cyan-500">Steven Ott</span>!
         </h1>
@@ -49,27 +45,37 @@ export default function Intro() {
           clinicans at large scale health systems.
         </p>
         <LinkTable links={iconLinks} />
-        <div className="flex flex-col gap-2 items-center">
-          <Link
-            icon={faFilePdf}
-            hideIcon
-            to={process.env.PUBLIC_URL + "/Resume.pdf"}
-            className="text-xl text-white hover:text-cyan-600"
-            scale
-          >
-            view my resume
-          </Link>
-          <p className="text-xl text-zinc-400">or</p>
-          <IconButton
-            icon={faArrowDown}
-            className="text-xl text-white hover:text-cyan-600 p-0"
-            onClick={scrollToContact}
-            scale
-          >
-            contact me
-          </IconButton>
-        </div>
+        <CallToAction />
       </div>
     </Section>
   );
 }
+
+const CallToAction = () => {
+  const scrollToContact = () => {
+    document.getElementById("contact")?.scrollIntoView();
+  };
+
+  return (
+    <div className="flex flex-col gap-2 items-center">
+      <Link
+        icon={faFilePdf}
+        hideIcon
+        to={"/Resume.pdf"}
+        className="text-xl text-white hover:text-cyan-600"
+        scale
+      >
+        view my resume
+      </Link>
+      <p className="text-xl text-zinc-400">or</p>
+      <IconButton
+        icon={faArrowDown}
+        className="text-xl text-white hover:text-cyan-600 p-0"
+        onClick={scrollToContact}
+        scale
+      >
+        contact me
+      </IconButton>
+    </div>
+  );
+};

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { Button, SearchBar } from "components/common";
-import { Section } from "components/layout";
+import { Button, SearchBar } from "@components/common";
+import { Section } from "@components/layout";
 import BookTable from "./BookTable";
 
-import data from "data/books.json";
+import data from "@data/books.json";
 import { book } from "types/books";
 
 const BookSearch = () => {

@@ -1,54 +1,81 @@
+import { Button } from "@components/common";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
-import { Button } from "components/common";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { page } from "types/pages";
 
-function Navbar(props: { pages: page[] }) {
+const Navbar = (props: { pages: page[] }) => {
   const { pages } = props;
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  return (
-    <>
-      <nav className="fixed w-full bg-zinc-900 text-white">
-        {/* Mobile menu button, logo, and desktop menu (actual navbar) */}
-        <div className="flex items-center px-2 md:px-6 lg:px-12 max-w-screen-lg mx-auto">
-          <div className="sm:hidden absolute left-4">
-            <Button icon={faBars} onClick={toggleMenu} />
-          </div>
-          <div className="flex w-full justify-center items-center sm:justify-evenly">
-            <Logo />
-            <DesktopMenu pages={pages} />
-          </div>
-        </div>
-        {/* Mobile menu (displayed on entire screen when button is clicked) */}
-        <MobileMenu pages={pages} menuOpen={menuOpen} toggleMenu={toggleMenu} />
-      </nav>
-      <div className="h-16 bg-zinc-900"></div>
-    </>
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 0;
+      setScrolled(isScrolled);
+      console.log("Scrolled:", isScrolled); // Debugging log
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const navClasses = classNames(
+    "fixed w-full font-mono text-white transition-colors duration-300",
+    {
+      "bg-zinc-900/50": !scrolled,
+      "bg-zinc-900": scrolled || menuOpen,
+    }
   );
-}
+
+  return (
+    <nav className={navClasses}>
+      {/* Mobile menu button, logo, and desktop menu (actual navbar) */}
+      <div className="flex items-center px-2 md:px-6 lg:px-12 max-w-screen-lg mx-auto">
+        <div className="sm:hidden absolute left-4">
+          <Button icon={faBars} onClick={toggleMenu} />
+        </div>
+        <div className="flex w-full justify-center items-center sm:justify-evenly">
+          <Logo />
+          <DesktopMenu pages={pages} menuOpen={menuOpen} />
+        </div>
+      </div>
+      {/* Mobile menu (displayed on entire screen when button is clicked) */}
+      <MobileMenu pages={pages} menuOpen={menuOpen} toggleMenu={toggleMenu} />
+    </nav>
+  );
+};
 
 const Logo = () => (
   <div className="flex flex-shrink-0">
     <img
       className="h-16 w-auto p-2"
-      src={process.env.PUBLIC_URL + "/graphics/logo_512.svg"}
+      src={"/graphics/logo_512.svg"}
       alt="logo"
     />
   </div>
 );
 
-const DesktopMenu = (props: { pages: page[] }) => {
-  const { pages } = props;
+interface DesktopMenuProps {
+  pages: page[];
+  menuOpen: boolean;
+}
 
+const DesktopMenu = ({ pages, menuOpen }: DesktopMenuProps) => {
   function getDesktopLinkClasses({ isActive }: { isActive: boolean }) {
-    return classNames("text-lg px-4 py-2 transition hover:bg-cyan-700", {
-      "bg-cyan-700/20": isActive,
-    });
+    return classNames(
+      "text-lg px-4 py-2 underline-offset-8",
+      "transition duration-300",
+      "hover:underline hover:text-cyan-500",
+      {
+        underline: isActive,
+      }
+    );
   }
 
   return (
@@ -60,7 +87,7 @@ const DesktopMenu = (props: { pages: page[] }) => {
             to={page.path}
             className={getDesktopLinkClasses}
           >
-            {page.name}
+            {"[ " + page.name + " ]"}
           </NavLink>
         ))}
       </div>

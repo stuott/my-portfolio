@@ -1,3 +1,5 @@
+import { Button } from "@components/common";
+import Section from "@components/layout/Section";
 import emailjs from "@emailjs/browser";
 import {
   faEnvelope,
@@ -6,8 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
-import { Button } from "components/common";
-import Section from "components/layout/Section";
 import React, { useRef, useState } from "react";
 
 const Contact = () => {

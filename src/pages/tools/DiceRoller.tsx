@@ -1,7 +1,7 @@
+import IconButton from "@components/common/Button";
+import NumberInput from "@components/common/NumberInput";
 import { faDice, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconButton from "components/common/Button";
-import NumberInput from "components/common/NumberInput";
 import { useState } from "react";
 
 interface DiceRowData {

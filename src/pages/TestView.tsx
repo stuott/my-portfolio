@@ -1,9 +1,3 @@
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import {
-  faHatWizard,
-  faProjectDiagram,
-  faWandMagicSparkles,
-} from "@fortawesome/free-solid-svg-icons";
 import {
   Badges,
   BulletList,
@@ -14,9 +8,15 @@ import {
   NumberInput,
   SearchBar,
   Timeline,
-} from "components/common";
-import { TimelineItem } from "components/common/Timeline";
-import { Section } from "components/layout";
+} from "@components/common";
+import { TimelineItem } from "@components/common/Timeline";
+import { Section } from "@components/layout";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import {
+  faHatWizard,
+  faProjectDiagram,
+  faWandMagicSparkles,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 const TestView = () => {

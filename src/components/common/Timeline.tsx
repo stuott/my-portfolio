@@ -1,6 +1,8 @@
+import Badges from "@components/common/Badges";
+import BulletList from "@components/common/BulletList";
 import classNames from "classnames";
-import Badges from "components/common/Badges";
-import BulletList from "components/common/BulletList";
+import { useState } from "react";
+import Button from "./Button";
 import Link, { LinkProps } from "./Link";
 
 interface TimelineMetaInfo {
@@ -12,6 +14,7 @@ export interface TimelineItem extends TimelineMetaInfo {
   time: string;
   badges?: string[];
   points?: string[];
+  hidden?: boolean;
 }
 
 export interface TimelineProps {
@@ -22,13 +25,60 @@ interface TimelineCardProps extends TimelineItem {
   flipped?: boolean;
 }
 
-const Timeline = ({ items, flipped }: TimelineProps) => (
-  <div className="grid divide-y border-y sm:divide-none sm:border-none">
-    {items.map((item) => (
-      <TimelineCard flipped={flipped} {...item} key={item.title} />
-    ))}
-  </div>
-);
+const Timeline = ({ items, flipped }: TimelineProps) => {
+  const [showMore, setShowMore] = useState(false);
+
+  const shownItems: TimelineItem[] = [];
+  const hiddenItems: TimelineItem[] = [];
+
+  for (const item of items) {
+    if (item.hidden) {
+      hiddenItems.push(item);
+    } else {
+      shownItems.push(item);
+    }
+  }
+
+  const timelineClasses = classNames(
+    "grid divide-y border-y sm:divide-none sm:border-none"
+  );
+
+  const hiddenItemsClassnames = classNames(
+    "transition-all duration-1000 overflow-hidden ease-in-out",
+    {
+      "bg-cyan-800/20 max-h-0": !showMore,
+      "bg-transparent max-h-screen": showMore,
+    }
+  );
+
+  return (
+    <>
+      <div className={timelineClasses}>
+        {shownItems.map((item) => (
+          <TimelineCard flipped={flipped} key={item.title} {...item} />
+        ))}
+      </div>
+      <div className={hiddenItemsClassnames}>
+        {hiddenItems.map((item) => (
+          <TimelineCard flipped={flipped} key={item.title} {...item} />
+        ))}
+      </div>
+      {hiddenItems.length > 0 && (
+        <div className="flex justify-center py-4">
+          <Button
+            bg="cyan-900"
+            hoverBg="cyan-700"
+            onClick={() => setShowMore(!showMore)}
+          >
+            {showMore
+              ? "show less"
+              : "show " + hiddenItems.length + " more items"}
+          </Button>
+        </div>
+      )}
+    </>
+  );
+};
 
 const TimelineCard = ({
   time,

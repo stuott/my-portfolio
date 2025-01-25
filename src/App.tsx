@@ -1,6 +1,6 @@
-import { usePageTracking } from "analytics";
-import { Footer, Navbar } from "components/layout";
-import { pages } from "pages";
+import usePageTracking from "@analytics/usePageTracking";
+import { Footer, Navbar } from "@components/layout";
+import { pages } from "@pages/index";
 import { useEffect } from "react";
 import {
   Route,
@@ -8,7 +8,7 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import "./App.css";
+import "./index.css";
 
 declare global {
   interface Window {
@@ -40,7 +40,9 @@ const NotFound = () => {
   );
 };
 
-function App() {
+const App = () => {
+  console.log("App.tsx: App()");
+
   return (
     <main className="bg-zinc-900">
       <Router>
@@ -51,7 +53,7 @@ function App() {
       </Router>
     </main>
   );
-}
+};
 
 const PageContent = () => {
   usePageTracking();
@@ -67,7 +69,7 @@ const PageContent = () => {
               <div
                 className={
                   (background === "" ? "bg-map" : background ?? "bg-map") +
-                  " min-h-screen"
+                  " min-h-screen pt-16"
                 }
               >
                 <Component />

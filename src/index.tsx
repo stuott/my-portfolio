@@ -1,4 +1,4 @@
-import { reportWebVitals } from "analytics";
+import reportWebVitals from "@analytics/reportWebVitals";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import ReactGA from "react-ga";
@@ -13,9 +13,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <div className="bg-zinc-900">
-      <App />
-    </div>
+    <App />
   </React.StrictMode>
 );
 
