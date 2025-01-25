@@ -13,7 +13,8 @@
       "callouts": [
         "Triangle Fraternity President",
         "Enterprise Team Document Chief - GM Pick Point"
-      ]
+      ],
+      "hidden": false
     },
     {
       "grade": "Junior",
@@ -30,7 +31,8 @@
         "Triangle Fraternity Vice President Internal",
         "Enterprise Team - GM Pick Point",
         "Software Engineering Internship"
-      ]
+      ],
+      "hidden": false
     },
     {
       "grade": "Sophomore",
@@ -41,7 +43,8 @@
         "Digital Logic and Lab",
         "Discrete Structures",
         "Data Structures"
-      ]
+      ],
+      "hidden": true
     },
     {
       "grade": "Freshman",
@@ -52,7 +55,8 @@
         "Engineering Analysis & Problem Solving",
         "Calculus with Technology II",
         "University Physics I - Mechanics"
-      ]
+      ],
+      "hidden": true
     }
   ]
 }

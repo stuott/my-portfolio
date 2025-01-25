@@ -2,6 +2,7 @@ import { Button, Link } from "@components/common";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 import { book } from "types/books";
+import BookImage from "./BookImage";
 
 interface BookTableProps {
   books: book[];
@@ -11,7 +12,7 @@ const BookTable = ({ books }: BookTableProps) => {
   const bookCardClasses = classNames(
     "flex p-4 w-full justify-between",
     "bg-zinc-800 border border-zinc-500",
-    "transition hover:scale-[1.02] hover:bg-zinc-700 hover:cursor-pointer"
+    "transition duration-300 hover:bg-zinc-900 hover:cursor-pointer"
   );
 
   return (
@@ -19,17 +20,19 @@ const BookTable = ({ books }: BookTableProps) => {
       {books.map((book: book) => (
         <Link
           to={"/book/" + book.isbn13}
-          className="w-full hover:no-underline"
+          className="w-full"
           hideIcon
           internal
+          noUnderline
         >
           <div className="w-full">
             <div className={bookCardClasses}>
               <div className="flex items-center gap-6">
-                <img
-                  src={`https://covers.openlibrary.org/b/isbn/${book.isbn13}-M.jpg`}
+                <BookImage
+                  isbn13={book.isbn13}
                   alt={book.title}
-                  className="w-12 h-16"
+                  size="XS"
+                  quality="M"
                 />
                 <div>
                   <h2 className="text-xl font-bold">{book.title}</h2>

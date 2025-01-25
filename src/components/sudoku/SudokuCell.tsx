@@ -24,7 +24,7 @@ const SudokuCell = ({
 }: SudokuCellProps) => {
   const divClasses =
     classNames("border border-zinc-700 h-10 w-10 md:h-12 md:w-12", {
-      "bg-cyan-900": selected,
+      "bg-rose-900": selected,
       "font-bold": isStatic,
       "border-b-2 border-b-white": row === 2 || row === 5,
       "border-r-2 border-r-white": col === 2 || col === 5,

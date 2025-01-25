@@ -190,8 +190,8 @@ const DiceRoller = () => {
             <IconButton
               icon={faDice}
               onClick={handleRoll}
-              bg="cyan-900"
-              hoverBg="cyan-800"
+              bg="rose-900"
+              hoverBg="rose-800"
             />
           )}
         </div>

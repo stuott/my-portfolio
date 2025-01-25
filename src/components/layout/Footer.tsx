@@ -19,7 +19,7 @@ const Footer = () => {
       <div>
         Check out the source code on{" "}
         <a
-          className="underline text-cyan-400"
+          className="underline text-rose-400"
           href="https://github.com/stuott/my-portfolio"
         >
           GitHub

@@ -16,7 +16,6 @@ const Navbar = (props: { pages: page[] }) => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 0;
       setScrolled(isScrolled);
-      console.log("Scrolled:", isScrolled); // Debugging log
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -26,9 +25,9 @@ const Navbar = (props: { pages: page[] }) => {
   }, []);
 
   const navClasses = classNames(
-    "fixed w-full font-mono text-white transition-colors duration-300",
+    "fixed w-full font-mono text-white transition-colors duration-300 bg-zinc-900",
     {
-      "bg-zinc-900/50": !scrolled,
+      "sm:bg-zinc-900/50": !scrolled,
       "bg-zinc-900": scrolled || menuOpen,
     }
   );
@@ -42,7 +41,7 @@ const Navbar = (props: { pages: page[] }) => {
         </div>
         <div className="flex w-full justify-center items-center sm:justify-evenly">
           <Logo />
-          <DesktopMenu pages={pages} menuOpen={menuOpen} />
+          <DesktopMenu pages={pages} />
         </div>
       </div>
       {/* Mobile menu (displayed on entire screen when button is clicked) */}
@@ -63,15 +62,14 @@ const Logo = () => (
 
 interface DesktopMenuProps {
   pages: page[];
-  menuOpen: boolean;
 }
 
-const DesktopMenu = ({ pages, menuOpen }: DesktopMenuProps) => {
+const DesktopMenu = ({ pages }: DesktopMenuProps) => {
   function getDesktopLinkClasses({ isActive }: { isActive: boolean }) {
     return classNames(
       "text-lg px-4 py-2 underline-offset-8",
       "transition duration-300",
-      "hover:underline hover:text-cyan-500",
+      "hover:underline hover:text-rose-500",
       {
         underline: isActive,
       }
@@ -111,8 +109,8 @@ const MobileMenu = ({ pages, menuOpen, toggleMenu }: MobileMenuProps) => {
 
   function getMobileLinkClasses({ isActive }: { isActive: boolean }) {
     return classNames("text-2xl mx-5 py-5 text-white text-center", {
-      "bg-cyan-950/90": isActive,
-      "bg-cyan-950/50 hover:bg-cyan-950/70": !isActive,
+      "bg-rose-950/90": isActive,
+      "bg-rose-950/50 hover:bg-rose-950/70": !isActive,
     });
   }
 

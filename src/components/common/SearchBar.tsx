@@ -38,7 +38,7 @@ const SearchBar = ({
 
   const buttonClasses = classNames("p-4", {
     "cursor-not-allowed bg-zinc-800 text-zinc-600": disabled,
-    "bg-cyan-800 hover:bg-cyan-600": !disabled,
+    "bg-rose-800 hover:bg-rose-600": !disabled,
   });
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

@@ -9,7 +9,7 @@ interface BadgesProps {
 const Badges = ({ captions, className, itemClassName }: BadgesProps) => {
   const listClasses = classNames("flex flex-wrap gap-2", className);
   const itemClasses = classNames(
-    "rounded-xl bg-cyan-900 py-1 px-2 text-sm",
+    "font-mono rounded-xl bg-rose-900 py-1 px-2 text-sm",
     itemClassName
   );
 

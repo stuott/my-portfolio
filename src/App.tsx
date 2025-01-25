@@ -41,10 +41,8 @@ const NotFound = () => {
 };
 
 const App = () => {
-  console.log("App.tsx: App()");
-
   return (
-    <main className="bg-zinc-900">
+    <main className="bg-zinc-900 font-mono">
       <Router>
         <ScrollToTop />
         <Navbar pages={pages.filter((page) => page.showInNavbar)} />

@@ -13,7 +13,7 @@ const NumberPad = ({ onClick, solvedDigits }: NumberPadProps) => {
         const disabled = solvedDigits.includes(num as SudokuValue);
         const btnClasses = classNames("text-2xl px-4 py-3", {
           " bg-zinc-800 hover:bg-zinc-400": disabled,
-          " bg-cyan-900 hover:bg-cyan-700": !disabled,
+          " bg-rose-900 hover:bg-rose-700": !disabled,
         });
 
         return (

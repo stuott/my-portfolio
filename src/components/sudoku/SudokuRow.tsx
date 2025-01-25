@@ -25,7 +25,7 @@ const SudokuRow = ({
 }: SudokuRowProps) => {
   const getCellHighlight = (col: number) => {
     if (duplicateFlags[col]) {
-      return "bg-red-900/50";
+      return "bg-rose-900/50";
     }
 
     if (selectedCells.length === 0 || selectedCells.length > 1) {
@@ -46,7 +46,7 @@ const SudokuRow = ({
       Math.floor(selectedRow / 3) === Math.floor(rowIndex / 3) &&
       Math.floor(selectedCol / 3) === Math.floor(col / 3);
     if (isSameRowOrCol || isSameBox) {
-      return "bg-cyan-900/50";
+      return "bg-rose-900/50";
     }
 
     return "";

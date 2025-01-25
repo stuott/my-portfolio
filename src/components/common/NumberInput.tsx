@@ -29,7 +29,7 @@ const PolarityButtons = ({
       />
       <IconButton
         className="p-1"
-        bg={polarity !== undefined && !polarity ? "red-900/50" : ""}
+        bg={polarity !== undefined && !polarity ? "rose-900/50" : ""}
         hoverBg="rose-900"
         icon={faMinus}
         iconSize="sm"

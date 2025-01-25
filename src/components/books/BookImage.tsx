@@ -3,16 +3,17 @@ import classNames from "classnames";
 interface BookImageProps {
   isbn13: string;
   alt: string;
-  size: "S" | "M" | "L" | "XL";
+  size: "XS" | "S" | "M" | "L" | "XL";
   quality?: "S" | "M" | "L";
 }
 
 const BookImage = ({ isbn13, alt, size, quality }: BookImageProps) => {
   const imgClasses = classNames({
-    "w-24 h-32": size === "S",
-    "w-36 h-48": size === "M",
-    "w-48 h-64": size === "L",
-    "w-72 h-96": size === "XL",
+    "w-20 h-30": size === "XS",
+    "w-30 h-45": size === "S",
+    "w-40 h-60": size === "M",
+    "w-50 h-75": size === "L",
+    "w-60 h-90": size === "XL",
   });
 
   if (!isbn13) {

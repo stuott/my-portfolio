@@ -191,7 +191,6 @@ const Sudoku = () => {
   };
 
   const handleMouseDown = (row: number, col: number) => {
-    console.log({ row: row, col: col });
     if (
       selectedCells.some(
         ([selectedRow, selectedCol]) =>
@@ -282,7 +281,7 @@ const Sudoku = () => {
               </select>
               <div className="flex gap-3">
                 <IconButton
-                  className="bg-red-900 text-2xl p-3 hover:bg-red-800"
+                  className="bg-rose-900 text-2xl p-3 hover:bg-rose-800"
                   onClick={() => {
                     setSudoku(data.puzzles[puzzle].values as SudokuData);
                     setSolved(undefined);
@@ -304,7 +303,7 @@ const Sudoku = () => {
         </div>
         {solved !== undefined && (
           <div className="bg-zinc-900 md:pt-6">
-            <p className={solved ? "text-green-400" : "text-red-400"}>
+            <p className={solved ? "text-green-400" : "text-rose-400"}>
               {solved ? "Solved!" : "That's not right! Take another look."}
             </p>
           </div>

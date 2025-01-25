@@ -83,17 +83,17 @@ const TestView = () => {
   };
 
   const hoverColors = {
-    bg: "cyan-800",
-    hoverBg: "cyan-600",
+    bg: "rose-800",
+    hoverBg: "rose-600",
   };
 
   const links = [
-    { icon: faHatWizard, to: "#", hoverColor: "cyan-600" },
-    { icon: faWandMagicSparkles, to: "#", hoverColor: "cyan-600" },
-    { icon: faHatWizard, to: "#", hoverColor: "cyan-600" },
-    { icon: faWandMagicSparkles, to: "#", hoverColor: "cyan-600" },
-    { icon: faHatWizard, to: "#", hoverColor: "cyan-600" },
-    { icon: faWandMagicSparkles, to: "#", hoverColor: "cyan-600" },
+    { icon: faHatWizard, to: "#", hoverColor: "rose-600" },
+    { icon: faWandMagicSparkles, to: "#", hoverColor: "rose-600" },
+    { icon: faHatWizard, to: "#", hoverColor: "rose-600" },
+    { icon: faWandMagicSparkles, to: "#", hoverColor: "rose-600" },
+    { icon: faHatWizard, to: "#", hoverColor: "rose-600" },
+    { icon: faWandMagicSparkles, to: "#", hoverColor: "rose-600" },
   ];
 
   const buttons = [
@@ -179,10 +179,10 @@ const TestView = () => {
       </Section>
       <Section title="Links" className={sectionClasses}>
         <div className="flex flex-wrap gap-6">
-          <Link to="https://www.google.com" hoverColor="cyan-600">
+          <Link to="https://www.google.com" hoverColor="rose-600">
             external link
           </Link>
-          <Link to="/projects" internal hoverColor="cyan-600">
+          <Link to="/projects" internal hoverColor="rose-600">
             internal link
           </Link>
           <Link to="" disabled>
@@ -198,13 +198,13 @@ const TestView = () => {
           <Link
             to="https://www.google.com"
             icon={faGoogle}
-            hoverColor="cyan-600"
+            hoverColor="rose-600"
           />
           <Link
             to="/projects"
             icon={faProjectDiagram}
             internal
-            hoverColor="cyan-600"
+            hoverColor="rose-600"
           />
           <Link to="https://www.google.com" icon={faGoogle} disabled />
           <Link to="/projects" icon={faProjectDiagram} internal disabled />

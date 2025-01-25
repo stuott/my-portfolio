@@ -71,9 +71,9 @@ const FilterButton = ({
   disabled,
 }: FilterButtonProps) => {
   const buttonClasses = classNames("px-4 py-1 rounded-lg", {
-    "bg-cyan-800": !active,
-    "bg-cyan-600": active,
-    "hover:bg-cyan-600 text-white": !disabled,
+    "bg-rose-800": !active,
+    "bg-rose-600": active,
+    "hover:bg-rose-600 text-white": !disabled,
     "cursor-not-allowed bg-zinc-800 text-zinc-500": disabled,
   });
   return (

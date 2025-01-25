@@ -9,17 +9,12 @@ const Classes = () => {
       title: edu.grade,
       points: edu.classes,
       badges: edu.callouts,
+      hidden: edu.hidden,
     };
   });
 
   return (
-    <Section
-      id="classes"
-      title="Classes Taken"
-      className="bg-zinc-900"
-      collapsable
-      startCollapsed
-    >
+    <Section id="classes" title="Classes Taken" className="bg-zinc-900">
       <Timeline items={timelineItems} flipped />
     </Section>
   );

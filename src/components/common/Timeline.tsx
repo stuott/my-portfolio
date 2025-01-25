@@ -44,9 +44,10 @@ const Timeline = ({ items, flipped }: TimelineProps) => {
   );
 
   const hiddenItemsClassnames = classNames(
+    timelineClasses,
     "transition-all duration-1000 overflow-hidden ease-in-out",
     {
-      "bg-cyan-800/20 max-h-0": !showMore,
+      "bg-rose-800/20 max-h-0": !showMore,
       "bg-transparent max-h-screen": showMore,
     }
   );
@@ -66,8 +67,8 @@ const Timeline = ({ items, flipped }: TimelineProps) => {
       {hiddenItems.length > 0 && (
         <div className="flex justify-center py-4">
           <Button
-            bg="cyan-900"
-            hoverBg="cyan-700"
+            bg="rose-900"
+            hoverBg="rose-700"
             onClick={() => setShowMore(!showMore)}
           >
             {showMore
@@ -105,21 +106,21 @@ const TimelineCard = ({
       <div className={itemClasses}>
         <TimelineMeta {...metaInfo} />
         {badges && <Badges className="pt-2" captions={badges} />}
-        {points ? <BulletList points={points} /> : <></>}
+        {points ? <BulletList points={points} color="zinc-400" /> : <></>}
       </div>
-      {flipped && <Time time={time} flipped />}
+      {flipped && <Time time={time} />}
     </div>
   );
 };
 
-const Time = ({ time, flipped }: { time: string; flipped?: boolean }) => {
-  const timeClasses = classNames("py-4 sm:px-4 sm:w-1/4", {
-    "sm:text-end": !flipped,
-  });
+const Time = ({ time }: { time: string }) => {
+  const timeClasses = classNames("py-4 sm:px-4 sm:w-1/4");
 
   return (
     <div className={timeClasses}>
-      <p className="italic text-zinc-500">{time}</p>
+      <p className="font-mono text-zinc-500 text-balance">
+        {"{ " + time + " }"}
+      </p>
     </div>
   );
 };

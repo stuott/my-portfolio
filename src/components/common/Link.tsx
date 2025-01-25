@@ -10,7 +10,6 @@ import { NavLink } from "react-router-dom";
 
 export interface LinkProps {
   to: string;
-  hoverColor?: string;
   disabled?: boolean;
   scale?: boolean;
   tooltip?: string;
@@ -19,6 +18,8 @@ export interface LinkProps {
   icon?: IconDefinition;
   iconSize?: SizeProp;
   internal?: boolean;
+  noUnderline?: boolean;
+  noColor?: boolean;
   children?: React.ReactNode;
 }
 
@@ -31,14 +32,18 @@ const Link = ({
   disabled,
   className,
   hideIcon,
-  hoverColor = "cyan-600",
+  noUnderline,
+  noColor,
   ...linkProps
 }: LinkProps) => {
+  console.log(scale); // Debugging log
+
   const linkClasses = classNames(
-    "flex gap-2 items-center w-fit transition hover:underline ",
+    "flex gap-2 items-center w-fit transition",
     className,
     {
-      [`hover:text-${hoverColor}`]: !disabled,
+      "hover:underline": !disabled && !noUnderline,
+      "hover:text-rose-600": !disabled && !noColor,
       "hover:scale-[1.02]": scale,
       "p-2": !children,
       "cursor-not-allowed text-zinc-500": disabled,

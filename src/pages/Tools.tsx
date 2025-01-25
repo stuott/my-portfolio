@@ -6,7 +6,6 @@ const Tools = () => {
     <div className="bg-zinc-900/50 min-h-screen">
       <Showcase minimal title="General" items={data.general} />
       <Showcase minimal title="Roleplaying" items={data.roleplaying} />
-      <Showcase minimal title="Financial" items={data.financial} />
     </div>
   );
 };

@@ -196,7 +196,7 @@ const SpellCell = ({ index, name, level, setSpellInfo }: SpellCellProps) => {
       </div>
       <IconButton
         icon={faArrowRight}
-        className="hover:text-cyan-800 text-lg"
+        className="hover:text-rose-800 text-lg"
         onClick={fetchSpellInfo}
       />
     </div>
@@ -214,7 +214,7 @@ const SpellInfo = ({ spell, clearSpell }: SpellInfoProps) => {
       <IconButton
         icon={faArrowLeft}
         onClick={clearSpell}
-        className="hover:text-cyan-600 hover:font-bold p-2"
+        className="hover:text-rose-600 hover:font-bold p-2"
       >
         back
       </IconButton>

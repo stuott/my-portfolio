@@ -89,8 +89,8 @@ const Contact = () => {
           <Button
             type="submit"
             className="w-20"
-            bg="cyan-900"
-            hoverBg="cyan-800"
+            bg="rose-900"
+            hoverBg="rose-800"
             icon={faPaperPlane}
             flipped
           >
@@ -135,7 +135,7 @@ const ContactField = ({
           name={name}
           className={fieldClassName}
           placeholder={placeholder}
-          required
+          requirose
         />
       ) : (
         <input
@@ -144,7 +144,7 @@ const ContactField = ({
           name={name}
           className={fieldClassName}
           placeholder={placeholder}
-          required
+          requirose
         />
       )}
     </div>

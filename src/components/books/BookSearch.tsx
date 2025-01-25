@@ -38,18 +38,20 @@ const BookSearch = () => {
 
   return (
     <Section title="Book Search">
-      <SearchBar
-        search={search}
-        setSearch={setSearch}
-        onSearch={onSearch}
-        placeholder="search for a book"
-      />
-      <BookTable books={filteredBooks.slice(0, booksDisplayed)} />
-      <ListCap
-        displayed={booksDisplayed}
-        total={filteredBooks.length}
-        showAllBooks={showAllBooks}
-      />
+      <div className="space-y-4">
+        <SearchBar
+          search={search}
+          setSearch={setSearch}
+          onSearch={onSearch}
+          placeholder="search for a book"
+        />
+        <BookTable books={filteredBooks.slice(0, booksDisplayed)} />
+        <ListCap
+          displayed={booksDisplayed}
+          total={filteredBooks.length}
+          showAllBooks={showAllBooks}
+        />
+      </div>
     </Section>
   );
 };
@@ -70,7 +72,9 @@ const ListCap = ({ displayed, total, showAllBooks }: ListCapProps) => {
           </p>
           <Button
             onClick={showAllBooks}
-            className="text-gray-400 hover:text-gray-200"
+            bg="rose-500"
+            hoverBg="rose-300"
+            className="text-gray-400"
           >
             show all books
           </Button>
