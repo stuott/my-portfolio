@@ -1,4 +1,3 @@
-import Map from "components/common/Map";
 import Section from "components/layout/Section";
 import aboutData from "data/about.json";
 
@@ -14,7 +13,6 @@ export default function About() {
           })}
         </div>
       </Section>
-      <Map position={[43.074722, -89.384167]} />
     </div>
   );
 }

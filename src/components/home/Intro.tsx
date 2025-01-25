@@ -14,21 +14,18 @@ const iconLinks: LinkProps[] = [
     icon: faLinkedinIn,
     iconSize: "xl",
     to: "https://www.linkedin.com/in/stevencott/",
-    hoverColor: "rose-600",
     tooltip: "LinkedIn",
   },
   {
     icon: faGithubAlt,
     iconSize: "xl",
     to: "https://github.com/stuott",
-    hoverColor: "rose-600",
     tooltip: "Github",
   },
   {
     icon: faBook,
     iconSize: "xl",
     to: "https://app.thestorygraph.com/profile/stevenott",
-    hoverColor: "rose-600",
     tooltip: "Storygraph",
   },
 ];

@@ -135,7 +135,7 @@ const ContactField = ({
           name={name}
           className={fieldClassName}
           placeholder={placeholder}
-          requirose
+          required
         />
       ) : (
         <input
@@ -144,7 +144,7 @@ const ContactField = ({
           name={name}
           className={fieldClassName}
           placeholder={placeholder}
-          requirose
+          required
         />
       )}
     </div>

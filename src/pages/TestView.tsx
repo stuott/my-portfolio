@@ -179,10 +179,8 @@ const TestView = () => {
       </Section>
       <Section title="Links" className={sectionClasses}>
         <div className="flex flex-wrap gap-6">
-          <Link to="https://www.google.com" hoverColor="rose-600">
-            external link
-          </Link>
-          <Link to="/projects" internal hoverColor="rose-600">
+          <Link to="https://www.google.com">external link</Link>
+          <Link to="/projects" internal>
             internal link
           </Link>
           <Link to="" disabled>
@@ -195,17 +193,8 @@ const TestView = () => {
       </Section>
       <Section title="Icon Links" className={sectionClasses}>
         <div className="flex">
-          <Link
-            to="https://www.google.com"
-            icon={faGoogle}
-            hoverColor="rose-600"
-          />
-          <Link
-            to="/projects"
-            icon={faProjectDiagram}
-            internal
-            hoverColor="rose-600"
-          />
+          <Link to="https://www.google.com" icon={faGoogle} />
+          <Link to="/projects" icon={faProjectDiagram} internal />
           <Link to="https://www.google.com" icon={faGoogle} disabled />
           <Link to="/projects" icon={faProjectDiagram} internal disabled />
         </div>
