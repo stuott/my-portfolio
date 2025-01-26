@@ -31,9 +31,10 @@ const Dropdown = ({
         className={selectClasses}
         onChange={(e) => setSelection && setSelection(e.target.value)}
         disabled={disabled}
+        defaultValue=""
       >
         {placeholder && (
-          <option value="" disabled selected>
+          <option value="" disabled>
             {placeholder}
           </option>
         )}

@@ -46,59 +46,61 @@ const Contact = () => {
 
   return (
     <Section id="contact" title="Contact Me" className="xl:pl-0 xl:pr-16">
-      <div className="flex gap-4">
-        <FontAwesomeIcon icon={faPhone} size="xl" />
-        <p>(920) 286-1509</p>
-      </div>
-      <div className="flex gap-4">
-        <FontAwesomeIcon icon={faEnvelope} size="xl" />
-        <p>steven.ott.tech@gmail.com</p>
-      </div>
-      <form ref={form} onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-4 mb-10 items-center">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-4 w-full">
-            <ContactField
-              label="Your Name"
-              type="text"
-              id="name"
-              name="from_name"
-              placeholder="Marcus Arelius"
-            />
-            <ContactField
-              label="Your Email"
-              type="email"
-              id="email"
-              name="reply_to"
-              placeholder="marelius@gmail.com"
-            />
-          </div>
-          <ContactField
-            label="Subject"
-            type="text"
-            id="subject"
-            name="subject"
-            placeholder="I have a question"
-          />
-          <ContactField
-            label="Message"
-            id="message"
-            name="message"
-            placeholder="Hi Steven, I have a question about your work..."
-            expandable
-          />
-          <Button
-            type="submit"
-            className="w-20"
-            bg="rose-900"
-            hoverBg="rose-800"
-            icon={faPaperPlane}
-            flipped
-          >
-            send
-          </Button>
-          {status && <p>{status}</p>}
+      <div className="space-y-4">
+        <div className="flex gap-4">
+          <FontAwesomeIcon icon={faPhone} size="xl" />
+          <p>(920) 286-1509</p>
         </div>
-      </form>
+        <div className="flex gap-4">
+          <FontAwesomeIcon icon={faEnvelope} size="xl" />
+          <p>steven.ott.tech@gmail.com</p>
+        </div>
+        <form ref={form} onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-4 mb-10 items-center">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-4 w-full">
+              <ContactField
+                label="Your Name"
+                type="text"
+                id="name"
+                name="from_name"
+                placeholder="Marcus Arelius"
+              />
+              <ContactField
+                label="Your Email"
+                type="email"
+                id="email"
+                name="reply_to"
+                placeholder="marelius@gmail.com"
+              />
+            </div>
+            <ContactField
+              label="Subject"
+              type="text"
+              id="subject"
+              name="subject"
+              placeholder="I have a question"
+            />
+            <ContactField
+              label="Message"
+              id="message"
+              name="message"
+              placeholder="Hi Steven, I have a question about your work..."
+              expandable
+            />
+            <Button
+              type="submit"
+              className="w-20"
+              bg="rose-900"
+              hoverBg="rose-800"
+              icon={faPaperPlane}
+              flipped
+            >
+              send
+            </Button>
+            {status && <p>{status}</p>}
+          </div>
+        </form>
+      </div>
     </Section>
   );
 };

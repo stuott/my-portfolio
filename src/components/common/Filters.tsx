@@ -46,6 +46,7 @@ const Filters = ({ filters, onFilter, disabled }: FiltersProps) => {
       <div className="flex gap-2 flex-wrap justify-center">
         {filters.map((filter, index) => (
           <FilterButton
+            key={filter}
             text={filter}
             active={active === index}
             onClick={() => handleFilters(filter, index)}

@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import hash from "object-hash";
 
 interface BulletListProps {
   points: string[];
@@ -16,8 +17,8 @@ const BulletList = ({ points, color }: BulletListProps) => {
 
   return (
     <ul className={bulletListClasses}>
-      {points.map((point) => {
-        const itemKey = "bullet_" + point.slice(0, 3).trim();
+      {points.map((point, index) => {
+        const itemKey = "bullet_" + hash(point) + index;
         return <li key={itemKey}>{point}</li>;
       })}
     </ul>

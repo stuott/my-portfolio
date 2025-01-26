@@ -28,7 +28,7 @@ const Footer = () => {
       <div className="flex gap-x-2 flex-wrap">
         Map data provided by{" "}
         {attributions.map(({ name, link }: attribution) => (
-          <Link to={link} hideIcon>
+          <Link to={link} hideIcon key={name}>
             &copy; {name}
           </Link>
         ))}

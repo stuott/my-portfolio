@@ -1,3 +1,4 @@
+import hash from "object-hash";
 import Link, { LinkProps } from "./Link";
 
 interface LinkTableProps {
@@ -12,9 +13,10 @@ interface LinkTableProps {
 const LinkTable = ({ links, disabled }: LinkTableProps) => {
   return (
     <div className="flex text-white text-xl gap-3">
-      {links.map((link) => (
-        <Link {...link} disabled={disabled} />
-      ))}
+      {links.map((link, index) => {
+        const linkKey = "link_" + hash(link) + index;
+        return <Link key={linkKey} {...link} disabled={disabled} />;
+      })}
     </div>
   );
 };

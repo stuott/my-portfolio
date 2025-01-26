@@ -36,8 +36,6 @@ const Link = ({
   noColor,
   ...linkProps
 }: LinkProps) => {
-  console.log(scale); // Debugging log
-
   const linkClasses = classNames(
     "flex gap-2 items-center w-fit transition",
     className,

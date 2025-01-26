@@ -108,10 +108,14 @@ const MobileMenu = ({ pages, menuOpen, toggleMenu }: MobileMenuProps) => {
   );
 
   function getMobileLinkClasses({ isActive }: { isActive: boolean }) {
-    return classNames("text-2xl mx-5 py-5 text-white text-center", {
-      "bg-rose-950/90": isActive,
-      "bg-rose-950/50 hover:bg-rose-950/70": !isActive,
-    });
+    return classNames(
+      "text-2xl mx-5 py-5 text-white text-center underline-offset-8",
+      "hover:underline hover:text-rose-400",
+      {
+        "bg-rose-950/90 underline": isActive,
+        "bg-rose-950/50 hover:bg-rose-950/60": !isActive,
+      }
+    );
   }
 
   return (
@@ -124,7 +128,7 @@ const MobileMenu = ({ pages, menuOpen, toggleMenu }: MobileMenuProps) => {
             className={getMobileLinkClasses}
             onClick={toggleMenu}
           >
-            {page.name}
+            {"[ " + page.name + " ]"}
           </NavLink>
         ))}
       </div>

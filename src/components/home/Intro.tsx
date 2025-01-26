@@ -33,11 +33,11 @@ const iconLinks: LinkProps[] = [
 export default function Intro() {
   return (
     <Section id="intro" className="h-screen">
-      <div className="flex flex-col gap-8 items-center justify-center h-full">
-        <h1 className="text-white text-4xl md:text-5xl">
+      <div className="flex flex-col gap-8 items-center text-center justify-center h-full">
+        <h1 className="text-white text-4xl md:text-5xl text-balance ">
           Hi, I'm <span className="text-rose-500">Steven Ott</span>!
         </h1>
-        <p className="text-white text-center text-2xl max-w-prose">
+        <p className="text-white text-2xl max-w-prose">
           I'm a developer who focuses on creating software solutions for
           clinicans at large scale health systems.
         </p>

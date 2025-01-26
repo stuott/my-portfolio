@@ -14,7 +14,7 @@
         "Triangle Fraternity President",
         "Enterprise Team Document Chief - GM Pick Point"
       ],
-      "hidden": false
+      "hidden": true
     },
     {
       "grade": "Junior",
@@ -32,7 +32,7 @@
         "Enterprise Team - GM Pick Point",
         "Software Engineering Internship"
       ],
-      "hidden": false
+      "hidden": true
     },
     {
       "grade": "Sophomore",

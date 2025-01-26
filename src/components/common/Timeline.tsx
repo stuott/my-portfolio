@@ -1,7 +1,7 @@
 import Badges from "@components/common/Badges";
 import BulletList from "@components/common/BulletList";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import Link, { LinkProps } from "./Link";
 
@@ -43,12 +43,36 @@ const Timeline = ({ items, flipped }: TimelineProps) => {
     "grid divide-y border-y sm:divide-none sm:border-none"
   );
 
+  useEffect(() => {
+    updateHiddenItems();
+  }, [showMore]);
+
+  const updateHiddenItems = () => {
+    let growDiv = document.getElementById("grow");
+    let hiddenHeight = 0;
+
+    if (!growDiv?.children) {
+      return;
+    }
+
+    if (showMore) {
+      for (const child of growDiv?.children) {
+        hiddenHeight += child.clientHeight;
+      }
+      growDiv.style.height = hiddenHeight + "px";
+    } else {
+      growDiv.style.height = "0px";
+    }
+  };
+
+  addEventListener("resize", updateHiddenItems);
+
   const hiddenItemsClassnames = classNames(
     timelineClasses,
-    "transition-all duration-1000 overflow-hidden ease-in-out",
+    "transition-all duration-1000 overflow-hidden ease-in-out h-0",
     {
-      "bg-rose-800/20 max-h-0": !showMore,
-      "bg-transparent max-h-screen": showMore,
+      "bg-rose-800/20": !showMore,
+      "bg-transparent ": showMore,
     }
   );
 
@@ -59,10 +83,10 @@ const Timeline = ({ items, flipped }: TimelineProps) => {
           <TimelineCard flipped={flipped} key={item.title} {...item} />
         ))}
       </div>
-      <div className={hiddenItemsClassnames}>
-        {hiddenItems.map((item) => (
-          <TimelineCard flipped={flipped} key={item.title} {...item} />
-        ))}
+      <div id="grow" className={hiddenItemsClassnames}>
+        {hiddenItems.map((item) => {
+          return <TimelineCard flipped={flipped} key={item.title} {...item} />;
+        })}
       </div>
       {hiddenItems.length > 0 && (
         <div className="flex justify-center py-4">
@@ -73,7 +97,11 @@ const Timeline = ({ items, flipped }: TimelineProps) => {
           >
             {showMore
               ? "show less"
-              : "show " + hiddenItems.length + " more items"}
+              : "show " +
+                hiddenItems.length +
+                " " +
+                (shownItems.length > 0 ? "more " : "") +
+                "items"}
           </Button>
         </div>
       )}
