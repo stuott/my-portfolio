@@ -30,7 +30,7 @@ const Button = ({
   type = "button",
 }: ButtonProps) => {
   const buttonClasses = classNames(
-    "flex gap-2 p-3 w-fit items-center transition-all duration-300",
+    "flex gap-2 p-3 w-fit items-center transition-all duration-300 cursor-pointer",
     className,
     {
       [`bg-${bg}`]: bg,

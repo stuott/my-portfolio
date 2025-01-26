@@ -11,6 +11,7 @@ const Experience = () => {
       link: experience.link,
       badges: experience.skills,
       points: experience.points,
+      hiddenPoints: experience.hiddenPoints,
       hidden: experience.hidden,
     };
   });

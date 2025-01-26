@@ -1,7 +1,7 @@
 import Badges from "@components/common/Badges";
 import BulletList from "@components/common/BulletList";
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import Button from "./Button";
 import Link, { LinkProps } from "./Link";
 
@@ -14,6 +14,7 @@ export interface TimelineItem extends TimelineMetaInfo {
   time: string;
   badges?: string[];
   points?: string[];
+  hiddenPoints?: string[];
   hidden?: boolean;
 }
 
@@ -23,10 +24,12 @@ export interface TimelineProps {
 }
 interface TimelineCardProps extends TimelineItem {
   flipped?: boolean;
+  id?: number;
 }
 
 const Timeline = ({ items, flipped }: TimelineProps) => {
   const [showMore, setShowMore] = useState(false);
+  const growDivID = useId();
 
   const shownItems: TimelineItem[] = [];
   const hiddenItems: TimelineItem[] = [];
@@ -48,7 +51,7 @@ const Timeline = ({ items, flipped }: TimelineProps) => {
   }, [showMore]);
 
   const updateHiddenItems = () => {
-    let growDiv = document.getElementById("grow");
+    let growDiv = document.getElementById(growDivID);
     let hiddenHeight = 0;
 
     if (!growDiv?.children) {
@@ -79,13 +82,25 @@ const Timeline = ({ items, flipped }: TimelineProps) => {
   return (
     <>
       <div className={timelineClasses}>
-        {shownItems.map((item) => (
-          <TimelineCard flipped={flipped} key={item.title} {...item} />
+        {shownItems.map((item, index) => (
+          <TimelineCard
+            flipped={flipped}
+            id={index}
+            key={item.title}
+            {...item}
+          />
         ))}
       </div>
-      <div id="grow" className={hiddenItemsClassnames}>
-        {hiddenItems.map((item) => {
-          return <TimelineCard flipped={flipped} key={item.title} {...item} />;
+      <div id={growDivID} className={hiddenItemsClassnames}>
+        {hiddenItems.map((item, index) => {
+          return (
+            <TimelineCard
+              flipped={flipped}
+              id={shownItems.length + index}
+              key={item.title}
+              {...item}
+            />
+          );
         })}
       </div>
       {hiddenItems.length > 0 && (
@@ -113,9 +128,14 @@ const TimelineCard = ({
   time,
   badges,
   points,
+  hiddenPoints,
   flipped,
+  id,
   ...metaInfo
 }: TimelineCardProps) => {
+  const [showMore, setShowMore] = useState(false);
+  const growDivID = useId();
+
   const cardClasses = classNames("flex flex-col pl-4 sm:flex-row sm:divide-x", {
     "flex-col-reverse": flipped,
     "flex-col": !flipped,
@@ -128,13 +148,60 @@ const TimelineCard = ({
     }
   );
 
+  useEffect(() => {
+    updateHiddenPoints();
+  }, [showMore]);
+
+  const updateHiddenPoints = () => {
+    let growDiv = document.getElementById(growDivID);
+    let hiddenHeight = 0;
+
+    if (!growDiv?.children) {
+      return;
+    }
+
+    if (showMore) {
+      for (const child of growDiv?.children) {
+        hiddenHeight += child.clientHeight;
+      }
+      growDiv.style.height = hiddenHeight + "px";
+    } else {
+      growDiv.style.height = "0px";
+    }
+  };
+
+  addEventListener("resize", updateHiddenPoints);
+
+  const hiddenPointsClassnames = classNames(
+    "transition-all duration-1000 overflow-hidden ease-in-out h-0",
+    {
+      "bg-rose-800/20": !showMore,
+      "bg-transparent ": showMore,
+    }
+  );
+
   return (
     <div className={cardClasses}>
       {!flipped && <Time time={time} />}
       <div className={itemClasses}>
         <TimelineMeta {...metaInfo} />
         {badges && <Badges className="pt-2" captions={badges} />}
-        {points ? <BulletList points={points} color="zinc-400" /> : <></>}
+        {points && <BulletList points={points} color="zinc-400" />}
+        {hiddenPoints && (
+          <>
+            <div id={growDivID} className={hiddenPointsClassnames}>
+              <BulletList points={hiddenPoints} color="zinc-400" />
+            </div>
+            <Button
+              className="bg-rose-900/30 hover:bg-rose-900/50"
+              onClick={() => setShowMore(!showMore)}
+            >
+              {showMore
+                ? "see less about this experience"
+                : "see more about this experience"}
+            </Button>
+          </>
+        )}
       </div>
       {flipped && <Time time={time} />}
     </div>

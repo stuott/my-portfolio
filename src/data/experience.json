@@ -12,7 +12,9 @@
       "points": [
         "Improved system reliability and accuracy for cardiology and interventional radiology clinicians by addressing critical issues through developing changes to their electronic medical record system",
         "Reduced the number of clicks necessary for completing and reviewing procedural documentation by an average of 160 clicks per month for each user by displaying relevant medication administration data in line with documentation tools",
-        "Enhanced the maintainability of the system for all customers by migrating existing VB code to a new web-based platform",
+        "Enhanced the maintainability of the system for all customers by migrating existing VB code to a new web-based platform"
+      ],
+      "hiddenPoints": [
         "Facilitated a successful transition from SVN to Git for a team of forty developers by providing troubleshooting help and holding daily office hours",
         "Resolved issues for end users transitioning from legacy systems at ten different customers by shadowing workflows on-site and collaborating with analysts at their organization",
         "Maintained the quality and performance of a large, shared code base by reviewing over 250 changes and providing feedback on contributions from developers across multiple teams"

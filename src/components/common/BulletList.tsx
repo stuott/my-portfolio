@@ -3,12 +3,14 @@ import hash from "object-hash";
 
 interface BulletListProps {
   points: string[];
+  className?: string;
   color?: string;
 }
 
-const BulletList = ({ points, color }: BulletListProps) => {
+const BulletList = ({ points, className, color }: BulletListProps) => {
   const bulletListClasses = classNames(
     "grid gap-2 py-2 list-disc list-inside",
+    className,
     {
       [`text-${color}`]: color,
       "text-zinc-200": !color,
