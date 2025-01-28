@@ -7,7 +7,6 @@ import Projects from "./Projects";
 import RecipeList from "./projects/RecipeList";
 import Sudoku from "./sudoku/Sudoku";
 import TestView from "./TestView";
-import Tools from "./Tools";
 import DiceRoller from "./tools/DiceRoller";
 import DnDSpells from "./tools/DnDSpells";
 
@@ -62,13 +61,6 @@ const pages: page[] = [
     Component: BookPage,
     showInNavbar: false,
     background: backgrounds.INTERSECT,
-  },
-  {
-    path: "/tools",
-    name: "Tools",
-    Component: Tools,
-    showInNavbar: true,
-    background: backgrounds.CUBE,
   },
   {
     path: "/tools/dice-roller",

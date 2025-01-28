@@ -9,7 +9,7 @@ interface BulletListProps {
 
 const BulletList = ({ points, className, color }: BulletListProps) => {
   const bulletListClasses = classNames(
-    "grid gap-2 py-2 list-disc list-inside",
+    "grid gap-2 list-disc list-inside",
     className,
     {
       [`text-${color}`]: color,

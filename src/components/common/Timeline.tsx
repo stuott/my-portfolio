@@ -1,8 +1,7 @@
 import Badges from "@components/common/Badges";
 import BulletList from "@components/common/BulletList";
 import classNames from "classnames";
-import { useEffect, useId, useState } from "react";
-import Button from "./Button";
+import Collapsible from "./Collapsible";
 import Link, { LinkProps } from "./Link";
 
 interface TimelineMetaInfo {
@@ -28,9 +27,6 @@ interface TimelineCardProps extends TimelineItem {
 }
 
 const Timeline = ({ items, flipped }: TimelineProps) => {
-  const [showMore, setShowMore] = useState(false);
-  const growDivID = useId();
-
   const shownItems: TimelineItem[] = [];
   const hiddenItems: TimelineItem[] = [];
 
@@ -46,38 +42,8 @@ const Timeline = ({ items, flipped }: TimelineProps) => {
     "grid divide-y border-y sm:divide-none sm:border-none"
   );
 
-  useEffect(() => {
-    updateHiddenItems();
-  }, [showMore]);
-
-  const updateHiddenItems = () => {
-    let growDiv = document.getElementById(growDivID);
-    let hiddenHeight = 0;
-
-    if (!growDiv?.children) {
-      return;
-    }
-
-    if (showMore) {
-      for (const child of growDiv?.children) {
-        hiddenHeight += child.clientHeight;
-      }
-      growDiv.style.height = hiddenHeight + "px";
-    } else {
-      growDiv.style.height = "0px";
-    }
-  };
-
-  addEventListener("resize", updateHiddenItems);
-
-  const hiddenItemsClassnames = classNames(
-    timelineClasses,
-    "transition-all duration-1000 overflow-hidden ease-in-out h-0",
-    {
-      "bg-rose-800/20": !showMore,
-      "bg-transparent ": showMore,
-    }
-  );
+  const moreText = shownItems.length > 0 ? " more " : " ";
+  const buttonText = "show " + hiddenItems.length + moreText + "items";
 
   return (
     <>
@@ -91,7 +57,12 @@ const Timeline = ({ items, flipped }: TimelineProps) => {
           />
         ))}
       </div>
-      <div id={growDivID} className={hiddenItemsClassnames}>
+      <Collapsible
+        buttonBelow
+        buttonCenter
+        buttonClasses="my-4"
+        buttonTextClosed={buttonText}
+      >
         {hiddenItems.map((item, index) => {
           return (
             <TimelineCard
@@ -102,24 +73,7 @@ const Timeline = ({ items, flipped }: TimelineProps) => {
             />
           );
         })}
-      </div>
-      {hiddenItems.length > 0 && (
-        <div className="flex justify-center py-4">
-          <Button
-            bg="rose-900"
-            hoverBg="rose-700"
-            onClick={() => setShowMore(!showMore)}
-          >
-            {showMore
-              ? "show less"
-              : "show " +
-                hiddenItems.length +
-                " " +
-                (shownItems.length > 0 ? "more " : "") +
-                "items"}
-          </Button>
-        </div>
-      )}
+      </Collapsible>
     </>
   );
 };
@@ -133,50 +87,15 @@ const TimelineCard = ({
   id,
   ...metaInfo
 }: TimelineCardProps) => {
-  const [showMore, setShowMore] = useState(false);
-  const growDivID = useId();
-
   const cardClasses = classNames("flex flex-col pl-4 sm:flex-row sm:divide-x", {
     "flex-col-reverse": flipped,
     "flex-col": !flipped,
   });
 
   const itemClasses = classNames(
-    "grid sm:w-3/4 pl-4 mb-8 sm:pb-8 sm:mb-0 sm:px-5",
+    "grid sm:w-3/4 pl-4 gap-2 mb-8 sm:pb-8 sm:mb-0 sm:px-5",
     {
       "border-l": !flipped,
-    }
-  );
-
-  useEffect(() => {
-    updateHiddenPoints();
-  }, [showMore]);
-
-  const updateHiddenPoints = () => {
-    let growDiv = document.getElementById(growDivID);
-    let hiddenHeight = 0;
-
-    if (!growDiv?.children) {
-      return;
-    }
-
-    if (showMore) {
-      for (const child of growDiv?.children) {
-        hiddenHeight += child.clientHeight;
-      }
-      growDiv.style.height = hiddenHeight + "px";
-    } else {
-      growDiv.style.height = "0px";
-    }
-  };
-
-  addEventListener("resize", updateHiddenPoints);
-
-  const hiddenPointsClassnames = classNames(
-    "transition-all duration-1000 overflow-hidden ease-in-out h-0",
-    {
-      "bg-rose-800/20": !showMore,
-      "bg-transparent ": showMore,
     }
   );
 
@@ -188,19 +107,13 @@ const TimelineCard = ({
         {badges && <Badges className="pt-2" captions={badges} />}
         {points && <BulletList points={points} color="zinc-400" />}
         {hiddenPoints && (
-          <>
-            <div id={growDivID} className={hiddenPointsClassnames}>
-              <BulletList points={hiddenPoints} color="zinc-400" />
-            </div>
-            <Button
-              className="bg-rose-900/30 hover:bg-rose-900/50"
-              onClick={() => setShowMore(!showMore)}
-            >
-              {showMore
-                ? "see less about this experience"
-                : "see more about this experience"}
-            </Button>
-          </>
+          <Collapsible
+            buttonBelow
+            buttonTextClosed="see more about this experience"
+            buttonTextExpanded="see less about this experience"
+          >
+            <BulletList points={hiddenPoints} color="zinc-400" />
+          </Collapsible>
         )}
       </div>
       {flipped && <Time time={time} />}
@@ -222,7 +135,7 @@ const Time = ({ time }: { time: string }) => {
 
 const TimelineMeta = ({ title, subtitle, link }: TimelineMetaInfo) => {
   return (
-    <>
+    <div>
       {link ? (
         <Link className="text-xl" {...link}>
           {title}
@@ -231,7 +144,7 @@ const TimelineMeta = ({ title, subtitle, link }: TimelineMetaInfo) => {
         <p className="text-xl">{title}</p>
       )}
       {subtitle && <p className="italic text-zinc-500 pt-2">{subtitle}</p>}
-    </>
+    </div>
   );
 };
 

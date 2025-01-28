@@ -1,5 +1,5 @@
 {
-  "complete": [
+  "projects": [
     {
       "title": "Cost-Effective Pick Point System",
       "link": {
@@ -14,7 +14,7 @@
       ]
     },
     {
-      "title": "Sudoku Game",
+      "title": "Sudoku Game with Error Checking",
       "link": {
         "to": "/projects/sudoku",
         "internal": true
@@ -25,27 +25,57 @@
         "Implemented multi-selection control for the user to select multiple cells at the same time",
         "Added error checking to highlight incorrect cells in rows, columns, and boxes"
       ]
-    }
-  ],
-  "in_progress": [
+    },
     {
-      "title": "MTU Triangle Website Revamp",
+      "title": "Filterable Recipe Repository",
       "link": {
-        "to": "https://mtutriangle.org/",
-        "internal": false
+        "to": "/projects/recipe-list",
+        "internal": true
       },
-      "description": "A website revamp for the Michigan Tech chapter of Triangle Fraternity",
+      "description": "A curated recipe list lookup for storing and sharing recipes",
       "points": [
-        "Redesigning the website to be more modern and user-friendly",
-        "Targeting specific user personas (prospective members, community members, alumni)"
+        "Created a search bar to filter recipes based on user input",
+        "Built a recipe card component to display each recipe and used Tailwind CSS to style the page",
+        "Used React hooks to store filtered recipes and user input"
       ]
-    }
-  ],
-  "up_next": [
+    },
     {
-      "title": "F1 Dashboard",
-      "description": "A dashboard that shows stats for drivers in real-time during an F1 event",
-      "points": ["Real-time data", "Driver comparison"]
+      "title": "Personal Library Tracking System",
+      "link": {
+        "to": "/books",
+        "internal": true
+      },
+      "description": "A list of books that I have read in the past year",
+      "points": [
+        "Used React client routing to create a page that displays information about a book based on the book's ISBN",
+        "Utilized a free, public API to get book cover images in the correct format/size"
+      ]
+    },
+    {
+      "title": "D&D Spellbook Search Utility",
+      "link": {
+        "to": "/tools/spellbook",
+        "internal": true
+      },
+      "description": "A spell lookup utility for Dungeons and Dragons 5th Edition",
+      "points": [
+        "Built a user interface using TailwindCSS to display spell data",
+        "Created calls to a free, public API to get list/spell data and stored it in a React state",
+        "Implemented filters on both spell level and class to allow users to find spells quickly"
+      ]
+    },
+    {
+      "title": "Complex Dice Roll Calculator",
+      "link": {
+        "to": "/tools/dice-roller",
+        "internal": true
+      },
+      "description": "Dice rolling utility for tabletop role-playing games",
+      "points": [
+        "Created a simple and effective UI using Tailwind CSS to display dice and roll results",
+        "Used React hooks to store user input and dice roll results",
+        "Targeted a user persona of a Game Master who needs to roll dice quickly and efficiently with multiple dice types"
+      ]
     }
   ]
 }
