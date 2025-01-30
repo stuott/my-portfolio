@@ -13,7 +13,7 @@ interface ShowcaseProps {
 const Showcase = ({ title, items }: ShowcaseProps) => {
   return (
     <Section id={title.toLowerCase()} title={title} className="">
-      <div className="grid grid-cols-2 justify-evenly gap-6">
+      <div className="grid sm:grid-cols-2 justify-evenly gap-6">
         {items.map((item) => (
           <ShowcaseItem {...item} />
         ))}
@@ -42,18 +42,15 @@ const ShowcaseItem = ({
       {icon && (
         <FontAwesomeIcon icon={icon} size="2x" className="text-zinc-400" />
       )}
-      <div>
-        {link ? (
-          <Link className="font-bold" {...link}>
-            <span className="text-2xl">{title}</span>
-          </Link>
-        ) : (
-          <p className="font-bold">{title}</p>
-        )}
+      <div className="text-balance text-center">
+        <span className="text-2xl">{title}</span>
+        {link && <Link {...link}></Link>}
       </div>
-      <Collapsible>
-        <ItemInfo description={description} points={points} />
-      </Collapsible>
+      {(description || points) && (
+        <Collapsible>
+          <ItemInfo description={description} points={points} />
+        </Collapsible>
+      )}
     </div>
   );
 };

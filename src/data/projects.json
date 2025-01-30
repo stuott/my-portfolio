@@ -1,8 +1,10 @@
 {
   "projects": [
     {
+      "index": "pick-point",
       "title": "Cost-Effective Pick Point System",
       "link": {
+        "text": "Overview Video",
         "to": "https://youtu.be/5CnoxZWs00k?si=rgVU8ebNp2aKR4Nv&t=232",
         "internal": false
       },
@@ -14,9 +16,10 @@
       ]
     },
     {
+      "index": "sudoku",
       "title": "Sudoku Game with Error Checking",
       "link": {
-        "to": "/projects/sudoku",
+        "to": "/sudoku",
         "internal": true
       },
       "description": "A Sudoku game with multiple puzzles and error checking",
@@ -27,9 +30,10 @@
       ]
     },
     {
+      "index": "recipe-list",
       "title": "Filterable Recipe Repository",
       "link": {
-        "to": "/projects/recipe-list",
+        "to": "/recipe-list",
         "internal": true
       },
       "description": "A curated recipe list lookup for storing and sharing recipes",
@@ -40,6 +44,7 @@
       ]
     },
     {
+      "index": "library",
       "title": "Personal Library Tracking System",
       "link": {
         "to": "/books",
@@ -52,9 +57,10 @@
       ]
     },
     {
+      "index": "spellbook",
       "title": "D&D Spellbook Search Utility",
       "link": {
-        "to": "/tools/spellbook",
+        "to": "/spellbook",
         "internal": true
       },
       "description": "A spell lookup utility for Dungeons and Dragons 5th Edition",
@@ -65,9 +71,10 @@
       ]
     },
     {
+      "index": "dice-roller",
       "title": "Complex Dice Roll Calculator",
       "link": {
-        "to": "/tools/dice-roller",
+        "to": "/dice-roller",
         "internal": true
       },
       "description": "Dice rolling utility for tabletop role-playing games",

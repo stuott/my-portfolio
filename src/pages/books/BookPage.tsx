@@ -26,25 +26,27 @@ const BookPage = () => {
   );
 
   return (
-    <Section className="bg-zinc-900/50 min-h-screen">
-      <div className="space-y-4">
-        {backLink}
-        <div className="p-4 space-y-2 bg-zinc-800 border border-zinc-500">
-          <div className="flex flex-col sm:flex-row items-center gap-6">
-            <BookImage
-              isbn13={bookData.isbn13}
-              alt={bookData.title}
-              size="XL"
-              quality="L"
-            />
-            <div className="space-y-2">
-              <BookMeta bookData={bookData} />
-              <BookDescription description={bookData.description} />
+    <div className="bg-zinc-900/50 min-h-screen">
+      <Section className="">
+        <div className="space-y-4">
+          {backLink}
+          <div className="p-4 space-y-2 bg-zinc-800 border border-zinc-500">
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <BookImage
+                isbn13={bookData.isbn13}
+                alt={bookData.title}
+                size="XL"
+                quality="L"
+              />
+              <div className="space-y-2">
+                <BookMeta bookData={bookData} />
+                <BookDescription description={bookData.description} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Section>
+      </Section>
+    </div>
   );
 };
 

@@ -3,9 +3,10 @@ import BookPage from "./books/BookPage";
 import Books from "./books/Books";
 import Education from "./Education";
 import Home from "./Home";
-import Projects from "./Projects";
+import Project from "./projects/Project";
+import Projects from "./projects/Projects";
 import RecipeList from "./projects/RecipeList";
-import Sudoku from "./sudoku/Sudoku";
+import Sudoku from "./projects/Sudoku";
 import TestView from "./TestView";
 import DiceRoller from "./tools/DiceRoller";
 import DnDSpells from "./tools/DnDSpells";
@@ -29,20 +30,27 @@ const pages: page[] = [
     showInNavbar: true,
   },
   {
-    path: "/projects",
+    path: "/projects/",
     name: "Projects",
     Component: Projects,
     showInNavbar: true,
     background: backgrounds.CUBE,
   },
   {
-    path: "/projects/recipe-list",
+    path: "/project/:index",
+    name: "Project",
+    Component: Project,
+    showInNavbar: false,
+    background: backgrounds.CUBE,
+  },
+  {
+    path: "/recipe-list",
     name: "Recipe List",
     Component: RecipeList,
     showInNavbar: false,
   },
   {
-    path: "/projects/sudoku",
+    path: "/sudoku",
     name: "Sudoku",
     Component: Sudoku,
     showInNavbar: false,
@@ -63,13 +71,13 @@ const pages: page[] = [
     background: backgrounds.INTERSECT,
   },
   {
-    path: "/tools/dice-roller",
+    path: "/dice-roller",
     name: "Dice Roller",
     Component: DiceRoller,
     showInNavbar: false,
   },
   {
-    path: "/tools/spellbook",
+    path: "/spellbook",
     name: "D&D Spellbook",
     Component: DnDSpells,
     showInNavbar: false,
