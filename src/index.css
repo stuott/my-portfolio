@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  background-color: var(--color-zinc-900);
+}
+
 .bg-cube {
   background-image: url("/graphics/cube.svg");
 }

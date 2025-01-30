@@ -3,7 +3,7 @@ import data from "@data/projects.json";
 
 export default function Projects() {
   return (
-    <div className="bg-zinc-900/50">
+    <div className="bg-zinc-900/50 min-h-screen">
       <Showcase title="Projects" items={data.projects} />
     </div>
   );

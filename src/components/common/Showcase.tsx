@@ -13,7 +13,7 @@ interface ShowcaseProps {
 const Showcase = ({ title, items }: ShowcaseProps) => {
   return (
     <Section id={title.toLowerCase()} title={title} className="">
-      <div className="flex flex-col justify-evenly gap-6">
+      <div className="grid grid-cols-2 justify-evenly gap-6">
         {items.map((item) => (
           <ShowcaseItem {...item} />
         ))}

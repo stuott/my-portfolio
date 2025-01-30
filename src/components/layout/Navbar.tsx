@@ -25,9 +25,9 @@ const Navbar = (props: { pages: page[] }) => {
   }, []);
 
   const navClasses = classNames(
-    "fixed w-full font-mono text-white transition-colors duration-300 bg-zinc-900",
+    "fixed top-0 w-full font-mono text-white transition-colors duration-300 bg-zinc-900",
     {
-      "sm:bg-zinc-900/50": !scrolled,
+      "sm:bg-transparent": !scrolled,
       "bg-zinc-900": scrolled || menuOpen,
     }
   );
