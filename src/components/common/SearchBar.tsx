@@ -4,18 +4,18 @@ import IconButton from "./Button";
 import Dropdown, { DropdownProps } from "./Dropdown";
 import Filters, { FiltersProps } from "./Filters";
 
-interface searchBarProps {
+interface searchBarProps<T = {}> {
   setSearch: (searchTerm: string) => void;
   onSearch: () => void;
-  placeholder: string;
+  placeholder?: string;
   className?: string;
   dropdown?: DropdownProps;
-  filters?: FiltersProps;
+  filters?: FiltersProps<T>;
   search?: string;
   disabled?: boolean;
 }
 
-const SearchBar = ({
+const SearchBar = <T,>({
   setSearch,
   onSearch,
   placeholder,
@@ -24,7 +24,7 @@ const SearchBar = ({
   filters,
   search,
   disabled,
-}: searchBarProps) => {
+}: searchBarProps<T>) => {
   const elementClasses = classNames(
     "flex flex-col justify-center items-center gap-6 w-full",
     className

@@ -1,7 +1,7 @@
 import Badges from "@components/common/Badges";
 import BulletList from "@components/common/BulletList";
+import Collapsible from "@components/layout/Collapsible";
 import classNames from "classnames";
-import Collapsible from "./Collapsible";
 import Link, { LinkProps } from "./Link";
 
 interface TimelineMetaInfo {

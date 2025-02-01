@@ -1,15 +1,16 @@
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
+import objectHash from "object-hash";
 import { useState } from "react";
 
-export interface FiltersProps {
-  filters: string[];
-  onFilter?: (filter: string, index?: number) => void;
+export interface FiltersProps<T> {
+  filters: T[];
+  onFilter?: (filter: T | "", index?: number) => void;
   disabled?: boolean;
 }
 
-const Filters = ({ filters, onFilter, disabled }: FiltersProps) => {
+const Filters = <T,>({ filters, onFilter, disabled }: FiltersProps<T>) => {
   const [active, setActive] = useState<number>(-1);
 
   if (filters.length === 0) return <></>;
@@ -23,7 +24,7 @@ const Filters = ({ filters, onFilter, disabled }: FiltersProps) => {
     "cursor-not-allowed text-zinc-700": disabled,
   });
 
-  const handleFilters = (tag: string, index: number) => {
+  const handleFilters = (filter: T | "", index: number) => {
     if (!onFilter) return;
 
     if (active === index) {
@@ -31,7 +32,7 @@ const Filters = ({ filters, onFilter, disabled }: FiltersProps) => {
       onFilter("");
     } else {
       setActive(index);
-      onFilter(tag, index);
+      onFilter(filter, index);
     }
   };
 
@@ -46,8 +47,8 @@ const Filters = ({ filters, onFilter, disabled }: FiltersProps) => {
       <div className="flex gap-2 flex-wrap justify-center">
         {filters.map((filter, index) => (
           <FilterButton
-            key={filter}
-            text={filter}
+            key={filter ? objectHash(filter) : index}
+            text={filter as string}
             active={active === index}
             onClick={() => handleFilters(filter, index)}
             disabled={disabled}

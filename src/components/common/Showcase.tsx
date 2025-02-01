@@ -1,8 +1,8 @@
 import { Section } from "@components/layout";
+import Collapsible from "@components/layout/Collapsible";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BulletList from "./BulletList";
-import Collapsible from "./Collapsible";
 import Link, { LinkProps } from "./Link";
 
 interface ShowcaseProps {

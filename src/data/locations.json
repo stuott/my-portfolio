@@ -3,123 +3,146 @@
     {
       "name": "Madison, WI",
       "coordinates": [43.0731, -89.4012],
-      "description": "Where I live now!"
+      "description": "Where I live now!",
+      "types": ["personal"]
     },
-
     {
       "name": "Grand Rapids, MI",
       "coordinates": [42.9634, -85.6681],
-      "description": "I have family and friends here"
+      "description": "I have family and friends here",
+      "types": ["personal", "family"]
     },
     {
       "name": "Houghton, MI",
       "coordinates": [47.1211, -88.5694],
-      "description": "Where I went to college"
+      "description": "Where I went to college",
+      "types": ["personal", "college"]
     },
     {
       "name": "Detroit, MI",
       "coordinates": [42.3314, -83.0458],
-      "description": "Many of my fraternity brothers live here"
+      "description": "Many of my fraternity brothers live here",
+      "types": ["personal", "college"]
     },
     {
       "name": "Toronto, ON",
       "coordinates": [43.6532, -79.3832],
-      "description": "I visited this city on a spring break trip in college"
+      "description": "I visited this city on a spring break trip in college",
+      "types": ["personal", "college"]
     },
     {
       "name": "Chicago, IL",
       "coordinates": [41.8781, -87.6298],
-      "description": "I have visited this city many times"
+      "description": "I have visited this city many times",
+      "types": ["personal"]
     },
     {
       "name": "New York, NY",
       "coordinates": [40.7128, -74.006],
-      "description": "I officiated my sister's wedding on top of a building in Rockefeller center!"
+      "description": "I officiated my sister's wedding on top of a building in Rockefeller center!",
+      "types": ["personal", "family"]
     },
     {
       "name": "San Juan, PR",
       "coordinates": [18.4655, -66.1057],
-      "description": "I hiked through the El Yunque rainforest here"
+      "description": "I hiked through the El Yunque rainforest here",
+      "types": ["personal"]
     },
     {
       "name": "Los Angeles, CA",
       "coordinates": [34.0522, -118.2437],
-      "description": "I visited UCLA for a work trip"
+      "description": "I visited UCLA for a work trip",
+      "types": ["work"]
     },
     {
       "name": "Seattle, WA",
       "coordinates": [47.6062, -122.3321],
-      "description": "I visited Seattle for a work trip"
+      "description": "I visited Seattle Children's Hospital for a work trip",
+      "types": ["work"]
     },
     {
       "name": "Big Sky, MT",
       "coordinates": [45.2905, -111.3622],
-      "description": "I went skiing here with my father"
+      "description": "I went skiing here with my father",
+      "types": ["personal", "family"]
     },
     {
       "name": "Houston, TX",
       "coordinates": [29.7604, -95.3698],
-      "description": "I visited Houston for a work trip"
+      "description": "I visited UTMB/Methodist for two different work trips",
+      "types": ["work"]
     },
     {
       "name": "Waterloo, IA",
       "coordinates": [42.4928, -92.3426],
-      "description": "I visited Waterloo for a work trip"
+      "description": "I visited Iowa Health System for a work trip",
+      "types": ["work"]
     },
     {
       "name": "Boston, MA",
       "coordinates": [42.3555, -71.0565],
-      "description": "I went with my dad to pick up a car and drove it back to Wisconsin with him"
+      "description": "I went with my dad to pick up a car and drove it back to Wisconsin with him",
+      "types": ["personal", "family"]
     },
     {
       "name": "Washington, D.C.",
       "coordinates": [38.9072, -77.0369],
-      "description": "I went to Washington D.C. for on an 8th grade field trip and again in high school"
+      "description": "I went to Washington D.C. for on an 8th grade field trip and again in high school",
+      "types": ["personal"]
     },
     {
       "name": "Allentown, PA",
       "coordinates": [40.6023, -75.4714],
-      "description": "I visited Allentown for a work trip"
+      "description": "I visited Lehigh Valley Hospital Network for a work trip",
+      "types": ["work"]
     },
     {
       "name": "Augusta, GA",
       "coordinates": [33.4735, -82.0105],
-      "description": "I visited Augusta for a work trip"
+      "description": "I visited Wellstar for a work trip",
+      "types": ["work"]
     },
     {
       "name": "Richmond, VA",
       "coordinates": [37.5407, -77.436],
-      "description": "I visited Richmond for a work trip"
+      "description": "I visited Ben Secours Mercy Health for a work trip",
+      "types": ["work"]
     },
     {
       "name": "Oklahoma City, OK",
       "coordinates": [35.4676, -97.5164],
-      "description": "I visited Oklahoma City for a work trip"
+      "description": "I visited OU Medicine for a work trip",
+      "types": ["work"]
     },
     {
       "name": "Wiseman, AK",
       "coordinates": [67.4095, -150.1078],
-      "description": "I went above the artic circle with my dad after I graduated high school!"
+      "description": "I went above the artic circle with my dad after I graduated high school!",
+      "types": ["personal"]
     },
     {
       "name": "Denali Park, AK",
       "coordinates": [63.4458, -148.5404],
-      "description": "My dad and I took a tour through Denali and saw a lot of bears"
+      "description": "My dad and I took a tour through Denali and saw a lot of bears",
+      "types": ["personal"]
     },
     {
       "name": "Anchorage, AK",
       "coordinates": [61.2176, -149.8997],
-      "description": "My dad and I stayed in Anchorage during the beginning of our trip to Alaska"
+      "description": "My dad and I stayed in Anchorage during the beginning of our trip to Alaska",
+      "types": ["personal"]
     },
     {
       "name": "Mackinac Island, MI",
       "coordinates": [45.8683, -84.6276],
-      "description": "I've been here dozens of times since my childhood"
+      "description": "I've been here dozens of times since my childhood",
+      "types": ["personal"]
     },
     {
       "name": "Keystone, CO",
       "coordinates": [39.5792, -105.9347],
-      "description": "I've been here skiing with my dad a couple of times"
+      "description": "I've been here skiing with my dad a couple of times",
+      "types": ["personal"]
     }
   ]
 }

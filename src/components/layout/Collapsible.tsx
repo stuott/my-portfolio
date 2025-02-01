@@ -1,6 +1,6 @@
+import Button from "@components/common/Button";
 import classNames from "classnames";
 import { useEffect, useId, useState } from "react";
-import Button from "./Button";
 
 interface CollapsibleProps {
   children: React.ReactNode;
