@@ -7,6 +7,7 @@ import Project from "./projects/Project";
 import Projects from "./projects/Projects";
 import RecipeList from "./projects/RecipeList";
 import Sudoku from "./projects/Sudoku";
+import TravelMap from "./projects/TravelMap";
 import TestView from "./TestView";
 import DiceRoller from "./tools/DiceRoller";
 import DnDSpells from "./tools/DnDSpells";
@@ -80,6 +81,12 @@ const pages: page[] = [
     path: "/spellbook",
     name: "D&D Spellbook",
     Component: DnDSpells,
+    showInNavbar: false,
+  },
+  {
+    path: "/travel-map",
+    name: "Travel Map",
+    Component: TravelMap,
     showInNavbar: false,
   },
   {

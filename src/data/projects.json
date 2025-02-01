@@ -29,6 +29,19 @@
         "Added error checking to highlight incorrect cells in rows, columns, and boxes"
       ]
     },
+
+    {
+      "index": "travel-map",
+      "title": "Interactive Personal Travel Map",
+      "link": {
+        "to": "/travel-map",
+        "internal": true
+      },
+      "description": "An interactive map of places I have visited",
+      "points": [
+        "Used leaflet to create an interactive map with custom markers and popups"
+      ]
+    },
     {
       "index": "recipe-list",
       "title": "Filterable Recipe Repository",
