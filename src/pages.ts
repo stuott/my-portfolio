@@ -20,13 +20,15 @@ export interface page {
  * Dynamically imports all page components from the `./pages` directory
  * @returns A promise that resolves to an array of page objects
  */
-export const getPages = async (): Promise<page[]> => {
+export const getPages = (): page[] => {
   const pages: page[] = [];
-  const modules = import.meta.glob("./pages/*.tsx");
+  const modules = import.meta.glob<page>("./pages/*.tsx", {
+    eager: true,
+    import: "pageInfo",
+  });
 
   for (const path in modules) {
-    const module: any = await modules[path]();
-    const pageInfo: page = module.pageInfo;
+    const pageInfo = modules[path];
     if (pageInfo) {
       pages.push(pageInfo);
     }

@@ -1,7 +1,7 @@
 import usePageTracking from "@analytics/usePageTracking";
 import { Footer, Navbar } from "@components/layout";
 import classNames from "classnames";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Route,
   BrowserRouter as Router,
@@ -46,16 +46,10 @@ const App = () => {
   const [navbarPages, setNavbarPages] = useState<page[]>([]);
 
   useEffect(() => {
-    const loadPages = async () => {
-      const loadedPages = await getPages();
-      setPages(loadedPages);
-    };
-
-    loadPages();
+    setPages(getPages());
   }, []);
 
   useEffect(() => {
-    // Filter and sort pages for the navbar by `showInNavbar` property and `path`
     const filteredPages = pages.filter((page) => page.showInNavbar);
     const sortedPages = filteredPages.sort((a, b) => {
       if (a.path < b.path) return -1;
@@ -70,9 +64,7 @@ const App = () => {
       <Router>
         <ScrollToTop />
         <Navbar pages={navbarPages} />
-        <Suspense fallback={<div className="h-screen bg-sudoku" />}>
-          <RoutedPageContent pages={pages} />
-        </Suspense>
+        <RoutedPageContent pages={pages} />
         <Footer />
       </Router>
     </main>
@@ -81,6 +73,10 @@ const App = () => {
 
 const RoutedPageContent = ({ pages }: { pages: page[] }) => {
   usePageTracking();
+
+  if (pages.length === 0) {
+    return <div className="min-h-screen"></div>;
+  }
 
   return (
     <Routes>
