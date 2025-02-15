@@ -1,6 +1,5 @@
-import IconButton from "@components/common/Button";
-import Link, { LinkProps } from "@components/common/Link";
-import LinkTable from "@components/common/LinkTable";
+import { Button, LinkTable } from "@components/controls";
+import Link, { LinkProps } from "@components/controls/Link";
 import Section from "@components/layout/Section";
 import { faGithubAlt, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import {
@@ -65,14 +64,14 @@ const CallToAction = () => {
         view my resume
       </Link>
       <p className="text-xl text-zinc-400">or</p>
-      <IconButton
+      <Button
         icon={faArrowDown}
         className="text-xl text-white hover:text-rose-600 p-0"
         onClick={scrollToContact}
         scale
       >
         contact me
-      </IconButton>
+      </Button>
     </div>
   );
 };

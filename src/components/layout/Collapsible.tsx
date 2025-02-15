@@ -1,4 +1,4 @@
-import Button from "@components/common/Button";
+import Button from "@components/controls/Button";
 import classNames from "classnames";
 import { useEffect, useId, useState } from "react";
 

@@ -1,7 +1,8 @@
-import IconButton from "@components/common/Button";
-import NumberInput from "@components/common/NumberInput";
+import IconButton from "@components/controls/Button";
+import NumberInput from "@components/controls/NumberInput";
 import { faDice, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { page } from "pages";
 import { useState } from "react";
 
 interface DiceRowData {
@@ -163,7 +164,7 @@ const DiceRoller = () => {
   };
 
   return (
-    <div className="text-white bg-zinc-900/50 min-h-screen p-5">
+    <div className="text-white p-5">
       <div className="flex flex-col items-center space-y-4">
         <h2 className="text-2xl font-bold">
           Dice Roller <FontAwesomeIcon icon={faDice} />
@@ -244,4 +245,9 @@ const RollResults = ({ results }: { results: RollResult[] }) => {
   );
 };
 
-export default DiceRoller;
+export const pageInfo: page = {
+  path: "/dice-roller",
+  name: "Dice Roller",
+  Component: DiceRoller,
+  showInNavbar: false,
+};

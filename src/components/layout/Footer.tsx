@@ -1,4 +1,4 @@
-import { Link } from "@components/common";
+import { Link } from "@components/controls";
 
 interface attribution {
   name: string;

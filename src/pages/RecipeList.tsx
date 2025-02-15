@@ -1,5 +1,5 @@
-import Badges from "@components/common/Badges";
-import SearchBar from "@components/common/SearchBar";
+import SearchBar from "@components/controls/SearchBar";
+import Badges from "@components/display/Badges";
 import Section from "@components/layout/Section";
 import data from "@data/recipes.json";
 import { useEffect, useState } from "react";
@@ -46,7 +46,7 @@ const RecipeList = () => {
   }, [searchTerm, filterTerm]);
 
   return (
-    <div className="min-h-screen bg-zinc-900/50 p-4">
+    <>
       <SearchBar
         onSearch={() => {}}
         placeholder="Search for a recipe"
@@ -72,7 +72,7 @@ const RecipeList = () => {
           </h2>
         )}
       </Section>
-    </div>
+    </>
   );
 };
 
@@ -98,4 +98,9 @@ const RecipeCard = ({ recipe }: { recipe: recipe }) => {
   );
 };
 
-export default RecipeList;
+export const pageInfo = {
+  path: "/recipe-list",
+  name: "Recipe List",
+  Component: RecipeList,
+  showInNavbar: false,
+};

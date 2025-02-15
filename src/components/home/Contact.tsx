@@ -1,4 +1,4 @@
-import { Button } from "@components/common";
+import { Button } from "@components/controls";
 import Section from "@components/layout/Section";
 import emailjs from "@emailjs/browser";
 import {

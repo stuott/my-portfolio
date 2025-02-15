@@ -1,10 +1,19 @@
 import { Classes, College } from "@components/education";
+import { page } from "pages";
 
-export default function Education() {
+const Education = () => {
   return (
-    <div className="bg-zinc-900/50 min-h-screen pb-10">
+    <>
       <College />
       <Classes />
-    </div>
+      <div className="h-16" />
+    </>
   );
-}
+};
+
+export const pageInfo: page = {
+  path: "/education",
+  name: "Education",
+  Component: Education,
+  showInNavbar: true,
+};

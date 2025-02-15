@@ -1,8 +1,8 @@
-import Badges from "@components/common/Badges";
-import IconButton from "@components/common/Button";
-import SearchBar from "@components/common/SearchBar";
+import { Button, SearchBar } from "@components/controls";
+import Badges from "@components/display/Badges";
 import Section from "@components/layout/Section";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { page } from "pages";
 import { useState } from "react";
 
 interface SpellList {
@@ -108,7 +108,7 @@ const DnDSpells = () => {
   const showSpellInfo = spellInfo !== null;
 
   return (
-    <Section title="D&D Spellbook" className="bg-zinc-900/50 min-h-screen">
+    <Section title="D&D Spellbook">
       <div className="flex flex-row">
         <SearchBar
           setSearch={setSpellName}
@@ -194,7 +194,7 @@ const SpellCell = ({ index, name, level, setSpellInfo }: SpellCellProps) => {
         <h2 className="font-bold">{name.toLowerCase()}</h2>
         <p className="italic">level {level}</p>
       </div>
-      <IconButton
+      <Button
         icon={faArrowRight}
         className="hover:text-rose-800 text-lg"
         onClick={fetchSpellInfo}
@@ -211,13 +211,13 @@ interface SpellInfoProps {
 const SpellInfo = ({ spell, clearSpell }: SpellInfoProps) => {
   return (
     <div className="bg-zinc-800 p-4 border rounded-xl">
-      <IconButton
+      <Button
         icon={faArrowLeft}
         onClick={clearSpell}
         className="hover:text-rose-600 hover:font-bold p-2"
       >
         back
-      </IconButton>
+      </Button>
       <div className="flex flex-col md:flex-row gap-6 w-full">
         <div className="flex flex-col gap-4 md:w-1/3">
           <div>
@@ -274,4 +274,9 @@ const SpellInfo = ({ spell, clearSpell }: SpellInfoProps) => {
   );
 };
 
-export default DnDSpells;
+export const pageInfo: page = {
+  path: "/spellbook",
+  name: "D&D Spellbook",
+  Component: DnDSpells,
+  showInNavbar: false,
+};

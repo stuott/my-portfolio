@@ -1,8 +1,9 @@
-import { Button, Link } from "@components/common";
+import { Button, Link } from "@components/controls";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 import { book } from "types/books";
 import BookImage from "./BookImage";
+import Rating from "./Rating";
 
 interface BookTableProps {
   books: book[];
@@ -42,6 +43,7 @@ const BookTable = ({ books }: BookTableProps) => {
                     </p>
                   )}
                   <p className="text-gray-400">{book.author}</p>
+                  <Rating rating={book.rating} />
                 </div>
               </div>
               <Button icon={faArrowRight} />

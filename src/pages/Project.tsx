@@ -1,8 +1,9 @@
-import { BulletList } from "@components/common";
-import Link from "@components/common/Link";
+import Link from "@components/controls/Link";
+import { BulletList } from "@components/display";
 import { Section } from "@components/layout";
 import data from "@data/projects.json";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { page } from "pages";
 import { useParams } from "react-router-dom";
 
 interface project {
@@ -28,7 +29,7 @@ const Project = () => {
   }
 
   return (
-    <div className="bg-zinc-900/50 min-h-screen">
+    <>
       <Section>
         <div className="space-y-12">
           <Link
@@ -55,7 +56,7 @@ const Project = () => {
           </div>
         </div>
       </Section>
-    </div>
+    </>
   );
 };
 
@@ -75,4 +76,10 @@ const NotFound = () => {
   );
 };
 
-export default Project;
+export const pageInfo: page = {
+  path: "/project/:index",
+  name: "Project",
+  Component: Project,
+  showInNavbar: false,
+  background: "bg-cube",
+};

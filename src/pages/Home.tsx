@@ -1,8 +1,9 @@
 import { Contact, Experience, Intro } from "@components/home";
+import { page } from "pages";
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className="bg-zinc-900/50">
+    <>
       <Intro />
       <div className="flex flex-col pb-10 xl:gap-10 xl:flex-row">
         <div className="xl:w-2/3">
@@ -12,6 +13,13 @@ export default function Home() {
           <Contact />
         </div>
       </div>
-    </div>
+    </>
   );
-}
+};
+
+export const pageInfo: page = {
+  path: "/",
+  name: "Home",
+  Component: Home,
+  showInNavbar: true,
+};

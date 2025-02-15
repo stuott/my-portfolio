@@ -1,8 +1,7 @@
 import usePageTracking from "@analytics/usePageTracking";
 import { Footer, Navbar } from "@components/layout";
-import { pages } from "@pages/index";
 import classNames from "classnames";
-import { useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import {
   Route,
   BrowserRouter as Router,
@@ -10,6 +9,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import "./index.css";
+import { getPages, page } from "./pages";
 
 declare global {
   interface Window {
@@ -42,28 +42,50 @@ const NotFound = () => {
 };
 
 const App = () => {
+  const [pages, setPages] = useState<page[]>([]);
+  const [navbarPages, setNavbarPages] = useState<page[]>([]);
+
+  useEffect(() => {
+    const loadPages = async () => {
+      const loadedPages = await getPages();
+      setPages(loadedPages);
+    };
+
+    loadPages();
+  }, []);
+
+  useEffect(() => {
+    // Filter and sort pages for the navbar by `showInNavbar` property and `path`
+    const filteredPages = pages.filter((page) => page.showInNavbar);
+    const sortedPages = filteredPages.sort((a, b) => {
+      if (a.path < b.path) return -1;
+      if (a.path > b.path) return 1;
+      return 0;
+    });
+    setNavbarPages(sortedPages);
+  }, [pages]);
+
   return (
     <main className="bg-zinc-900 font-mono">
       <Router>
         <ScrollToTop />
-        <Navbar pages={pages.filter((page) => page.showInNavbar)} />
-        <RoutedPageContent />
+        <Navbar pages={navbarPages} />
+        <Suspense fallback={<div className="h-screen bg-sudoku" />}>
+          <RoutedPageContent pages={pages} />
+        </Suspense>
         <Footer />
       </Router>
     </main>
   );
 };
 
-const RoutedPageContent = () => {
+const RoutedPageContent = ({ pages }: { pages: page[] }) => {
   usePageTracking();
 
   return (
     <Routes>
       {pages.map(({ background, path, registerPath, Component }) => {
-        const elementClasses = classNames(
-          "min-h-screen ",
-          background === "" ? "bg-map" : background ?? "bg-map"
-        );
+        const elementClasses = classNames(background ?? "bg-map");
 
         return (
           <Route
@@ -72,7 +94,9 @@ const RoutedPageContent = () => {
             element={
               <div className={elementClasses}>
                 <div className="h-16 bg-zinc-900/50" />
-                <Component />
+                <div className="min-h-screen bg-zinc-900/50">
+                  <Component />
+                </div>
               </div>
             }
           />

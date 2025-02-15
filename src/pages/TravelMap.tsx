@@ -1,7 +1,8 @@
-import { SearchBar } from "@components/common";
-import Map, { marker } from "@components/common/Map";
+import { SearchBar } from "@components/controls";
+import Map, { marker } from "@components/display/Map";
 import { Section } from "@components/layout";
 import data from "@data/locations.json";
+import { page } from "pages";
 import { useEffect, useState } from "react";
 
 type LocationType = "work" | "personal" | "family";
@@ -43,7 +44,7 @@ const TravelMap = () => {
   }, [locations, search, filter]);
 
   return (
-    <div className="min-h-screen bg-zinc-900/50">
+    <>
       <Section>
         <SearchBar<LocationType>
           setSearch={setSearch}
@@ -51,7 +52,7 @@ const TravelMap = () => {
           placeholder="search locations"
           filters={{
             filters: ["work", "personal", "family"],
-            onFilter: (filter) => {
+            onFilter: (filter: any) => {
               setFilter(filter);
             },
           }}
@@ -63,8 +64,13 @@ const TravelMap = () => {
           zoomControl
         />
       </Section>
-    </div>
+    </>
   );
 };
 
-export default TravelMap;
+export const pageInfo: page = {
+  path: "/travel-map",
+  name: "Travel Map",
+  Component: TravelMap,
+  showInNavbar: false,
+};

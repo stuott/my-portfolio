@@ -1,5 +1,5 @@
 import hash from "object-hash";
-import Link, { LinkProps } from "./Link";
+import Link, { LinkProps } from "../controls/Link";
 
 interface LinkTableProps {
   links: LinkProps[];

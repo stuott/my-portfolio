@@ -1,4 +1,4 @@
-import { Link } from "@components/common";
+import { Link } from "@components/controls";
 import Section from "@components/layout/Section";
 import classNames from "classnames";
 

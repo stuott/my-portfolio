@@ -1,11 +1,12 @@
-import { Link } from "@components/common";
+import { Link } from "@components/controls";
 import { Section } from "@components/layout";
 import data from "@data/projects.json";
 import classNames from "classnames";
+import { page } from "pages";
 
 const Projects = () => {
   return (
-    <div className="bg-zinc-900/50 min-h-screen">
+    <>
       <Section title="Projects">
         <div className="grid sm:grid-cols-2 gap-6">
           {data.projects.length > 0 &&
@@ -14,7 +15,7 @@ const Projects = () => {
             ))}
         </div>
       </Section>
-    </div>
+    </>
   );
 };
 
@@ -33,4 +34,10 @@ const ProjectCard = ({ project }: { project: any }) => {
   );
 };
 
-export default Projects;
+export const pageInfo: page = {
+  path: "/projects/",
+  name: "Projects",
+  Component: Projects,
+  showInNavbar: true,
+  background: "bg-cube",
+};

@@ -2,10 +2,11 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 
 import { BookImage } from "@components/books";
-import { Link } from "@components/common";
+import { Link } from "@components/controls";
 import { Section } from "@components/layout";
 
 import data from "@data/books.json";
+import { page } from "pages";
 import { book } from "types/books";
 
 const BookPage = () => {
@@ -26,7 +27,7 @@ const BookPage = () => {
   );
 
   return (
-    <div className="bg-zinc-900/50 min-h-screen">
+    <>
       <Section className="">
         <div className="space-y-4">
           {backLink}
@@ -46,7 +47,7 @@ const BookPage = () => {
           </div>
         </div>
       </Section>
-    </div>
+    </>
   );
 };
 
@@ -103,4 +104,10 @@ const NotFound = () => {
   );
 };
 
-export default BookPage;
+export const pageInfo: page = {
+  path: "/book/:isbn13",
+  name: "Book",
+  Component: BookPage,
+  showInNavbar: false,
+  background: "bg-intersect",
+};

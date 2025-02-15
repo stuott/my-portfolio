@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { Button, SearchBar } from "@components/common";
+import { Button, SearchBar } from "@components/controls";
 import { Section } from "@components/layout";
 import BookTable from "./BookTable";
 

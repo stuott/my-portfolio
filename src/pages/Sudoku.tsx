@@ -1,4 +1,4 @@
-import IconButton from "@components/common/Button";
+import IconButton from "@components/controls/Button";
 import Section from "@components/layout/Section";
 import { NumberPad, SudokuRow } from "@components/sudoku";
 import {
@@ -11,6 +11,7 @@ import {
 } from "@components/sudoku/sudokuUtils";
 import data from "@data/sudoku.json";
 import { faArrowRotateLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { page } from "pages";
 import { useCallback, useEffect, useState } from "react";
 
 const Sudoku = () => {
@@ -238,7 +239,8 @@ const Sudoku = () => {
   };
 
   return (
-    <div className="pt-16 bg-zinc-900/50 min-h-screen">
+    <>
+      <div className="h-16" />
       <Section
         title="Sudoku"
         className="items-center bg-zinc-900 py-8 md:pb-16"
@@ -309,8 +311,14 @@ const Sudoku = () => {
           </div>
         )}
       </Section>
-    </div>
+    </>
   );
 };
 
-export default Sudoku;
+export const pageInfo: page = {
+  path: "/sudoku",
+  name: "Sudoku",
+  Component: Sudoku,
+  showInNavbar: false,
+  background: "bg-sudoku",
+};

@@ -1,15 +1,13 @@
 import {
-  Badges,
-  BulletList,
   Button,
   ButtonTable,
   Link,
   LinkTable,
   NumberInput,
   SearchBar,
-  Timeline,
-} from "@components/common";
-import { TimelineItem } from "@components/common/Timeline";
+} from "@components/controls";
+import { Badges, BulletList } from "@components/display";
+import Timeline, { TimelineItem } from "@components/display/Timeline";
 import { Section } from "@components/layout";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import {
@@ -17,6 +15,7 @@ import {
   faProjectDiagram,
   faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
+import { page } from "pages";
 import { useState } from "react";
 
 const TestView = () => {
@@ -281,4 +280,9 @@ const TestView = () => {
   );
 };
 
-export default TestView;
+export const pageInfo: page = {
+  path: "/test-view",
+  name: "Test View",
+  Component: TestView,
+  showInNavbar: false,
+};

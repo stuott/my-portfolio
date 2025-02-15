@@ -1,9 +1,9 @@
-import { Button } from "@components/common";
+import { Button } from "@components/controls";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
+import { page } from "pages";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { page } from "types/pages";
 
 const Navbar = (props: { pages: page[] }) => {
   const { pages } = props;
