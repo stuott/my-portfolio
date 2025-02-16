@@ -12,21 +12,41 @@
         "description": "A reading tracker and social network for book lovers, allowing users to track their reading habits and discover new books."
       }
     ],
+    "books": [
+      {
+        "isbn": "9780374506841",
+        "name": "Narcissus and Goldmund - Herman Hesse",
+        "url": "https://app.thestorygraph.com/books/e9f75aac-c885-4a4d-b2f1-664421267a36",
+        "description": "A philosophical novel that explores the themes of duality and the search for meaning through the lives of two contrasting characters."
+      },
+      {
+        "isbn": "9780062662569",
+        "name": "The Poppy War - R.F. Kuang",
+        "url": "https://app.thestorygraph.com/books/7375d666-5c1e-4159-8c1c-009cd762c7f9",
+        "description": "A dark and gritty fantasy novel that draws inspiration from Chinese history, exploring themes of war, power, and identity."
+      },
+      {
+        "isbn": "9780593321447",
+        "name": "Sea of Tranquility - Emily St. John Mandel",
+        "url": "https://app.thestorygraph.com/books/e55ebebb-6deb-4fee-9aff-6793c958b1fe",
+        "description": "A time-traveling novel that weaves together the lives of characters across different centuries, exploring themes of love, loss, and the nature of existence."
+      }
+    ],
     "music": [
       {
-        "id": "c0d1e5cc-7a1a-4c31-819b-b5c026abc7e6",
+        "mbid": "c0d1e5cc-7a1a-4c31-819b-b5c026abc7e6",
         "name": "Everything Is Peaceful Love - Bon Iver",
         "url": "https://open.spotify.com/album/0TISqdrgN6Cvsg7rdDaUJs",
         "description": "Bon Iver's 'Everything Is Peaceful Love' is a collection of serene and introspective tracks that showcase the band's unique sound."
       },
       {
-        "id": "7f1f0e41-2831-4902-8c60-8c705b1b3bf3",
+        "mbid": "7f1f0e41-2831-4902-8c60-8c705b1b3bf3",
         "name": "American Heartbreak - Zach Bryan",
         "url": "https://open.spotify.com/album/7IouDrXPdAZwT1NzVV3vef",
         "description": "Zach Bryan's debut album, 'American Heartbreak', is a collection of heartfelt songs that blend country and folk influences."
       },
       {
-        "id": "7f67df00-5741-41d0-a791-67089c09bfcb",
+        "mbid": "7f67df00-5741-41d0-a791-67089c09bfcb",
         "name": "Balloonerism - Mac Miller",
         "url": "https://open.spotify.com/album/2ANFIaCb53iam0MBkFFoxY",
         "description": "Mac Miller's 'Balloonerism' is a posthumous release that showcases his evolution as an artist and his introspective lyricism."

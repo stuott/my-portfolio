@@ -1,8 +1,10 @@
+import { BookImage } from "@components/books";
 import { Link } from "@components/controls";
 import { Section } from "@components/layout";
 import AlbumCover from "@components/music/AlbumCover";
 import data from "@data/recommendations.json";
 import {
+  faBook,
   faGlobe,
   faMusic,
   faUtensils,
@@ -15,19 +17,25 @@ interface recommendation {
   name: string;
   url: string;
   description: string;
-  id?: string;
+  mbid?: string;
+  isbn?: string;
 }
 
 const Recommendations = () => {
   const { recommendations } = data;
   return (
-    <>
-      <Section title="Recommendations">
-        <p>last updated: 2/15/2025</p>
+    <Section>
+      <p>last updated: 2/16/2025</p>
+      <div className="space-y-4">
         <RecommendationCards
           title="Websites"
           icon={faGlobe}
           items={recommendations.websites}
+        />
+        <RecommendationCards
+          title="Books"
+          icon={faBook}
+          items={recommendations.books}
         />
         <RecommendationCards
           title="Music"
@@ -39,8 +47,8 @@ const Recommendations = () => {
           icon={faUtensils}
           items={recommendations.food}
         />
-      </Section>
-    </>
+      </div>
+    </Section>
   );
 };
 
@@ -60,13 +68,23 @@ const RecommendationCards = ({
       <p className="text-lg font-bold bg-red-900/40 px-4 py-2">
         {icon && <FontAwesomeIcon icon={icon} />} {title}
       </p>
-      <div className="flex flex-col gap-4">
+      <div className="space-y-4">
         {items.map((item: recommendation, index: number) => (
           <div
             key={index}
             className="flex flex-col sm:flex-row items-center sm:items-start gap-2 bg-zinc-900/40 p-4"
           >
-            {item.id && <AlbumCover mbid={item.id} />}
+            {item.mbid && (
+              <AlbumCover mbid={item.mbid} alt={item.name + " album cover"} />
+            )}
+            {item.isbn && (
+              <BookImage
+                isbn13={item.isbn}
+                alt={item.name + " book cover"}
+                size="S"
+                quality="L"
+              />
+            )}
             <div className="flex flex-col gap-2 p-2">
               <Link to={item.url} className="text-lg font-bold">
                 {item.name}
