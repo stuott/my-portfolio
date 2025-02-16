@@ -19,3 +19,23 @@ html {
 .bg-intersect {
   background-image: url("/graphics/happy-intersection.svg");
 }
+
+.bg-equals {
+  background-image: url("/graphics/x_equals.svg");
+}
+
+.bg-bevel {
+  background-image: url("/graphics/bevel.svg");
+}
+
+.bg-temple {
+  background-image: url("/graphics/temple.svg");
+}
+
+.bg-rounded {
+  background-image: url("/graphics/rounded.svg");
+}
+
+.bg-moroccan {
+  background-image: url("/graphics/moroccan.svg");
+}

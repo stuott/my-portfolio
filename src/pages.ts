@@ -1,11 +1,14 @@
 type background =
   | "bg-transparent"
-  | "bg-zinc-900"
-  | "bg-zinc-800"
   | "bg-map"
   | "bg-cube"
   | "bg-sudoku"
-  | "bg-intersect";
+  | "bg-intersect"
+  | "bg-equals"
+  | "bg-bevel"
+  | "bg-temple"
+  | "bg-rounded"
+  | "bg-moroccan";
 
 export interface page {
   path: string;

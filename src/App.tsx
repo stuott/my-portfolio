@@ -81,7 +81,7 @@ const RoutedPageContent = ({ pages }: { pages: page[] }) => {
   return (
     <Routes>
       {pages.map(({ background, path, registerPath, Component }) => {
-        const elementClasses = classNames(background ?? "bg-map");
+        const elementClasses = classNames("bg-center", background ?? "bg-map");
 
         return (
           <Route

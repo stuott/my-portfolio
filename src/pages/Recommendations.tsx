@@ -85,4 +85,5 @@ export const pageInfo: page = {
   name: "Recommendations",
   Component: Recommendations,
   showInNavbar: true,
+  background: "bg-rounded",
 };

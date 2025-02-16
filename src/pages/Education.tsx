@@ -16,4 +16,5 @@ export const pageInfo: page = {
   name: "Education",
   Component: Education,
   showInNavbar: true,
+  background: "bg-bevel",
 };
