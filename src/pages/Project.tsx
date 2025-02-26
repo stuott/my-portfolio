@@ -62,7 +62,7 @@ const Project = () => {
 
 const NotFound = () => {
   return (
-    <div className="w-full bg-zinc-900/50 min-h-screen py-32 text-white">
+    <div className="w-full min-h-screen py-32 text-white">
       <div className="flex flex-col items-center gap-12">
         <h1 className="text-5xl font-bold">Sorry</h1>
         <h1 className="text-white text-2xl font-bold">

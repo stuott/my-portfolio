@@ -96,6 +96,20 @@
         "Used React hooks to store user input and dice roll results",
         "Targeted a user persona of a Game Master who needs to roll dice quickly and efficiently with multiple dice types"
       ]
+    },
+    {
+      "index": "character-sheet",
+      "title": "Roleplaying Character Sheet Generator",
+      "link": {
+        "to": "/character",
+        "internal": true
+      },
+      "description": "A character sheet generator for Dungeons and Dragons 5th Edition",
+      "points": [
+        "Built a form to collect user input for character creation",
+        "Used React hooks to store user input and display the character sheet",
+        "Implemented a reset button to clear the form and character sheet"
+      ]
     }
   ]
 }

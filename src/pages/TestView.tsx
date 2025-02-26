@@ -109,7 +109,7 @@ const TestView = () => {
   };
 
   return (
-    <div className="bg-zinc-900/50 p-6 space-y-10">
+    <div className="p-6 space-y-10">
       <Section title="Badges" className={sectionClasses}>
         <Badges captions={badges} />
       </Section>
