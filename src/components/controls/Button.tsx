@@ -14,6 +14,8 @@ export interface ButtonProps {
   onClick?: () => void;
   icon?: IconDefinition;
   children?: React.ReactNode;
+  padding?: string;
+  tooltip?: string;
 }
 
 const Button = ({
@@ -27,18 +29,22 @@ const Button = ({
   scale,
   disabled,
   iconSize,
+  padding,
+  tooltip,
   type = "button",
 }: ButtonProps) => {
+  const paddingClass = padding ?? "p-2";
   const buttonClasses = classNames(
-    "flex gap-2 p-3 w-fit items-center transition-all duration-300 cursor-pointer",
-    className,
+    "flex gap-2 w-fit items-center transition-all duration-300 cursor-pointer",
+    bg,
+    paddingClass,
     {
-      [`bg-${bg}`]: bg,
-      [`hover:bg-${hoverBg}`]: hoverBg && !disabled,
+      [hoverBg ?? ""]: !disabled,
       "flex-row-reverse": flipped,
       "hover:scale-[1.05] transition duration-300": scale && !disabled,
       "cursor-not-allowed bg-zinc-800 text-zinc-600": disabled,
-    }
+    },
+    className
   );
 
   const iconClasses = classNames({
@@ -52,6 +58,7 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
       type={type}
+      title={tooltip}
     >
       {icon && <FontAwesomeIcon className={iconClasses} icon={icon} />}
       {children}

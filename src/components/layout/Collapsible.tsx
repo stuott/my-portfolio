@@ -1,4 +1,5 @@
 import Button from "@components/controls/Button";
+import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 import { useEffect, useId, useState } from "react";
 
@@ -9,6 +10,10 @@ interface CollapsibleProps {
   buttonBelow?: boolean;
   buttonCenter?: boolean;
   buttonClasses?: string;
+  buttonIconClosed?: IconDefinition;
+  buttonIconExpanded?: IconDefinition;
+  buttonBg?: string;
+  buttonHoverBg?: string;
 }
 
 const Collapsible = ({
@@ -18,15 +23,19 @@ const Collapsible = ({
   buttonBelow,
   buttonCenter,
   buttonClasses,
+  buttonIconClosed,
+  buttonIconExpanded,
+  buttonBg = "bg-rose-900/30",
+  buttonHoverBg = "hover:bg-rose-900/50",
 }: CollapsibleProps) => {
   const [showMore, setShowMore] = useState(false);
   const growDivID = useId();
 
   useEffect(() => {
-    updateHiddenPoints();
+    updateHeight();
   }, [showMore]);
 
-  const updateHiddenPoints = () => {
+  const updateHeight = () => {
     let growDiv = document.getElementById(growDivID);
     let hiddenHeight = 0;
 
@@ -44,7 +53,7 @@ const Collapsible = ({
     }
   };
 
-  addEventListener("resize", updateHiddenPoints);
+  addEventListener("resize", updateHeight);
 
   const hiddenPointsClasses = classNames(
     "transition-all duration-1000 overflow-hidden ease-in-out h-0",
@@ -66,10 +75,17 @@ const Collapsible = ({
     "justify-center": buttonCenter,
   });
 
+  const buttonElementClasses = classNames(
+    buttonBg,
+    buttonHoverBg,
+    buttonClasses
+  );
+
   const button = (
     <div className={buttonDivClasses}>
       <Button
-        className={"bg-rose-900/30 hover:bg-rose-900/50 " + buttonClasses}
+        icon={showMore ? buttonIconExpanded : buttonIconClosed}
+        className={buttonElementClasses}
         onClick={() => setShowMore(!showMore)}
       >
         {buttonText}

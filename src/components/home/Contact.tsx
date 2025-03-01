@@ -90,8 +90,8 @@ const Contact = () => {
             <Button
               type="submit"
               className="w-20"
-              bg="rose-900"
-              hoverBg="rose-800"
+              bg="bg-rose-900"
+              hoverBg="hover:bg-rose-800"
               icon={faPaperPlane}
               flipped
             >

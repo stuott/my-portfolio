@@ -72,8 +72,8 @@ const ListCap = ({ displayed, total, showAllBooks }: ListCapProps) => {
           </p>
           <Button
             onClick={showAllBooks}
-            bg="rose-500"
-            hoverBg="rose-300"
+            bg="bg-rose-500"
+            hoverBg="hover:bg-rose-300"
             className="text-gray-400"
           >
             show all books

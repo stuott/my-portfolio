@@ -3,6 +3,7 @@ import classNames from "classnames";
 import IconButton from "./Button";
 import Dropdown, { DropdownProps } from "./Dropdown";
 import Filters, { FiltersProps } from "./Filters";
+import TextInput from "./TextInput";
 
 interface searchBarProps<T = {}> {
   setSearch: (searchTerm: string) => void;
@@ -30,12 +31,6 @@ const SearchBar = <T,>({
     className
   );
 
-  const barClasses = classNames("px-8 py-4 flex-grow border-zinc-700", {
-    "cursor-not-allowed bg-zinc-800 placeholder:text-zinc-600": disabled,
-    "bg-zinc-900 border-2 text-white hover:bg-zinc-800 focus:bg-zinc-800":
-      !disabled,
-  });
-
   const buttonClasses = classNames("p-4", {
     "cursor-not-allowed bg-zinc-800 text-zinc-600": disabled,
     "bg-rose-800 hover:bg-rose-600": !disabled,
@@ -52,12 +47,10 @@ const SearchBar = <T,>({
       <div className="flex flex-col sm:flex-row gap-4 justify-center w-full">
         {dropdown && <Dropdown {...dropdown} disabled={disabled} />}
         <div className="flex space-x-6 w-full">
-          <input
-            type="text"
+          <TextInput
             placeholder={placeholder}
-            className={barClasses}
-            onChange={(e) => setSearch(e.target.value)}
             disabled={disabled}
+            onChange={(e) => setSearch(e.target.value)}
             value={search}
           />
           <IconButton

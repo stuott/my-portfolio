@@ -1,11 +1,12 @@
 import classNames from "classnames";
 
 export interface DropdownProps {
-  options: string[];
+  options: readonly string[];
   placeholder?: string;
   setSelection?: (value: string) => void;
   disabled?: boolean;
   label?: string;
+  defaultValue?: string;
 }
 
 const Dropdown = ({
@@ -14,6 +15,7 @@ const Dropdown = ({
   placeholder,
   disabled,
   label,
+  defaultValue,
 }: DropdownProps) => {
   const selectClasses = classNames(
     "p-4 border-zinc-700",
@@ -31,7 +33,7 @@ const Dropdown = ({
         className={selectClasses}
         onChange={(e) => setSelection && setSelection(e.target.value)}
         disabled={disabled}
-        defaultValue=""
+        defaultValue={defaultValue ?? ""}
       >
         {placeholder && (
           <option value="" disabled>

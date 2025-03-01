@@ -100,7 +100,7 @@ const DiceRow = ({
         icon={faTrash}
         onClick={() => handleRemoveRow(index)}
         bg="rose-950"
-        hoverBg="rose-900"
+        hoverBg="hover:bg-rose-900"
       />
     </div>
   );
@@ -184,15 +184,15 @@ const DiceRoller = () => {
           <IconButton
             icon={faPlus}
             onClick={handleAddRow}
-            bg="green-900"
-            hoverBg="green-800"
+            bg="bg-green-900"
+            hoverBg="hover:bg-green-800"
           />
           {diceRows?.length > 0 && (
             <IconButton
               icon={faDice}
               onClick={handleRoll}
-              bg="rose-900"
-              hoverBg="rose-800"
+              bg="bg-rose-900"
+              hoverBg="hover:bg-rose-800"
             />
           )}
         </div>

@@ -14,6 +14,7 @@ export default defineConfig({
       "@data": path.resolve(__dirname, "./src/data"),
       types: path.resolve(__dirname, "./src/types"),
       "@analytics": path.resolve(__dirname, "./src/analytics"),
+      "@utilities": path.resolve(__dirname, "./src/utilities"),
     },
   },
 });

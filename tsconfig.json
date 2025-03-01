@@ -6,7 +6,8 @@
       "@data/*": ["data/*"],
       "@analytics/*": ["analytics/*"],
       "@pages/*": ["pages/*"],
-      "types/*": ["types/*"]
+      "types/*": ["types/*"],
+      "@utilities/*": ["utilities/*"]
     },
     "types": ["webpack-env"]
   },
