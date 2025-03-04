@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useState } from "react";
 
 export interface DropdownProps {
   options: readonly string[];
@@ -17,12 +18,20 @@ const Dropdown = ({
   label,
   defaultValue,
 }: DropdownProps) => {
+  const [valueChanged, setValueChanged] = useState(false);
+
+  const onValueUpdate = (value: string) => {
+    setSelection && setSelection(value);
+    !valueChanged && setValueChanged(true);
+  };
+
   const selectClasses = classNames(
-    "p-4 border-zinc-700",
-    { "cursor-no-drop text-zinc-600 bg-zinc-800 border-0": disabled },
+    "p-4 border-zinc-700 border-2 default:italic",
     {
-      "cursor-pointer bg-zinc-900 border-2 hover:bg-zinc-800 focus:bg-zinc-800":
+      "cursor-no-drop text-zinc-600 bg-zinc-800 ": disabled,
+      "cursor-pointer bg-zinc-900 hover:bg-zinc-800 focus:bg-zinc-800":
         !disabled,
+      "text-zinc-600": !defaultValue || defaultValue === "",
     }
   );
 
@@ -31,7 +40,7 @@ const Dropdown = ({
       {label}
       <select
         className={selectClasses}
-        onChange={(e) => setSelection && setSelection(e.target.value)}
+        onChange={(e) => onValueUpdate(e.target.value)}
         disabled={disabled}
         defaultValue={defaultValue ?? ""}
       >
@@ -41,7 +50,7 @@ const Dropdown = ({
           </option>
         )}
         {options.map((option, index) => (
-          <option key={index} value={option}>
+          <option className="text-white" key={index} value={option}>
             {option}
           </option>
         ))}

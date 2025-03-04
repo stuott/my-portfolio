@@ -23,7 +23,7 @@ const classToSubclassesMap: Record<string, string[]> = {
   wizard: ["abjuration", "evocation"],
 };
 
-export const mapClassToSubclasses = (classType: characterClass) => {
+export const mapClassToSubclasses = (classType: characterClass | undefined) => {
   if (classType == undefined) {
     return [];
   }

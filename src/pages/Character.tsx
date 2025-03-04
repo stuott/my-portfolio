@@ -40,7 +40,7 @@ const Character = () => {
           <BasicInfo />
           <FileButtons />
         </div>
-        <div className="flex gap-6 p-4 bg-zinc-900 border">
+        <div className="flex flex-col gap-6 p-4 bg-zinc-900 border">
           <AbilityScores />
           <Skills />
         </div>
@@ -171,13 +171,32 @@ const BasicInfo = () => {
           setSelection={(value) => updateRace(value as characterRace)}
           defaultValue={character.race}
         />
-        <Dropdown
-          label="class"
-          options={classes}
-          placeholder="select a class"
-          setSelection={(value) => updateClass(value as characterClass)}
-          defaultValue={character.class}
-        />
+        <div className="flex gap-2 justify-center">
+          <div className="w-1/2">
+            <Dropdown
+              label="class"
+              options={classes}
+              placeholder="class"
+              setSelection={(value) => {
+                updateClass(value as characterClass);
+                updateSubclass("none");
+              }}
+              defaultValue={character.class}
+            />
+          </div>
+          <div className="w-1/2">
+            <Dropdown
+              label="subclass"
+              options={mapClassToSubclasses(character.class)}
+              placeholder="subclass"
+              disabled={!character.class}
+              setSelection={(value) =>
+                updateSubclass(value as characterSubclass)
+              }
+              defaultValue={character.subclass}
+            />
+          </div>
+        </div>
         <Dropdown
           label="background"
           options={backgrounds}
@@ -187,15 +206,6 @@ const BasicInfo = () => {
           }
           defaultValue={character.background}
         />
-        {character.class && (
-          <Dropdown
-            label="subclass"
-            options={mapClassToSubclasses(character.class)}
-            placeholder="select a subclass"
-            setSelection={(value) => updateSubclass(value as characterSubclass)}
-            defaultValue={character.subclass}
-          />
-        )}
       </div>
     </div>
   );
@@ -204,22 +214,37 @@ const BasicInfo = () => {
 const AbilityScores = () => {
   const { character, updateAbilityScore } = useCharacter();
 
+  const abilityKeys = Object.keys(character.abilities) as abilityName[];
+
+  const getAbilityControl = (abilityName: abilityName) => {
+    const ability = character.abilities[abilityName];
+    return (
+      <NumberInput
+        showAdjustment
+        label={abilityName.slice(0, 3)}
+        value={ability.score}
+        onChange={(value) => updateAbilityScore(abilityName, value)}
+      />
+    );
+  };
+
+  const abilityClasses = "flex gap-2 justify-between mx-6";
+
   return (
     <div className="flex flex-col flex-wrap gap-2">
       <p className="font-bold text-xl">Abilities</p>
-      {Object.keys(character.abilities).map((abilityKey) => {
-        const abilityName = abilityKey as abilityName;
-        const ability = character.abilities[abilityName];
-        return (
-          <NumberInput
-            key={abilityName}
-            showAdjustment
-            label={abilityName}
-            value={ability.score}
-            onChange={(value) => updateAbilityScore(abilityName, value)}
-          />
-        );
-      })}
+      <div className="space-y-2">
+        <div className={abilityClasses}>
+          {abilityKeys
+            .slice(0, 3)
+            .map((abilityKey) => getAbilityControl(abilityKey))}
+        </div>
+        <div className={abilityClasses}>
+          {abilityKeys
+            .slice(3)
+            .map((abilityKey) => getAbilityControl(abilityKey))}
+        </div>
+      </div>
     </div>
   );
 };
@@ -227,27 +252,35 @@ const AbilityScores = () => {
 const Skills = () => {
   const { character, updateSkillProficiency } = useCharacter();
 
+  const skillKeys = Object.keys(character.skills) as skillName[];
+
+  const getSkillControl = (skillName: skillName) => {
+    const skill = character.skills[skillName];
+    return (
+      <div key={skillName} className="flex gap-2">
+        <div className="w-4 flex justify-center">
+          {formatModifier(skill.modifier)}
+        </div>
+        <Checkbox
+          checked={skill.proficiency}
+          onChange={(e) => updateSkillProficiency(skillName, e.target.checked)}
+        />
+        <div>{skillName}</div>
+      </div>
+    );
+  };
+
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 ">
       <p className="font-bold text-xl">Skills</p>
-      {Object.keys(character.skills).map((skillKey) => {
-        const skillName = skillKey as skillName;
-        const skill = character.skills[skillName];
-        return (
-          <div key={skillName} className="flex gap-6">
-            <div className="w-6 flex justify-center">
-              {formatModifier(skill.modifier)}
-            </div>
-            <Checkbox
-              checked={skill.proficiency}
-              onChange={(e) =>
-                updateSkillProficiency(skillName, e.target.checked)
-              }
-            />
-            <div>{skillName}</div>
-          </div>
-        );
-      })}
+      <div className="flex gap-4">
+        <div>
+          {skillKeys.slice(0, 9).map((skillKey) => getSkillControl(skillKey))}
+        </div>
+        <div>
+          {skillKeys.slice(9).map((skillKey) => getSkillControl(skillKey))}
+        </div>
+      </div>
     </div>
   );
 };
