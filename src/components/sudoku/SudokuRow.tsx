@@ -1,80 +1,28 @@
+import { SudokuCellData } from "types/sudoku";
 import SudokuCell from "./SudokuCell";
-import { CellPosition, isCellStatic, SudokuValue } from "./sudokuUtils";
 
 interface SudokuRowProps {
-  row: (SudokuValue | null)[];
-  rowIndex: number;
+  row: SudokuCellData[];
   onMouseDown: (row: number, col: number) => void;
   onMouseEnter: (row: number, col: number) => void;
-  disabled: boolean;
-  duplicateFlags: boolean[];
-  isSameValueFlags: boolean[];
-  puzzle: number;
-  selectedCells: CellPosition[];
 }
 
-const SudokuRow = ({
-  row,
-  rowIndex,
-  selectedCells,
-  onMouseDown,
-  onMouseEnter,
-  puzzle,
-  duplicateFlags,
-  isSameValueFlags,
-}: SudokuRowProps) => {
-  const getCellHighlight = (col: number) => {
-    if (duplicateFlags[col]) {
-      return "bg-red-900/50";
-    }
-
-    if (selectedCells.length === 0 || selectedCells.length > 1) {
-      return "";
-    }
-
-    const [selectedRow, selectedCol] = selectedCells[0];
-    if (selectedRow === rowIndex && selectedCol === col) {
-      return "";
-    }
-
-    if (isSameValueFlags[col] && row[col] !== null) {
-      return "bg-yellow-900/50";
-    }
-
-    const isSameRowOrCol = selectedRow === rowIndex || selectedCol === col;
-    const isSameBox =
-      Math.floor(selectedRow / 3) === Math.floor(rowIndex / 3) &&
-      Math.floor(selectedCol / 3) === Math.floor(col / 3);
-    if (isSameRowOrCol || isSameBox) {
-      return "bg-red-900/15";
-    }
-
-    return "";
-  };
-
+const SudokuRow = ({ row, onMouseDown, onMouseEnter }: SudokuRowProps) => {
   return (
     <div className="flex">
-      {row.map((value, colIndex) => (
+      {row.map((cell, index) => (
         <>
           <SudokuCell
-            row={rowIndex as SudokuValue}
-            col={colIndex as SudokuValue}
-            value={value as SudokuValue}
-            selected={selectedCells.some(
-              (cell) => cell[0] === rowIndex && cell[1] === colIndex
-            )}
+            key={"sudokuCell_" + cell.row + "-" + cell.col}
+            cell={cell}
             onMouseDown={onMouseDown}
             onMouseEnter={onMouseEnter}
-            isStatic={isCellStatic(
-              rowIndex as SudokuValue,
-              colIndex as SudokuValue,
-              puzzle
-            )}
-            highlight={getCellHighlight(colIndex)}
           />
-
-          {(colIndex === 2 || colIndex === 5) && (
-            <div className="bg-zinc-300 w-1" />
+          {(index === 2 || index === 5) && (
+            <div
+              key={"divider_" + row + "-" + index}
+              className="bg-zinc-300 w-1"
+            />
           )}
         </>
       ))}

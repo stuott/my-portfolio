@@ -103,7 +103,6 @@ export const CharacterProvider = ({
       );
     },
     getReport: (type: reportType) => {
-      console.log(character);
       return character.getReport(type);
     },
   };
