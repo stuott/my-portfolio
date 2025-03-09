@@ -25,7 +25,7 @@ const SudokuRow = ({
 }: SudokuRowProps) => {
   const getCellHighlight = (col: number) => {
     if (duplicateFlags[col]) {
-      return "bg-rose-900/50";
+      return "bg-red-900/50";
     }
 
     if (selectedCells.length === 0 || selectedCells.length > 1) {
@@ -46,7 +46,7 @@ const SudokuRow = ({
       Math.floor(selectedRow / 3) === Math.floor(rowIndex / 3) &&
       Math.floor(selectedCol / 3) === Math.floor(col / 3);
     if (isSameRowOrCol || isSameBox) {
-      return "bg-rose-900/50";
+      return "bg-red-900/15";
     }
 
     return "";
@@ -55,22 +55,28 @@ const SudokuRow = ({
   return (
     <div className="flex">
       {row.map((value, colIndex) => (
-        <SudokuCell
-          row={rowIndex as SudokuValue}
-          col={colIndex as SudokuValue}
-          value={value as SudokuValue}
-          selected={selectedCells.some(
-            (cell) => cell[0] === rowIndex && cell[1] === colIndex
+        <>
+          <SudokuCell
+            row={rowIndex as SudokuValue}
+            col={colIndex as SudokuValue}
+            value={value as SudokuValue}
+            selected={selectedCells.some(
+              (cell) => cell[0] === rowIndex && cell[1] === colIndex
+            )}
+            onMouseDown={onMouseDown}
+            onMouseEnter={onMouseEnter}
+            isStatic={isCellStatic(
+              rowIndex as SudokuValue,
+              colIndex as SudokuValue,
+              puzzle
+            )}
+            highlight={getCellHighlight(colIndex)}
+          />
+
+          {(colIndex === 2 || colIndex === 5) && (
+            <div className="bg-zinc-300 w-1" />
           )}
-          onMouseDown={onMouseDown}
-          onMouseEnter={onMouseEnter}
-          isStatic={isCellStatic(
-            rowIndex as SudokuValue,
-            colIndex as SudokuValue,
-            puzzle
-          )}
-          highlight={getCellHighlight(colIndex)}
-        />
+        </>
       ))}
     </div>
   );

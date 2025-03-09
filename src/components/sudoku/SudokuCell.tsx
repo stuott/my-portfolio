@@ -23,11 +23,10 @@ const SudokuCell = ({
   highlight,
 }: SudokuCellProps) => {
   const divClasses =
-    classNames("border border-zinc-700 h-10 w-10 md:h-12 md:w-12", {
-      "bg-rose-900": selected,
+    classNames("border h-10 w-10 md:h-12 md:w-12", {
+      "bg-red-900/15 border-3 border-red-700": selected,
+      "border-zinc-700": !selected,
       "font-bold": isStatic,
-      "border-b-2 border-b-white": row === 2 || row === 5,
-      "border-r-2 border-r-white": col === 2 || col === 5,
     }) +
     (" " + highlight);
 

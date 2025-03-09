@@ -7,6 +7,7 @@ import {
   CharacterData,
   characterRace,
   characterSubclass,
+  reportType,
   skillName,
 } from "types/character";
 
@@ -23,6 +24,7 @@ interface CharacterContextProps {
   updateSubclass: (subclass: characterSubclass) => void;
   updateAlignment: (alignment: characterAlignment) => void;
   updateBackground: (background: characterBackground) => void;
+  getReport: (type: reportType) => string;
 }
 
 export const CharacterContext = createContext<
@@ -56,7 +58,9 @@ export const CharacterProvider = ({
 
   const callbacks = {
     importCharacter: (data: CharacterData) => {
-      setCharacter(data);
+      characterDataChange((character) => {
+        character.copy(data);
+      });
     },
     exportCharacter: () => {
       return character;
@@ -97,6 +101,10 @@ export const CharacterProvider = ({
       characterDataChange(
         (newCharacter) => (newCharacter.background = background)
       );
+    },
+    getReport: (type: reportType) => {
+      console.log(character);
+      return character.getReport(type);
     },
   };
 

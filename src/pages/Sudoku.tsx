@@ -1,4 +1,5 @@
 import IconButton from "@components/controls/Button";
+import Checkbox from "@components/controls/Checkbox";
 import Section from "@components/layout/Section";
 import { NumberPad, SudokuRow } from "@components/sudoku";
 import {
@@ -28,6 +29,10 @@ const Sudoku = () => {
     Array.from({ length: 9 }, () => Array(9).fill(false))
   );
   const [solved, setSolved] = useState<boolean | undefined>(undefined);
+
+  const [allowMultiSelect, setAllowMultiSelect] = useState(true);
+  const [allowErrorChecking, setAllowErrorChecking] = useState(true);
+  const [highlightSameValues, setHighlightSameValues] = useState(true);
 
   const updateCells = useCallback(
     (value?: SudokuValue) => {
@@ -81,7 +86,10 @@ const Sudoku = () => {
         },
         {
           keys: ["Ctrl", "Shift"],
-          action: () => setIsMultiSelect(!keyUp),
+          action: () =>
+            allowMultiSelect
+              ? setIsMultiSelect(!keyUp)
+              : setIsMultiSelect(false),
         },
         {
           keys: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
@@ -238,6 +246,20 @@ const Sudoku = () => {
     setSolved(undefined);
   };
 
+  const getIsSameValueFlags = (row: number) => {
+    if (!highlightSameValues) {
+      return Array(9).fill(false);
+    }
+    return sudoku[row].map((value) => value === getSelectedCellValue());
+  };
+
+  const getErrors = (row: number) => {
+    if (!allowErrorChecking) {
+      return Array(9).fill(false);
+    }
+    return duplicateFlags[row];
+  };
+
   return (
     <>
       <div className="h-16" />
@@ -252,23 +274,25 @@ const Sudoku = () => {
             onMouseLeave={handleMouseUp}
           >
             {Array.from({ length: 9 }, (_, i) => (
-              <SudokuRow
-                selectedCells={selectedCells}
-                row={sudoku[i]}
-                rowIndex={i}
-                onMouseDown={handleMouseDown}
-                onMouseEnter={handleMouseEnter}
-                disabled={data.puzzles[puzzle].mask[i].includes(true)}
-                duplicateFlags={duplicateFlags[i]}
-                isSameValueFlags={sudoku[i].map(
-                  (value) => value === getSelectedCellValue()
-                )}
-                puzzle={puzzle}
-              />
+              <>
+                <SudokuRow
+                  selectedCells={selectedCells}
+                  row={sudoku[i]}
+                  rowIndex={i}
+                  onMouseDown={handleMouseDown}
+                  onMouseEnter={handleMouseEnter}
+                  disabled={data.puzzles[puzzle].mask[i].includes(true)}
+                  duplicateFlags={getErrors(i)}
+                  isSameValueFlags={getIsSameValueFlags(i)}
+                  puzzle={puzzle}
+                />
+                {(i === 2 || i === 5) && <div className="bg-zinc-300 h-1" />}
+              </>
             ))}
           </div>
           <div className="flex md:flex-col items-center justify-center bg-zinc-900">
             <div className="flex flex-col gap-3 items-center">
+              <p className="text-white">Select a difficulty:</p>
               <select
                 value={puzzle}
                 onChange={handleDifficultyChange}
@@ -283,7 +307,7 @@ const Sudoku = () => {
               </select>
               <div className="flex gap-3">
                 <IconButton
-                  className="bg-rose-900 text-2xl p-3 hover:bg-rose-800"
+                  className="bg-red-900 text-2xl p-3 hover:bg-red-800"
                   onClick={() => {
                     setSudoku(data.puzzles[puzzle].values as SudokuData);
                     setSolved(undefined);
@@ -301,11 +325,38 @@ const Sudoku = () => {
               onClick={(value: SudokuValue) => updateCells(value)}
               solvedDigits={solvedDigits}
             />
+            <div className="flex flex-col gap-2 items-start">
+              <div className="flex gap-2 items-center">
+                <Checkbox
+                  checked={allowMultiSelect}
+                  onChange={(e) => setAllowMultiSelect(e.target.checked)}
+                />
+                Allow Multi-select
+              </div>
+              <div className="flex gap-2 items-center">
+                <Checkbox
+                  checked={allowErrorChecking}
+                  onChange={(e) => {
+                    setAllowErrorChecking(e.target.checked);
+                  }}
+                />
+                Error Checking
+              </div>
+              <div className="flex gap-2 items-center">
+                <Checkbox
+                  checked={highlightSameValues}
+                  onChange={(e) => {
+                    setHighlightSameValues(e.target.checked);
+                  }}
+                />
+                Highlight Same Values
+              </div>
+            </div>
           </div>
         </div>
         {solved !== undefined && (
           <div className="bg-zinc-900 md:pt-6">
-            <p className={solved ? "text-green-400" : "text-rose-400"}>
+            <p className={solved ? "text-green-400" : "text-red-400"}>
               {solved ? "Solved!" : "That's not right! Take another look."}
             </p>
           </div>

@@ -57,6 +57,18 @@ export class CharacterData {
     };
   }
 
+  copy(characterData: CharacterData) {
+    this.name = characterData.name;
+    this.class = characterData.class;
+    this.subclass = characterData.subclass;
+    this.race = characterData.race;
+    this.alignment = characterData.alignment;
+    this.background = characterData.background;
+    this.abilities = { ...characterData.abilities };
+    this.skills = { ...characterData.skills };
+    this.levelInfo = { ...characterData.levelInfo };
+  }
+
   updateAbilityScore(ability: abilityName, value: number) {
     this.abilities[ability].score = value;
     this.abilities[ability].modifier = calculateModifier(value);
@@ -85,6 +97,52 @@ export class CharacterData {
     this.levelInfo.level = level;
     this.levelInfo.proficiencyBonus = Math.ceil(level / 4) + 1;
     this.updateSkillModifiers();
+  }
+
+  getReport(type: reportType) {
+    switch (type) {
+      case "sheet":
+        return this.getSheet();
+      case "json":
+        return this.getJSON();
+      case "min":
+        return this.getMin();
+    }
+  }
+
+  getJSON() {
+    return JSON.stringify(this, null, 2);
+  }
+
+  getSheet() {
+    return (
+      `
+      Name: ${this.name}
+      Class: ${this.class}
+      Subclass: ${this.subclass}
+      ` +
+      Object.keys(this.abilities)
+        .map((ability) => {
+          return `${ability}: ${this.abilities[ability as abilityName].score}`;
+        })
+        .join("\n") +
+      `
+      ` +
+      Object.keys(this.skills)
+        .map((skill) => {
+          return `${skill}: ${this.skills[skill as skillName].modifier}`;
+        })
+        .join("\n") +
+      `
+      Level: ${this.levelInfo.level}
+      Experience: ${this.levelInfo.experience}
+      Proficiency Bonus: ${this.levelInfo.proficiencyBonus}
+      `
+    );
+  }
+
+  getMin() {
+    return `${this.name} - ${this.class} - Level ${this.levelInfo.level}`;
   }
 }
 
@@ -226,3 +284,6 @@ export const races = [
   "tiefling",
 ] as const;
 export type characterRace = (typeof races)[number];
+
+export const reports = ["sheet", "json", "min"] as const;
+export type reportType = (typeof reports)[number];

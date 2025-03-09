@@ -17,7 +17,7 @@ import {
   formatModifier,
   mapClassToSubclasses,
 } from "@utilities/characterUtils";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   abilityName,
   alignments,
@@ -29,6 +29,8 @@ import {
   characterSubclass,
   classes,
   races,
+  reports,
+  reportType,
   skillName,
 } from "types/character";
 
@@ -53,16 +55,14 @@ const FileButtons = () => {
   const { character, importCharacter } = useCharacter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const content = e.target?.result as string;
-        const importedCharacter = JSON.parse(content);
-        importCharacter(importedCharacter);
-      };
-      reader.readAsText(file);
+      const content = await file.text();
+      const importedCharacter = JSON.parse(content);
+      importCharacter(importedCharacter);
     }
   };
 
@@ -220,6 +220,7 @@ const AbilityScores = () => {
     const ability = character.abilities[abilityName];
     return (
       <NumberInput
+        key={abilityName}
         showAdjustment
         label={abilityName.slice(0, 3)}
         value={ability.score}
@@ -286,10 +287,19 @@ const Skills = () => {
 };
 
 const GeneratedCharacter = () => {
-  const { character } = useCharacter();
+  const { getReport } = useCharacter();
+
+  const [reportType, setReportType] = useState<reportType>("json");
 
   return (
     <Section>
+      <Dropdown
+        label="Character"
+        options={reports}
+        placeholder="select a view"
+        setSelection={(value) => setReportType(value as reportType)}
+        defaultValue={reportType}
+      />
       <Collapsible
         buttonCenter
         buttonTextClosed="Show Character Data"
@@ -299,9 +309,7 @@ const GeneratedCharacter = () => {
         buttonIconClosed={faMagnifyingGlassPlus}
         buttonIconExpanded={faMagnifyingGlassMinus}
       >
-        <pre className="bg-zinc-900 p-4">
-          {JSON.stringify(character, null, 2)}
-        </pre>
+        <pre className="bg-zinc-900 p-4">{getReport(reportType)}</pre>
       </Collapsible>
     </Section>
   );
