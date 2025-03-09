@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useSudoku } from "./SudokuProvider";
 
 const SudokuMenu = () => {
-  const { sudoku, changePuzzle, showErrors } = useSudoku();
+  const { sudoku, changePuzzle, showErrors, showSameValues } = useSudoku();
   const [puzzle, setPuzzle] = useState(0);
 
   return (
@@ -37,11 +37,18 @@ const SudokuMenu = () => {
         <ResetConfirm puzzleIndex={puzzle} />
         <CheckSolution />
       </div>
-      <Checkbox
-        label="error checking"
-        checked={sudoku.showErrors}
-        onChange={(e) => showErrors(e.target.checked)}
-      />
+      <div className="space-y-3">
+        <Checkbox
+          label="error checking"
+          checked={sudoku.showErrors}
+          onChange={(e) => showErrors(e.target.checked)}
+        />
+        <Checkbox
+          label="highlight value"
+          checked={sudoku.showSameValue}
+          onChange={(e) => showSameValues(e.target.checked)}
+        />
+      </div>
     </div>
   );
 };

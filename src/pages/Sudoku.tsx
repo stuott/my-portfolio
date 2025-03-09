@@ -7,38 +7,43 @@ import { useCallback, useEffect, useState } from "react";
 import { SudokuValue } from "types/sudoku";
 
 const Sudoku = () => {
-  const { sudoku, selectCell, deselectCells, updateSelectedCells } =
-    useSudoku();
+  const {
+    sudoku,
+    selectCell,
+    deselectCells,
+    updateSelectedCells,
+    updateSelectedGuesses,
+  } = useSudoku();
   const [isDragging, setIsDragging] = useState(false);
-  const [keyPressed, setKeyPressed] = useState<string | null>(null);
   const [multiSelect, setMultiSelect] = useState(false);
+  const [lastKeyPressed, setLastKeyPressed] = useState<string | null>(null);
 
-  const handleMouseDown = (row: number, col: number) => {
-    selectCell(row, col, multiSelect);
-    setIsDragging(true);
-  };
+  const handleMouseDown = useCallback(
+    (row: number, col: number) => {
+      selectCell(row, col, multiSelect);
+      setIsDragging(true);
+    },
+    [selectCell, multiSelect]
+  );
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
-  const handleMouseEnter = (row: number, col: number) => {
-    if (isDragging) {
-      selectCell(row, col, true);
-    }
-  };
+  const handleMouseEnter = useCallback(
+    (row: number, col: number) => {
+      if (isDragging) {
+        selectCell(row, col, true);
+      }
+    },
+    [isDragging, selectCell]
+  );
 
   const handleKeyChange = useCallback(
     (event: KeyboardEvent, keyUp: boolean = false) => {
-      if (keyUp) {
-        setMultiSelect(false);
-        setKeyPressed(null);
-        return;
-      }
-
-      if (keyPressed === event.key) return;
-
-      setKeyPressed(event.key);
+      if (event.repeat) return;
+      if (keyUp) setLastKeyPressed(null);
+      if (lastKeyPressed == event.key) return;
 
       const keyActions = [
         {
@@ -53,18 +58,35 @@ const Sudoku = () => {
           action: () => {
             if (keyUp) return;
             updateSelectedCells(null);
+            updateSelectedGuesses(null);
           },
         },
         {
           keys: ["Shift"],
-          action: () => setMultiSelect(true),
+          action: () => {
+            setMultiSelect(!keyUp);
+          },
         },
         {
-          keys: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+          codes: [
+            "Digit0",
+            "Digit1",
+            "Digit2",
+            "Digit3",
+            "Digit4",
+            "Digit5",
+            "Digit6",
+            "Digit7",
+            "Digit8",
+            "Digit9",
+          ],
           action: () => {
             if (keyUp) return;
-            const value = parseInt(event.key, 10);
-            if (value >= 1 && value <= 9) {
+            const value = parseInt(event.code.charAt(event.code.length - 1));
+            if (value < 1 && value > 9) return;
+            if (event.shiftKey) {
+              updateSelectedGuesses(value as SudokuValue);
+            } else {
               updateSelectedCells(value as SudokuValue);
             }
           },
@@ -99,11 +121,17 @@ const Sudoku = () => {
         },
       ];
 
-      if (keyActions.some((action) => action.keys.includes(event.key))) {
-        keyActions.find((action) => action.keys.includes(event.key))?.action();
+      const keyMatch = keyActions.findIndex(
+        (keyAction) =>
+          keyAction.keys?.includes(event.key) ||
+          keyAction.codes?.includes(event.code)
+      );
+
+      if (keyMatch != -1) {
+        keyActions[keyMatch]?.action();
       }
     },
-    [deselectCells, updateSelectedCells, keyPressed]
+    [deselectCells, updateSelectedCells, selectCell, clamp]
   );
 
   useEffect(() => {
@@ -117,7 +145,7 @@ const Sudoku = () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [sudoku, handleKeyChange]);
+  }, [handleKeyChange]);
 
   return (
     <>

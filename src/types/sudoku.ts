@@ -19,6 +19,13 @@ export type SudokuPuzzle = {
   solution: SudokuValue[][];
 };
 
+type borderData = {
+  top: boolean;
+  bottom: boolean;
+  left: boolean;
+  right: boolean;
+};
+
 export class SudokuCellData {
   row: number;
   col: number;
@@ -27,6 +34,10 @@ export class SudokuCellData {
   isSelected: boolean;
   isHighlighted: boolean;
   isError: boolean;
+  isSelectedValue: boolean;
+  selectedBorders: borderData;
+  boxPosition: number;
+  guess: SudokuValue;
 
   constructor() {
     this.row = 0;
@@ -36,6 +47,15 @@ export class SudokuCellData {
     this.isSelected = false;
     this.isHighlighted = false;
     this.isError = false;
+    this.isSelectedValue = false;
+    this.selectedBorders = {
+      top: false,
+      bottom: false,
+      left: false,
+      right: false,
+    };
+    this.boxPosition = 0;
+    this.guess = null;
   }
 
   clear() {
@@ -44,6 +64,14 @@ export class SudokuCellData {
     this.isSelected = false;
     this.isHighlighted = false;
     this.isError = false;
+    this.isSelectedValue = false;
+    this.selectedBorders = {
+      top: false,
+      bottom: false,
+      left: false,
+      right: false,
+    };
+    this.guess = null;
   }
 }
 
@@ -52,6 +80,7 @@ export class SudokuData {
   puzzleIndex: number;
   selectedCells: SudokuCellData[];
   showErrors: boolean;
+  showSameValue: boolean;
   digitCounts: number[];
   solved: boolean | null;
 
@@ -64,6 +93,7 @@ export class SudokuData {
         const newCell = new SudokuCellData();
         newCell.row = i;
         newCell.col = j;
+        newCell.boxPosition = getBoxPosition(i, j);
         this.cells[i].push(newCell);
       }
     }
@@ -71,6 +101,7 @@ export class SudokuData {
     this.changePuzzle(0);
     this.selectedCells = [];
     this.showErrors = true;
+    this.showSameValue = true;
     this.digitCounts = new Array(9).fill(0);
     this.solved = null;
   }
@@ -104,57 +135,82 @@ export class SudokuData {
     const cell = this.cells[row][col];
     if (!append) {
       this.deselectAllCells();
+    }
+    if (!this.selectedCells.some((cell) => cellInPosition(cell, row, col))) {
       this.selectedCells.push(cell);
     }
     cell.isSelected = true;
     this.updateHighlighted();
+    this.updateSelectedValue();
+    this.calculateBordersForSelectedCells();
   }
 
   deselectCell(row: number, col: number) {
     this.cells[row][col].isSelected = false;
+    this.cells[row][col].selectedBorders = {
+      top: false,
+      bottom: false,
+      left: false,
+      right: false,
+    };
+    const cellIndex = this.selectedCells.findIndex((cell) =>
+      cellInPosition(cell, row, col)
+    );
+    if (cellIndex !== -1) {
+      this.selectedCells.splice(cellIndex, 1);
+    }
   }
 
   deselectAllCells() {
     this.selectedCells = [];
     this.forAllCells((cell) => {
-      cell.isSelected = false;
+      this.deselectCell(cell.row, cell.col);
     });
   }
 
   updateSelectedCells(value: SudokuValue) {
-    //TODO: FIX DIGIT COUNT LOGIC
-    this.forAllCells((cell) => {
-      if (!cell.isSelected || cell.isStatic) return;
-      if (cell.value === value) {
-        if (cell.value !== null) {
-          this.digitCounts[cell.value - 1]--;
-        }
-        cell.value = null;
-      } else {
-        if (value === null) {
-          if (cell.value !== null) {
-            this.digitCounts[cell.value - 1]--;
-          }
+    this.selectedCells.forEach((cell) => {
+      if (!cell.isStatic) {
+        if (cell.value === value) {
+          cell.value = null;
         } else {
-          if (cell.value !== null) {
-            this.digitCounts[cell.value - 1]++;
-          }
+          cell.value = value;
         }
-        cell.value = value;
       }
     });
 
     this.checkForErrors();
-    if (value !== null) {
-      this.digitCounts[value - 1]++;
-    }
+    this.updateSelectedValue();
+  }
+
+  updateSelectedGuesses(guess: SudokuValue) {
+    this.selectedCells.forEach((cell) => {
+      if (!cell.isStatic && !cell.value) {
+        if (cell.guess === guess) {
+          cell.guess = null;
+        } else {
+          cell.guess = guess;
+        }
+      }
+    });
   }
 
   updateHighlighted() {
-    if (this.selectedCells.length > 1) return;
+    if (this.selectedCells.length === 0) {
+      this.forAllCells((cell) => {
+        cell.isHighlighted = false;
+      });
+      return;
+    }
+
+    if (this.selectedCells.length > 1) {
+      this.forAllCells((cell) => {
+        cell.isHighlighted = false;
+      });
+      return;
+    }
 
     const selectedCell = this.selectedCells[0];
-    if (!selectedCell.row || !selectedCell.col) return;
 
     this.forAllCells((cell) => {
       cell.isHighlighted = false;
@@ -164,6 +220,17 @@ export class SudokuData {
         cellsInSameBox(cell, selectedCell)
       ) {
         cell.isHighlighted = true;
+      }
+    });
+  }
+
+  updateSelectedValue() {
+    this.forAllCells((cell) => {
+      cell.isSelectedValue = false;
+      if (this.selectedCells.length > 0 && this.showSameValue) {
+        if (cell.value && cell.value === this.selectedCells[0].value) {
+          cell.isSelectedValue = true;
+        }
       }
     });
   }
@@ -247,6 +314,47 @@ export class SudokuData {
   checkDigitSolved(digit: number) {
     return this.digitCounts[digit - 1] >= 9;
   }
+
+  showSameValues(show: boolean) {
+    this.showSameValue = show;
+    this.updateSelectedValue();
+  }
+
+  calculateBordersForSelectedCells() {
+    this.selectedCells.forEach((cell) => {
+      cell.selectedBorders = {
+        top: false,
+        bottom: false,
+        left: false,
+        right: false,
+      };
+
+      if (
+        cell.row == 0 ||
+        (cell.row > 0 && !this.cells[cell.row - 1][cell.col].isSelected)
+      ) {
+        cell.selectedBorders.top = true;
+      }
+      if (
+        cell.row == 8 ||
+        (cell.row < 8 && !this.cells[cell.row + 1][cell.col].isSelected)
+      ) {
+        cell.selectedBorders.bottom = true;
+      }
+      if (
+        cell.col == 0 ||
+        (cell.col > 0 && !this.cells[cell.row][cell.col - 1].isSelected)
+      ) {
+        cell.selectedBorders.left = true;
+      }
+      if (
+        cell.col == 8 ||
+        (cell.col < 8 && !this.cells[cell.row][cell.col + 1].isSelected)
+      ) {
+        cell.selectedBorders.right = true;
+      }
+    });
+  }
 }
 
 const cellsInSameBox = (
@@ -258,4 +366,15 @@ const cellsInSameBox = (
     Math.floor(firstCell.row / 3) === Math.floor(secondCell.row / 3) &&
     Math.floor(firstCell.col / 3) === Math.floor(secondCell.col / 3)
   );
+};
+
+const getBoxPosition = (row: number, col: number): number => {
+  const boxRow = Math.floor(row / 3) * 3;
+  const boxCol = Math.floor(col / 3) * 3;
+  const positionInBox = (row - boxRow) * 3 + (col - boxCol) + 1;
+  return positionInBox;
+};
+
+const cellInPosition = (cell: SudokuCellData, row: number, col: number) => {
+  return cell.row === row && cell.col === col;
 };

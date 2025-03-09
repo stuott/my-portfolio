@@ -13,8 +13,10 @@ interface SudokuContextProps {
   selectCell: (row: number, col: number, append: boolean) => void;
   deselectCells: () => void;
   updateSelectedCells: (value: SudokuValue) => void;
+  updateSelectedGuesses: (guess: SudokuValue) => void;
   showErrors: (show: boolean) => void;
   checkSolution: () => void;
+  showSameValues: (show: boolean) => void;
 }
 
 const SudokuContext = createContext<SudokuContextProps | undefined>(undefined);
@@ -52,6 +54,11 @@ export const SudokuProvider = ({ children }: { children: React.ReactNode }) => {
         sudoku.updateSelectedCells(value);
       });
     },
+    updateSelectedGuesses: (guess: SudokuValue) => {
+      dataChange((sudoku) => {
+        sudoku.updateSelectedGuesses(guess);
+      });
+    },
     showErrors: (show: boolean) => {
       dataChange((sudoku) => {
         sudoku.showErrors = show;
@@ -65,6 +72,11 @@ export const SudokuProvider = ({ children }: { children: React.ReactNode }) => {
     checkSolution: () => {
       dataChange((sudoku) => {
         sudoku.checkSolution();
+      });
+    },
+    showSameValues: (show: boolean) => {
+      dataChange((sudoku) => {
+        sudoku.showSameValues(show);
       });
     },
   };
