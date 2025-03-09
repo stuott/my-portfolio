@@ -17,30 +17,32 @@ const Checkbox = ({ label, checked, onChange }: CheckboxProps) => {
   const checkboxID = useId();
 
   return (
-    <div className="flex gap-2 justify-center items-center">
-      <input
-        className={checkboxClasses}
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
-        id={checkboxID}
-      />
-      {label && <label htmlFor={checkboxID}>{label}</label>}
-      <svg
-        className="
+    <div className="flex gap-2 items-center">
+      <div className="flex justify-center items-center">
+        <input
+          className={checkboxClasses}
+          type="checkbox"
+          checked={checked}
+          onChange={onChange}
+          id={checkboxID}
+        />
+        <svg
+          className="
           absolute 
           w-4 h-4 mt-1
           hidden peer-checked:block pointer-events-none"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <polyline points="20 6 9 17 4 12"></polyline>
-      </svg>
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      {label}
     </div>
   );
 };

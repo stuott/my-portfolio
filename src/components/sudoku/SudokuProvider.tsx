@@ -14,6 +14,7 @@ interface SudokuContextProps {
   deselectCells: () => void;
   updateSelectedCells: (value: SudokuValue) => void;
   showErrors: (show: boolean) => void;
+  checkSolution: () => void;
 }
 
 const SudokuContext = createContext<SudokuContextProps | undefined>(undefined);
@@ -59,6 +60,11 @@ export const SudokuProvider = ({ children }: { children: React.ReactNode }) => {
         } else {
           sudoku.clearErrors();
         }
+      });
+    },
+    checkSolution: () => {
+      dataChange((sudoku) => {
+        sudoku.checkSolution();
       });
     },
   };

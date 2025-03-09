@@ -53,6 +53,7 @@ export class SudokuData {
   selectedCells: SudokuCellData[];
   showErrors: boolean;
   digitCounts: number[];
+  solved: boolean | null;
 
   constructor() {
     // Initialize the Sudoku grid with empty cells
@@ -71,6 +72,7 @@ export class SudokuData {
     this.selectedCells = [];
     this.showErrors = true;
     this.digitCounts = new Array(9).fill(0);
+    this.solved = null;
   }
 
   forAllCells(callback: (cell: SudokuCellData) => void) {
@@ -94,6 +96,8 @@ export class SudokuData {
       cell.value = newValue;
       cell.isStatic = newValue !== null;
     });
+    this.solved = null;
+    this.selectedCells = [];
   }
 
   selectCell(row: number, col: number, append: boolean) {
@@ -223,7 +227,7 @@ export class SudokuData {
     });
   }
 
-  checkSolution(): boolean {
+  checkSolution() {
     const solutionData = data.puzzles[this.puzzleIndex]
       .solution as SudokuValue[][];
 
@@ -237,7 +241,7 @@ export class SudokuData {
       });
     });
 
-    return !badValue;
+    this.solved = !badValue;
   }
 
   checkDigitSolved(digit: number) {

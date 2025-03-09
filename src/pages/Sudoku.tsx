@@ -1,29 +1,17 @@
-import IconButton from "@components/controls/Button";
-import Checkbox from "@components/controls/Checkbox";
 import Section from "@components/layout/Section";
 import { NumberPad, SudokuRow } from "@components/sudoku";
+import SudokuMenu from "@components/sudoku/SudokuMenu";
 import { SudokuProvider, useSudoku } from "@components/sudoku/SudokuProvider";
-import data from "@data/sudoku.json";
-import { faArrowRotateLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { page } from "pages";
 import { useCallback, useEffect, useState } from "react";
 import { SudokuValue } from "types/sudoku";
 
 const Sudoku = () => {
-  const {
-    sudoku,
-    changePuzzle,
-    selectCell,
-    deselectCells,
-    updateSelectedCells,
-    showErrors,
-  } = useSudoku();
-  const [puzzle, setPuzzle] = useState(0);
+  const { sudoku, selectCell, deselectCells, updateSelectedCells } =
+    useSudoku();
   const [isDragging, setIsDragging] = useState(false);
   const [keyPressed, setKeyPressed] = useState<string | null>(null);
-  const [solved, setSolved] = useState<boolean | null>(null);
   const [multiSelect, setMultiSelect] = useState(false);
-  const [allowMultiSelect, setAllowMultiSelect] = useState(true);
 
   const handleMouseDown = (row: number, col: number) => {
     selectCell(row, col, multiSelect);
@@ -36,7 +24,7 @@ const Sudoku = () => {
 
   const handleMouseEnter = (row: number, col: number) => {
     if (isDragging) {
-      selectCell(row, col, multiSelect);
+      selectCell(row, col, true);
     }
   };
 
@@ -68,8 +56,8 @@ const Sudoku = () => {
           },
         },
         {
-          keys: ["Ctrl", "Shift"],
-          action: () => setMultiSelect(allowMultiSelect),
+          keys: ["Shift"],
+          action: () => setMultiSelect(true),
         },
         {
           keys: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
@@ -162,65 +150,18 @@ const Sudoku = () => {
             ))}
           </div>
           <div className="flex md:flex-col items-center justify-center bg-zinc-900">
-            <div className="flex flex-col gap-3 items-center">
-              <p className="text-white">Select a difficulty:</p>
-              <select
-                value={puzzle}
-                onChange={(e) => {
-                  const index = parseInt(e.target.value);
-                  changePuzzle(index);
-                  setPuzzle(index);
-                }}
-                className="bg-zinc-800 text-white p-2 border"
-                defaultValue={0}
-              >
-                {data.puzzles.map((puzzle, index) => (
-                  <option key={index} value={index}>
-                    {puzzle.name}
-                  </option>
-                ))}
-              </select>
-              <div className="flex gap-3">
-                <IconButton
-                  className="bg-red-900 text-2xl p-3 hover:bg-red-800"
-                  onClick={() => {
-                    changePuzzle(puzzle);
-                    setSolved(null);
-                  }}
-                  icon={faArrowRotateLeft}
-                />
-                <IconButton
-                  className="bg-green-900 text-2xl p-3 hover:bg-green-800"
-                  onClick={() => setSolved(sudoku.checkSolution())}
-                  icon={faCheck}
-                />
-              </div>
-              <div className="flex flex-col gap-2 items-start">
-                <div className="flex gap-2 items-center">
-                  <Checkbox
-                    checked={sudoku.showErrors}
-                    onChange={(e) => showErrors(e.target.checked)}
-                  />
-                  Error Checking
-                </div>
-                <div className="flex gap-2 items-center">
-                  <Checkbox
-                    checked={allowMultiSelect}
-                    onChange={(e) => setAllowMultiSelect(e.target.checked)}
-                  />
-                  Use Multiselect
-                </div>
-              </div>
-            </div>
+            <SudokuMenu />
             <NumberPad
               onClick={(value: SudokuValue) => updateSelectedCells(value)}
             />
           </div>
         </div>
-        {solved !== null && (
+        {sudoku.solved !== null && (
           <div className="bg-zinc-900 md:pt-6">
-            <p className={solved ? "text-green-400" : "text-red-400"}>
-              {solved ? "Solved!" : "That's not right! Take another look."}
+            <p className={sudoku.solved ? "text-green-400" : "text-red-400"}>
+              {sudoku.solved
+                ? "Solved!"
+                : "That's not right! Take another look."}
             </p>
           </div>
         )}
