@@ -13,6 +13,7 @@ const Sudoku = () => {
     deselectCells,
     updateSelectedCells,
     updateSelectedGuesses,
+    clearSelectedCells,
   } = useSudoku();
   const [isDragging, setIsDragging] = useState(false);
   const [multiSelect, setMultiSelect] = useState(false);
@@ -57,8 +58,7 @@ const Sudoku = () => {
           keys: ["Delete", "Backspace"],
           action: () => {
             if (keyUp) return;
-            updateSelectedCells(null);
-            updateSelectedGuesses(null);
+            clearSelectedCells();
           },
         },
         {
@@ -116,6 +116,7 @@ const Sudoku = () => {
                 newCol = prevCell.col + 1;
                 break;
             }
+
             selectCell(clamp(newRow, 0, 8), clamp(newCol, 0, 8), multiSelect);
           },
         },

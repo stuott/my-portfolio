@@ -17,6 +17,7 @@ interface SudokuContextProps {
   showErrors: (show: boolean) => void;
   checkSolution: () => void;
   showSameValues: (show: boolean) => void;
+  clearSelectedCells: () => void;
 }
 
 const SudokuContext = createContext<SudokuContextProps | undefined>(undefined);
@@ -77,6 +78,11 @@ export const SudokuProvider = ({ children }: { children: React.ReactNode }) => {
     showSameValues: (show: boolean) => {
       dataChange((sudoku) => {
         sudoku.showSameValues(show);
+      });
+    },
+    clearSelectedCells: () => {
+      dataChange((sudoku) => {
+        sudoku.clearSelectedCells();
       });
     },
   };

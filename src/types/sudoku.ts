@@ -37,7 +37,7 @@ export class SudokuCellData {
   isSelectedValue: boolean;
   selectedBorders: borderData;
   boxPosition: number;
-  guess: SudokuValue;
+  guesses: SudokuValue[];
 
   constructor() {
     this.row = 0;
@@ -55,7 +55,7 @@ export class SudokuCellData {
       right: false,
     };
     this.boxPosition = 0;
-    this.guess = null;
+    this.guesses = [];
   }
 
   clear() {
@@ -71,7 +71,7 @@ export class SudokuCellData {
       left: false,
       right: false,
     };
-    this.guess = null;
+    this.guesses = [];
   }
 }
 
@@ -186,13 +186,28 @@ export class SudokuData {
   updateSelectedGuesses(guess: SudokuValue) {
     this.selectedCells.forEach((cell) => {
       if (!cell.isStatic && !cell.value) {
-        if (cell.guess === guess) {
-          cell.guess = null;
+        if (cell.guesses.includes(guess)) {
+          cell.guesses = cell.guesses.filter((g) => g !== guess);
         } else {
-          cell.guess = guess;
+          cell.guesses.push(guess);
         }
+        cell.guesses.sort();
       }
     });
+  }
+
+  clearSelectedCells() {
+    this.selectedCells.forEach((cell) => {
+      if (!cell.isStatic) {
+        if (cell.value) {
+          cell.value = null;
+          return;
+        }
+        cell.guesses = [];
+      }
+    });
+    this.checkForErrors();
+    this.updateSelectedValue();
   }
 
   updateHighlighted() {
