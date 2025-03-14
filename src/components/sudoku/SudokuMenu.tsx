@@ -2,20 +2,44 @@ import Checkbox from "@components/controls/Checkbox";
 import {
   faArrowRotateLeft,
   faCheck,
+  faGear,
   faRectangleList,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "@components/controls/Modal";
 import data from "@data/sudoku.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSudoku } from "./SudokuProvider";
 
 const SudokuMenu = () => {
-  const { sudoku, changePuzzle, showErrors, showSameValues } = useSudoku();
+  const { sudoku, changePuzzle, setStartTime } = useSudoku();
   const [puzzle, setPuzzle] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
+
+  useEffect(() => {
+    setStartTime(Date.now());
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (sudoku.startTime !== null) {
+        if (sudoku.solved && sudoku.endTime !== null) {
+          clearInterval(interval);
+          setElapsedTime(
+            Math.floor((sudoku.endTime - sudoku.startTime) / 1000)
+          );
+        } else {
+          setElapsedTime(Math.floor((Date.now() - sudoku.startTime) / 1000));
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [sudoku]);
 
   return (
     <div className="flex flex-col gap-3 items-center">
+      <p>{formatElapsedTime(elapsedTime)}</p>
       <select
         value={puzzle}
         onChange={(e) => {
@@ -32,25 +56,25 @@ const SudokuMenu = () => {
           </option>
         ))}
       </select>
-      <div className="flex gap-3">
+      <div className="grid grid-cols-2 gap-2">
         <HotkeyLegend />
+        <Settings />
         <ResetConfirm puzzleIndex={puzzle} />
         <CheckSolution />
       </div>
-      <div className="space-y-3">
-        <Checkbox
-          label="error checking"
-          checked={sudoku.showErrors}
-          onChange={(e) => showErrors(e.target.checked)}
-        />
-        <Checkbox
-          label="highlight value"
-          checked={sudoku.showSameValue}
-          onChange={(e) => showSameValues(e.target.checked)}
-        />
-      </div>
     </div>
   );
+};
+
+const formatElapsedTime = (seconds: number) => {
+  const hrs = Math.floor(seconds / 3600)
+    .toString()
+    .padStart(2, "0");
+  const mins = Math.floor((seconds % 3600) / 60)
+    .toString()
+    .padStart(2, "0");
+  const secs = (seconds % 60).toString().padStart(2, "0");
+  return `${hrs}:${mins}:${secs}`;
 };
 
 const HotkeyLegend = () => {
@@ -86,15 +110,47 @@ const HotkeyLegend = () => {
   );
 };
 
+const Settings = () => {
+  const { sudoku, showErrors, showSameValues, showHighlight } = useSudoku();
+
+  return (
+    <Modal buttonTooltip="settings" buttonIcon={faGear} title="Settings">
+      <div className="space-y-3">
+        <Checkbox
+          label="error checking"
+          checked={sudoku.showErrors}
+          onChange={(e) => showErrors(e.target.checked)}
+        />
+        <Checkbox
+          label="highlight same value cells"
+          checked={sudoku.showSameValue}
+          onChange={(e) => showSameValues(e.target.checked)}
+        />
+        <Checkbox
+          label="highlight same row/col/box"
+          checked={sudoku.showHighlight}
+          onChange={(e) => showHighlight(e.target.checked)}
+        />
+      </div>
+    </Modal>
+  );
+};
+
 const ResetConfirm = ({ puzzleIndex }: { puzzleIndex: number }) => {
-  const { changePuzzle } = useSudoku();
+  const { changePuzzle, setStartTime, setEndTime } = useSudoku();
+
+  const onConfirm = () => {
+    changePuzzle(puzzleIndex);
+    setStartTime(Date.now());
+    setEndTime(null);
+  };
 
   return (
     <Modal
       buttonTooltip="reset"
       buttonIcon={faArrowRotateLeft}
       title="Reset Puzzle"
-      onConfirm={() => changePuzzle(puzzleIndex)}
+      onConfirm={onConfirm}
       onCancel={() => {}}
       showCloseButton={false}
     >
@@ -104,14 +160,19 @@ const ResetConfirm = ({ puzzleIndex }: { puzzleIndex: number }) => {
 };
 
 const CheckSolution = () => {
-  const { checkSolution } = useSudoku();
+  const { checkSolution, setEndTime } = useSudoku();
+
+  const onConfirm = () => {
+    checkSolution();
+    setEndTime(Date.now());
+  };
 
   return (
     <Modal
       buttonTooltip="check solution"
       buttonIcon={faCheck}
       title="Check Solution"
-      onConfirm={() => checkSolution()}
+      onConfirm={onConfirm}
       onCancel={() => {}}
       showCloseButton={false}
     >

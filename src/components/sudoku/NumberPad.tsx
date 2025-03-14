@@ -2,12 +2,10 @@ import classNames from "classnames";
 import { SudokuValue } from "types/sudoku";
 import { useSudoku } from "./SudokuProvider";
 
-interface NumberPadProps {
-  onClick: (value: SudokuValue) => void;
-}
+interface NumberPadProps {}
 
-const NumberPad = ({ onClick }: NumberPadProps) => {
-  const { sudoku } = useSudoku();
+const NumberPad = ({}: NumberPadProps) => {
+  const { sudoku, updateSelectedCells } = useSudoku();
 
   return (
     <div className="grid grid-cols-3 gap-2 text-white p-4 bg-zinc-900">
@@ -26,7 +24,7 @@ const NumberPad = ({ onClick }: NumberPadProps) => {
           <button
             className={btnClasses}
             key={num}
-            onClick={() => onClick(num as SudokuValue)}
+            onClick={() => updateSelectedCells(num as SudokuValue)}
           >
             {num}
           </button>

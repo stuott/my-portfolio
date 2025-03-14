@@ -178,11 +178,9 @@ const Sudoku = () => {
               </>
             ))}
           </div>
-          <div className="flex md:flex-col items-center justify-center bg-zinc-900">
+          <div className="flex gap-10 md:flex-col items-center justify-center bg-zinc-900">
             <SudokuMenu />
-            <NumberPad
-              onClick={(value: SudokuValue) => updateSelectedCells(value)}
-            />
+            <NumberPad />
           </div>
         </div>
         {sudoku.solved !== null && (

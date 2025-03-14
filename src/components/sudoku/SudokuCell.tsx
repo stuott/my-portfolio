@@ -14,12 +14,6 @@ const SudokuCell = memo(
       if (cell.isError) {
         return "bg-red-600/30";
       }
-      if (cell.isHighlighted) {
-        return "bg-red-900/10";
-      }
-      if (cell.isSelected) {
-        return "bg-red-900/15";
-      }
       if (cell.isSelectedValue) {
         return "bg-yellow-400/30";
       }
@@ -92,7 +86,10 @@ const SudokuCell = memo(
       "absolute top-0 left-0",
       "w-full h-full md:h-12 md:w-12 z-10",
       "flex-wrap text-center",
-      getSelectedBorderClasses()
+      getSelectedBorderClasses(),
+      {
+        "bg-red-900/10": cell.isSelected || cell.isHighlighted,
+      }
     );
 
     const getGuessChildren = () => {

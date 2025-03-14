@@ -83,9 +83,11 @@ export class SudokuData {
   showSameValue: boolean;
   digitCounts: number[];
   solved: boolean | null;
+  showHighlight: boolean;
+  startTime: number | null;
+  endTime: number | null;
 
   constructor() {
-    // Initialize the Sudoku grid with empty cells
     this.cells = [];
     for (let i = 0; i < 9; i++) {
       this.cells.push([]);
@@ -104,9 +106,18 @@ export class SudokuData {
     this.showSameValue = true;
     this.digitCounts = new Array(9).fill(0);
     this.solved = null;
+    this.showHighlight = true;
+    this.startTime = null;
+    this.endTime = null;
   }
 
-  forAllCells(callback: (cell: SudokuCellData) => void) {
+  // Interal utility functions
+
+  /**
+   * Call a function for each cell in the Sudoku grid
+   * @param callback The function to call for each cell
+   */
+  private forAllCells(callback: (cell: SudokuCellData) => void) {
     this.cells.forEach((row) => {
       row.forEach((cell) => {
         callback(cell);
@@ -115,67 +126,14 @@ export class SudokuData {
   }
 
   /**
-   * Reset the Sudoku grid with the given data
-   * @param data SudokuValue[][] - The new Sudoku puzzle data
+   * Updates the digit counts and checks for errors
+   * Called when a cell is updated
    */
-  changePuzzle(index: number) {
-    const puzzleData = data.puzzles[index].values as SudokuValue[][];
-    this.puzzleIndex = index;
+  private onCellUpdate() {
+    this.digitCounts = new Array(9).fill(0);
     this.forAllCells((cell) => {
-      cell.clear();
-      const newValue = puzzleData[cell.row][cell.col];
-      cell.value = newValue;
-      cell.isStatic = newValue !== null;
-    });
-    this.solved = null;
-    this.selectedCells = [];
-  }
-
-  selectCell(row: number, col: number, append: boolean) {
-    const cell = this.cells[row][col];
-    if (!append) {
-      this.deselectAllCells();
-    }
-    if (!this.selectedCells.some((cell) => cellInPosition(cell, row, col))) {
-      this.selectedCells.push(cell);
-    }
-    cell.isSelected = true;
-    this.updateHighlighted();
-    this.updateSelectedValue();
-    this.calculateBordersForSelectedCells();
-  }
-
-  deselectCell(row: number, col: number) {
-    this.cells[row][col].isSelected = false;
-    this.cells[row][col].selectedBorders = {
-      top: false,
-      bottom: false,
-      left: false,
-      right: false,
-    };
-    const cellIndex = this.selectedCells.findIndex((cell) =>
-      cellInPosition(cell, row, col)
-    );
-    if (cellIndex !== -1) {
-      this.selectedCells.splice(cellIndex, 1);
-    }
-  }
-
-  deselectAllCells() {
-    this.selectedCells = [];
-    this.forAllCells((cell) => {
-      this.deselectCell(cell.row, cell.col);
-    });
-  }
-
-  updateSelectedCells(value: SudokuValue) {
-    this.selectedCells.forEach((cell) => {
-      if (!cell.isStatic) {
-        if (cell.value === value) {
-          cell.value = null;
-        } else {
-          cell.value = value;
-        }
+      if (cell.value) {
+        this.digitCounts[cell.value - 1]++;
       }
     });
 
@@ -183,77 +141,15 @@ export class SudokuData {
     this.updateSelectedValue();
   }
 
-  updateSelectedGuesses(guess: SudokuValue) {
-    this.selectedCells.forEach((cell) => {
-      if (!cell.isStatic && !cell.value) {
-        if (cell.guesses.includes(guess)) {
-          cell.guesses = cell.guesses.filter((g) => g !== guess);
-        } else {
-          cell.guesses.push(guess);
-        }
-        cell.guesses.sort();
-      }
-    });
-  }
-
-  clearSelectedCells() {
-    this.selectedCells.forEach((cell) => {
-      if (!cell.isStatic) {
-        if (cell.value) {
-          cell.value = null;
-          return;
-        }
-        cell.guesses = [];
-      }
-    });
-    this.checkForErrors();
-    this.updateSelectedValue();
-  }
-
-  updateHighlighted() {
-    if (this.selectedCells.length === 0) {
-      this.forAllCells((cell) => {
-        cell.isHighlighted = false;
-      });
-      return;
-    }
-
-    if (this.selectedCells.length > 1) {
-      this.forAllCells((cell) => {
-        cell.isHighlighted = false;
-      });
-      return;
-    }
-
-    const selectedCell = this.selectedCells[0];
-
-    this.forAllCells((cell) => {
-      cell.isHighlighted = false;
-      if (
-        cell.row === selectedCell.row ||
-        cell.col === selectedCell.col ||
-        cellsInSameBox(cell, selectedCell)
-      ) {
-        cell.isHighlighted = true;
-      }
-    });
-  }
-
-  updateSelectedValue() {
-    this.forAllCells((cell) => {
-      cell.isSelectedValue = false;
-      if (this.selectedCells.length > 0 && this.showSameValue) {
-        if (cell.value && cell.value === this.selectedCells[0].value) {
-          cell.isSelectedValue = true;
-        }
-      }
-    });
-  }
-
-  checkForErrors() {
+  /**
+   * Checks for errors in the Sudoku grid
+   */
+  private checkForErrors() {
     this.forAllCells((cell) => {
       cell.isError = false;
     });
+
+    if (!this.showErrors) return;
 
     // Check rows and columns for duplicates
     for (let i = 0; i < 9; i++) {
@@ -303,13 +199,179 @@ export class SudokuData {
     }
   }
 
-  clearErrors() {
+  // Public data functions
+
+  /**
+   * Load a new puzzle into the Sudoku grid
+   * @param index The index of the puzzle to load
+   */
+  public changePuzzle(index: number) {
+    const puzzleData = data.puzzles[index].values as SudokuValue[][];
+    this.puzzleIndex = index;
     this.forAllCells((cell) => {
-      cell.isError = false;
+      cell.clear();
+      const newValue = puzzleData[cell.row][cell.col];
+      cell.value = newValue;
+      cell.isStatic = newValue !== null;
+    });
+    this.solved = null;
+    this.selectedCells = [];
+  }
+
+  /**
+   * Selects a cell in the Sudoku grid
+   * @param row the row of the cell to select
+   * @param col the column of the cell to select
+   * @param append true if the cell should be added to the selection, false if it should replace the current selection
+   */
+  public selectCell(row: number, col: number, append: boolean) {
+    const cell = this.cells[row][col];
+    if (!append) {
+      this.deselectAllCells();
+    }
+    if (!this.selectedCells.some((cell) => cellInPosition(cell, row, col))) {
+      this.selectedCells.push(cell);
+    }
+    cell.isSelected = true;
+    this.updateHighlighted();
+    this.updateSelectedValue();
+    this.calculateBordersForSelectedCells();
+  }
+
+  /**
+   * De-selects a cell in the Sudoku grid
+   * @param row the row of the cell to deselect
+   * @param col the column of the cell to deselect
+   */
+  public deselectCell(row: number, col: number) {
+    this.cells[row][col].isSelected = false;
+    this.cells[row][col].selectedBorders = {
+      top: false,
+      bottom: false,
+      left: false,
+      right: false,
+    };
+    const cellIndex = this.selectedCells.findIndex((cell) =>
+      cellInPosition(cell, row, col)
+    );
+    if (cellIndex !== -1) {
+      this.selectedCells.splice(cellIndex, 1);
+    }
+  }
+
+  /**
+   * De-selects all cells in the Sudoku grid
+   */
+  public deselectAllCells() {
+    this.selectedCells = [];
+    this.forAllCells((cell) => {
+      this.deselectCell(cell.row, cell.col);
     });
   }
 
-  checkSolution() {
+  /**
+   * Updates the value of the selected cells
+   * Populates the cell with the value if it is not already set, otherwise clears the cell
+   * @param value The value to set or clear in the selected cells
+   */
+  public updateSelectedCells(value: SudokuValue) {
+    this.selectedCells.forEach((cell) => {
+      if (!cell.isStatic) {
+        if (cell.value === value) {
+          cell.value = null;
+        } else {
+          cell.value = value;
+        }
+      }
+    });
+
+    this.onCellUpdate();
+  }
+
+  /**
+   * Clears the value of the selected cells
+   */
+  public clearSelectedCells() {
+    this.selectedCells.forEach((cell) => {
+      if (!cell.isStatic) {
+        if (cell.value) {
+          cell.value = null;
+          return;
+        }
+        cell.guesses = [];
+      }
+    });
+    this.onCellUpdate();
+  }
+
+  /**
+   * Updates the guesses of the selected cells
+   * Adds the guess to the cell if it is not already present, otherwise removes it
+   * @param guess The guess to add or remove from the selected cells
+   */
+  public updateSelectedGuesses(guess: SudokuValue) {
+    this.selectedCells.forEach((cell) => {
+      if (!cell.isStatic && !cell.value) {
+        if (cell.guesses.includes(guess)) {
+          cell.guesses = cell.guesses.filter((g) => g !== guess);
+        } else {
+          cell.guesses.push(guess);
+        }
+        cell.guesses.sort();
+      }
+    });
+  }
+
+  /**
+   * Updates the highlighted status of all cells based on the selected cells
+   */
+  public updateHighlighted() {
+    if (this.selectedCells.length === 0) {
+      this.forAllCells((cell) => {
+        cell.isHighlighted = false;
+      });
+      return;
+    }
+
+    if (this.selectedCells.length > 1) {
+      this.forAllCells((cell) => {
+        cell.isHighlighted = false;
+      });
+      return;
+    }
+
+    const selectedCell = this.selectedCells[0];
+
+    this.forAllCells((cell) => {
+      cell.isHighlighted = false;
+      if (
+        cell.row === selectedCell.row ||
+        cell.col === selectedCell.col ||
+        cellsInSameBox(cell, selectedCell)
+      ) {
+        cell.isHighlighted = this.showHighlight && true;
+      }
+    });
+  }
+
+  /**
+   * Updates the selected value status of all cells based on the selected cells
+   */
+  public updateSelectedValue() {
+    this.forAllCells((cell) => {
+      cell.isSelectedValue = false;
+      if (this.selectedCells.length > 0 && this.showSameValue) {
+        if (cell.value && cell.value === this.selectedCells[0].value) {
+          cell.isSelectedValue = true;
+        }
+      }
+    });
+  }
+
+  /**
+   * Checks if the Sudoku grid is solved
+   */
+  public checkSolution() {
     const solutionData = data.puzzles[this.puzzleIndex]
       .solution as SudokuValue[][];
 
@@ -326,16 +388,32 @@ export class SudokuData {
     this.solved = !badValue;
   }
 
-  checkDigitSolved(digit: number) {
+  /**
+   * Checks if a digit is solved
+   * @param digit The digit to check
+   */
+  public checkDigitSolved(digit: number) {
     return this.digitCounts[digit - 1] >= 9;
   }
 
-  showSameValues(show: boolean) {
+  /**
+   * Shows or hides the same value cell highlights
+   * @param show true to show the same value cells, false to hide them
+   */
+  public showSameValues(show: boolean) {
     this.showSameValue = show;
     this.updateSelectedValue();
   }
 
-  calculateBordersForSelectedCells() {
+  /**
+   * Calculates the borders for the selected cells
+   * Sets the selectedBorders property of each selected cell
+   *  - top: true if the cell is at the top of the grid or the cell above is not selected
+   *  - bottom: true if the cell is at the bottom of the grid or the cell below is not selected
+   *  - left: true if the cell is at the left edge of the grid or the cell to the left is not selected
+   *  - right: true if the cell is at the right edge of the grid or the cell to the right is not selected
+   */
+  public calculateBordersForSelectedCells() {
     this.selectedCells.forEach((cell) => {
       cell.selectedBorders = {
         top: false,
@@ -370,8 +448,25 @@ export class SudokuData {
       }
     });
   }
+
+  /**
+   * Displays or hides the errors in the Sudoku grid
+   * @param show true to show the error display, false to hide it
+   */
+  public updateErrorDisplay(show: boolean) {
+    this.showErrors = show;
+    this.checkForErrors();
+  }
 }
 
+// Helper functions
+
+/**
+ * Determines if two cells are in the same box
+ * @param firstCell the cell to check against
+ * @param secondCell the cell to check
+ * @returns true if the cells are in the same box, false otherwise
+ */
 const cellsInSameBox = (
   firstCell: SudokuCellData | null,
   secondCell: SudokuCellData | null
@@ -383,6 +478,15 @@ const cellsInSameBox = (
   );
 };
 
+/**
+ * Gets the position of a cell in its box
+ * - 1 2 3
+ * - 4 5 6
+ * - 7 8 9
+ * @param row the row of the cell
+ * @param col the column of the cell
+ * @returns the position of the cell in its box
+ */
 const getBoxPosition = (row: number, col: number): number => {
   const boxRow = Math.floor(row / 3) * 3;
   const boxCol = Math.floor(col / 3) * 3;
@@ -390,6 +494,13 @@ const getBoxPosition = (row: number, col: number): number => {
   return positionInBox;
 };
 
+/**
+ * Checks if a cell is in the given row and column
+ * @param cell the cell to check
+ * @param row the row to check against
+ * @param col the column to check against
+ * @returns true if the cell is in the given row and column, false otherwise
+ */
 const cellInPosition = (cell: SudokuCellData, row: number, col: number) => {
   return cell.row === row && cell.col === col;
 };

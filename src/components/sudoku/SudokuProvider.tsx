@@ -18,6 +18,9 @@ interface SudokuContextProps {
   checkSolution: () => void;
   showSameValues: (show: boolean) => void;
   clearSelectedCells: () => void;
+  showHighlight: (show: boolean) => void;
+  setStartTime: (time: number | null) => void;
+  setEndTime: (time: number | null) => void;
 }
 
 const SudokuContext = createContext<SudokuContextProps | undefined>(undefined);
@@ -62,12 +65,7 @@ export const SudokuProvider = ({ children }: { children: React.ReactNode }) => {
     },
     showErrors: (show: boolean) => {
       dataChange((sudoku) => {
-        sudoku.showErrors = show;
-        if (show) {
-          sudoku.checkForErrors();
-        } else {
-          sudoku.clearErrors();
-        }
+        sudoku.updateErrorDisplay(show);
       });
     },
     checkSolution: () => {
@@ -83,6 +81,22 @@ export const SudokuProvider = ({ children }: { children: React.ReactNode }) => {
     clearSelectedCells: () => {
       dataChange((sudoku) => {
         sudoku.clearSelectedCells();
+      });
+    },
+    showHighlight: (show: boolean) => {
+      dataChange((sudoku) => {
+        sudoku.showHighlight = show;
+        sudoku.updateHighlighted();
+      });
+    },
+    setStartTime: (time: number | null) => {
+      dataChange((sudoku) => {
+        sudoku.startTime = time;
+      });
+    },
+    setEndTime: (time: number | null) => {
+      dataChange((sudoku) => {
+        sudoku.endTime = time;
       });
     },
   };
