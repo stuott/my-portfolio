@@ -14,10 +14,13 @@ const Sudoku = () => {
     updateSelectedCells,
     updateSelectedGuesses,
     clearSelectedCells,
+    changePuzzle,
   } = useSudoku();
   const [isDragging, setIsDragging] = useState(false);
   const [multiSelect, setMultiSelect] = useState(false);
   const [lastKeyPressed, setLastKeyPressed] = useState<string | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
+  const [isMakerMode, setIsMakerMode] = useState(false);
 
   const handleMouseDown = useCallback(
     (row: number, col: number) => {
@@ -148,6 +151,25 @@ const Sudoku = () => {
     };
   }, [handleKeyChange]);
 
+  useEffect(() => {
+    if (isMakerMode) {
+      setShowPreview(true);
+      changePuzzle(0);
+    } else {
+      setShowPreview(false);
+      changePuzzle(1);
+    }
+  }, [isMakerMode]);
+
+  const updateSettings = (settings: any) => {
+    if (settings.showPreview !== undefined) {
+      setShowPreview(settings.showPreview);
+    }
+    if (settings.makerMode !== undefined) {
+      setIsMakerMode(settings.makerMode);
+    }
+  };
+
   return (
     <>
       <div className="h-16" />
@@ -179,7 +201,7 @@ const Sudoku = () => {
             ))}
           </div>
           <div className="flex gap-10 md:flex-col items-center justify-center bg-zinc-900">
-            <SudokuMenu />
+            <SudokuMenu updateSettings={updateSettings} />
             <NumberPad />
           </div>
         </div>
@@ -191,6 +213,16 @@ const Sudoku = () => {
                 : "That's not right! Take another look."}
             </p>
           </div>
+        )}
+        {showPreview && (
+          <pre>
+            {sudoku.cells
+              .map(
+                (row) =>
+                  "[" + row.map((cell) => cell.value ?? "null").join(", ") + "]"
+              )
+              .join(",\n")}
+          </pre>
         )}
       </Section>
     </>

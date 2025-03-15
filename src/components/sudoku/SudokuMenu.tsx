@@ -11,7 +11,16 @@ import data from "@data/sudoku.json";
 import { useEffect, useState } from "react";
 import { useSudoku } from "./SudokuProvider";
 
-const SudokuMenu = () => {
+interface SudokuSettings {
+  showPreview?: boolean;
+  makerMode?: boolean;
+}
+
+interface SudokuMenuProps {
+  updateSettings: (settings: SudokuSettings) => void;
+}
+
+const SudokuMenu = ({ updateSettings }: SudokuMenuProps) => {
   const { sudoku, changePuzzle, setStartTime } = useSudoku();
   const [puzzle, setPuzzle] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
@@ -39,7 +48,7 @@ const SudokuMenu = () => {
 
   return (
     <div className="flex flex-col gap-3 items-center">
-      <p>{formatElapsedTime(elapsedTime)}</p>
+      <p className="select-none">{formatElapsedTime(elapsedTime)}</p>
       <select
         value={puzzle}
         onChange={(e) => {
@@ -50,15 +59,20 @@ const SudokuMenu = () => {
         className="bg-zinc-800 text-white p-2 border"
         defaultValue={0}
       >
-        {data.puzzles.map((puzzle, index) => (
-          <option key={index} value={index}>
-            {puzzle.name}
-          </option>
-        ))}
+        {data.puzzles.map((puzzle, index) => {
+          if (puzzle.name === "Maker") {
+            return null;
+          }
+          return (
+            <option key={index} value={index}>
+              {puzzle.name}
+            </option>
+          );
+        })}
       </select>
       <div className="grid grid-cols-2 gap-2">
         <HotkeyLegend />
-        <Settings />
+        <Settings updateSettings={updateSettings} />
         <ResetConfirm puzzleIndex={puzzle} />
         <CheckSolution />
       </div>
@@ -110,14 +124,31 @@ const HotkeyLegend = () => {
   );
 };
 
-const Settings = () => {
+interface SettingsProps {
+  updateSettings: (settings: SudokuSettings) => void;
+}
+
+const Settings = ({ updateSettings }: SettingsProps) => {
   const { sudoku, showErrors, showSameValues, showHighlight } = useSudoku();
+
+  const [showPreview, setShowPreview] = useState(false);
+  const [makerMode, setMakerMode] = useState(false);
+
+  const handleShowPreview = (value: boolean) => {
+    setShowPreview(value);
+    updateSettings({ showPreview: value });
+  };
+
+  const handleMakerMode = (value: boolean) => {
+    setMakerMode(value);
+    updateSettings({ makerMode: value });
+  };
 
   return (
     <Modal buttonTooltip="settings" buttonIcon={faGear} title="Settings">
       <div className="space-y-3">
         <Checkbox
-          label="error checking"
+          label="check for sudoku errors"
           checked={sudoku.showErrors}
           onChange={(e) => showErrors(e.target.checked)}
         />
@@ -130,6 +161,16 @@ const Settings = () => {
           label="highlight same row/col/box"
           checked={sudoku.showHighlight}
           onChange={(e) => showHighlight(e.target.checked)}
+        />
+        <Checkbox
+          label="show JSON data preview"
+          checked={showPreview}
+          onChange={(e) => handleShowPreview(e.target.checked)}
+        />
+        <Checkbox
+          label="maker mode"
+          checked={makerMode}
+          onChange={(e) => handleMakerMode(e.target.checked)}
         />
       </div>
     </Modal>

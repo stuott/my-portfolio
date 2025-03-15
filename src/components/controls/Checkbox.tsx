@@ -42,7 +42,9 @@ const Checkbox = ({ label, checked, onChange }: CheckboxProps) => {
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
       </div>
-      {label}
+      <label htmlFor={checkboxID} className="select-none cursor-pointer">
+        {label}
+      </label>
     </div>
   );
 };
