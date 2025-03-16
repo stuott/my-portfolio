@@ -143,6 +143,12 @@
       "coordinates": [39.5792, -105.9347],
       "description": "I've been here skiing with my dad a couple of times",
       "types": ["personal"]
+    },
+    {
+      "name": "Columbus, OH",
+      "coordinates": [39.9625, -83.0032],
+      "description": "I visited Ohio State University for a work trip",
+      "types": ["work"]
     }
   ]
 }
