@@ -14,6 +14,7 @@ interface CollapsibleProps {
   buttonIconExpanded?: IconDefinition;
   buttonBg?: string;
   buttonHoverBg?: string;
+  startOpen?: boolean;
 }
 
 const Collapsible = ({
@@ -27,8 +28,9 @@ const Collapsible = ({
   buttonIconExpanded,
   buttonBg = "bg-rose-900/30",
   buttonHoverBg = "hover:bg-rose-900/50",
+  startOpen = false,
 }: CollapsibleProps) => {
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(startOpen);
   const growDivID = useId();
 
   useEffect(() => {
@@ -73,6 +75,8 @@ const Collapsible = ({
 
   const buttonDivClasses = classNames("flex", {
     "justify-center": buttonCenter,
+    "mt-4": buttonBelow,
+    "mb-4": !buttonBelow,
   });
 
   const buttonElementClasses = classNames(

@@ -9,4 +9,5 @@ export interface book {
   year: number;
   description?: string[];
   rating?: number;
+  read_month?: string;
 }

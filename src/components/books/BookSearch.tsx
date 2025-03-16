@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { Button, SearchBar } from "@components/controls";
+import { SearchBar } from "@components/controls";
 import { Section } from "@components/layout";
 import BookTable from "./BookTable";
 
@@ -14,7 +14,6 @@ const BookSearch = () => {
     searchParams.get("search") || ""
   );
   const [filteredBooks, setFilteredBooks] = useState<book[]>(data.books);
-  const [booksDisplayed, setBooksDisplayed] = useState<number>(5);
 
   useEffect(() => {
     if (search === "") {
@@ -34,8 +33,6 @@ const BookSearch = () => {
     setSearchParams({ search });
   };
 
-  const showAllBooks = () => setBooksDisplayed(filteredBooks.length);
-
   return (
     <Section title="Book Search">
       <div className="space-y-4">
@@ -45,45 +42,9 @@ const BookSearch = () => {
           onSearch={onSearch}
           placeholder="search for a book"
         />
-        <BookTable books={filteredBooks.slice(0, booksDisplayed)} />
-        <ListCap
-          displayed={booksDisplayed}
-          total={filteredBooks.length}
-          showAllBooks={showAllBooks}
-        />
+        <BookTable books={filteredBooks} />
       </div>
     </Section>
-  );
-};
-
-interface ListCapProps {
-  displayed: number;
-  total: number;
-  showAllBooks: () => void;
-}
-
-const ListCap = ({ displayed, total, showAllBooks }: ListCapProps) => {
-  return (
-    <div className="my-6 flex flex-col items-center gap-4">
-      {total > displayed && (
-        <>
-          <p className="text-gray-400">
-            showing {displayed} of {total} books
-          </p>
-          <Button
-            onClick={showAllBooks}
-            bg="bg-rose-500"
-            hoverBg="hover:bg-rose-300"
-            className="text-gray-400"
-          >
-            show all books
-          </Button>
-        </>
-      )}
-      {total === displayed && (
-        <p className="text-gray-400">showing all books</p>
-      )}
-    </div>
   );
 };
 
