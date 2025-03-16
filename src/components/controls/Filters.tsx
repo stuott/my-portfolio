@@ -72,12 +72,17 @@ const FilterButton = ({
   onClick,
   disabled,
 }: FilterButtonProps) => {
-  const buttonClasses = classNames("px-4 py-1 rounded-lg", {
-    "bg-rose-800": !active,
-    "bg-rose-600": active,
-    "hover:bg-rose-600 text-white": !disabled,
-    "cursor-not-allowed bg-zinc-800 text-zinc-500": disabled,
-  });
+  const buttonClasses = classNames(
+    "border-2 cursor-pointer",
+    "px-4 py-1 rounded-lg",
+    "transition duration-300",
+    {
+      "border-rose-800 bg-zinc-900": !active,
+      "border-rose-600 bg-rose-600": active,
+      "hover:border-rose-800 hover:bg-rose-800 text-white": !disabled,
+      "cursor-not-allowed bg-zinc-800 text-zinc-500": disabled,
+    }
+  );
   return (
     <button className={buttonClasses} onClick={onClick}>
       {text}

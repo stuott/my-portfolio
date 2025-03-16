@@ -164,7 +164,8 @@ const Settings = ({ updateSettings }: SettingsProps) => {
         />
         <Checkbox
           label="show JSON data preview"
-          checked={showPreview}
+          checked={makerMode || showPreview}
+          disabled={makerMode}
           onChange={(e) => handleShowPreview(e.target.checked)}
         />
         <Checkbox
