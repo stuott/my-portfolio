@@ -1,6 +1,7 @@
 {
   "projects": [
     {
+      "show": true,
       "index": "pick-point",
       "title": "Cost-Effective Pick Point System",
       "link": {
@@ -16,6 +17,7 @@
       ]
     },
     {
+      "show": true,
       "index": "sudoku",
       "title": "Sudoku Game with Error Checking",
       "link": {
@@ -29,8 +31,8 @@
         "Added error checking to highlight incorrect cells in rows, columns, and boxes"
       ]
     },
-
     {
+      "show": true,
       "index": "travel-map",
       "title": "Interactive Personal Travel Map",
       "link": {
@@ -43,6 +45,21 @@
       ]
     },
     {
+      "show": true,
+      "index": "f1-racing",
+      "title": "Lap Time Comparison for F1 Drivers",
+      "link": {
+        "to": "/f1-racing",
+        "internal": true
+      },
+      "description": "A dashboard for comparing lap times between F1 drivers during a race",
+      "points": [
+        "Built a series of selectors for user input about session (race) and drivers",
+        "Managed state between elements to display API data relevant to the session/drivers"
+      ]
+    },
+    {
+      "show": false,
       "index": "recipe-list",
       "title": "Filterable Recipe Repository",
       "link": {
@@ -57,6 +74,7 @@
       ]
     },
     {
+      "show": true,
       "index": "library",
       "title": "Personal Library Tracking System",
       "link": {
@@ -70,6 +88,7 @@
       ]
     },
     {
+      "show": true,
       "index": "spellbook",
       "title": "D&D Spellbook Search Utility",
       "link": {
@@ -84,6 +103,7 @@
       ]
     },
     {
+      "show": true,
       "index": "dice-roller",
       "title": "Complex Dice Roll Calculator",
       "link": {
@@ -98,6 +118,7 @@
       ]
     },
     {
+      "show": true,
       "index": "character-sheet",
       "title": "Roleplaying Character Sheet Generator",
       "link": {

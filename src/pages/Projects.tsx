@@ -10,9 +10,11 @@ const Projects = () => {
       <Section title="Projects">
         <div className="grid sm:grid-cols-2 gap-6">
           {data.projects.length > 0 &&
-            data.projects.map((project, index) => (
-              <ProjectCard key={index} project={project} />
-            ))}
+            data.projects
+              .filter((project) => project.show)
+              .map((project, index) => (
+                <ProjectCard key={index} project={project} />
+              ))}
         </div>
       </Section>
     </>
