@@ -115,30 +115,76 @@ export class CharacterData {
   }
 
   getSheet() {
-    return (
-      `
-      Name: ${this.name}
-      Class: ${this.class}
-      Subclass: ${this.subclass}
-      ` +
-      Object.keys(this.abilities)
-        .map((ability) => {
-          return `${ability}: ${this.abilities[ability as abilityName].score}`;
-        })
-        .join("\n") +
-      `
-      ` +
-      Object.keys(this.skills)
-        .map((skill) => {
-          return `${skill}: ${this.skills[skill as skillName].modifier}`;
-        })
-        .join("\n") +
-      `
-      Level: ${this.levelInfo.level}
-      Experience: ${this.levelInfo.experience}
-      Proficiency Bonus: ${this.levelInfo.proficiencyBonus}
-      `
-    );
+    const topBar = () => {
+      return "/" + "-".repeat(82) + "\\\n";
+    };
+
+    const middleBar = () => {
+      return "|" + "-".repeat(82) + "|\n";
+    };
+
+    const bottomBar = () => {
+      return "\\" + "-".repeat(82) + "/\n";
+    };
+
+    const line = (content: string) => {
+      return `| ${content.padEnd(80)} |\n`;
+    };
+
+    const abilityString = () => {
+      return [
+        line(
+          Object.keys(this.abilities)
+            .map((ability) => ability.slice(0, 3).padStart(5).padEnd(7))
+            .join(" ")
+        ),
+        line(
+          Object.keys(this.abilities)
+            .map((ability) =>
+              this.abilities[ability as abilityName].score
+                .toString()
+                .padStart(3)
+                .padEnd(7)
+            )
+            .join(" ")
+        ),
+      ].join("");
+    };
+
+    const skillString = () => {
+      return [
+        line(
+          Object.values(this.skills)
+            .map((skill) => skill.ability.slice(0, 3))
+            .join(" ")
+        ),
+        line(
+          Object.keys(this.skills)
+            .map((skill) => this.skills[skill as skillName].modifier)
+            .join(" ")
+        ),
+      ].join("");
+    };
+
+    return [
+      topBar(),
+      line("Character Sheet"),
+      line(`Name: ${this.name}`),
+      line(
+        `Class: ${this.class?.padEnd(20) ?? "none".padEnd(20)} Subclass: ${
+          this.subclass?.padEnd(20) ?? "none".padEnd(20)
+        }`
+      ),
+      middleBar(),
+      abilityString(),
+      middleBar(),
+      skillString(),
+      middleBar(),
+      "Level: " + this.levelInfo.level + "\n",
+      "Experience: " + this.levelInfo.experience + "\n",
+      "Proficiency Bonus: " + this.levelInfo.proficiencyBonus + "\n",
+      bottomBar(),
+    ].join("");
   }
 
   getMin() {

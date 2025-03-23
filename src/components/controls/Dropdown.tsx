@@ -1,8 +1,13 @@
 import classNames from "classnames";
 import { useState } from "react";
 
+interface Option {
+  label: string;
+  value: string;
+}
+
 export interface DropdownProps {
-  options: readonly string[];
+  options: readonly Option[];
   placeholder?: string;
   setSelection?: (value: string) => void;
   disabled?: boolean;
@@ -50,8 +55,8 @@ const Dropdown = ({
           </option>
         )}
         {options.map((option, index) => (
-          <option className="text-white" key={index} value={option}>
-            {option}
+          <option className="text-white" key={index} value={option.value}>
+            {option.label}
           </option>
         ))}
       </select>

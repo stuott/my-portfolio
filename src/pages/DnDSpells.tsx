@@ -116,7 +116,10 @@ const DnDSpells = () => {
           placeholder="enter spell name"
           filters={{ filters: levels, onFilter: setSpellLevel }}
           dropdown={{
-            options: schools,
+            options: schools.map((school) => ({
+              label: school,
+              value: school,
+            })),
             placeholder: "select a school",
             setSelection: setSpellSchool,
           }}

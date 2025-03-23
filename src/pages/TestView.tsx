@@ -67,7 +67,20 @@ const TestView = () => {
   ];
 
   const dropdown = {
-    options: ["option 1", "option 2", "option 3"],
+    options: [
+      {
+        label: "option 1",
+        value: "option 1",
+      },
+      {
+        label: "option 2",
+        value: "option 2",
+      },
+      {
+        label: "option 3",
+        value: "option 3",
+      },
+    ],
     placeholder: "dropdown",
     setSelection: setOption,
   };

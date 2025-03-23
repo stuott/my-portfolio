@@ -140,18 +140,18 @@ const BasicInfo = () => {
 
   return (
     <div className="flex flex-col gap-2 bg-zinc-900 p-4 border">
-      <p className="font-bold text-xl">Basic Info</p>
+      <p className="font-bold text-xl">basic info</p>
       <div className="flex gap-6">
         <TextInput
           padding="p-2"
           className="w-full"
-          label="Name"
+          label="name"
           value={character.name}
           onChange={(e) => updateName(e.target.value)}
         />
         <NumberInput
           showAdjustment
-          label="Level"
+          label="level"
           value={character.levelInfo.level}
           onChange={(value) => updateLevel(value)}
         />
@@ -159,14 +159,20 @@ const BasicInfo = () => {
       <div className="space-y-4">
         <Dropdown
           label="alignment"
-          options={alignments}
+          options={alignments.map((alignment) => ({
+            label: alignment,
+            value: alignment,
+          }))}
           placeholder="select an alignment"
           setSelection={(value) => updateAlignment(value as characterAlignment)}
           defaultValue={character.alignment}
         />
         <Dropdown
           label="race"
-          options={races}
+          options={races.map((race) => ({
+            label: race,
+            value: race,
+          }))}
           placeholder="select a race"
           setSelection={(value) => updateRace(value as characterRace)}
           defaultValue={character.race}
@@ -175,7 +181,10 @@ const BasicInfo = () => {
           <div className="w-1/2">
             <Dropdown
               label="class"
-              options={classes}
+              options={classes.map((_class) => ({
+                label: _class,
+                value: _class,
+              }))}
               placeholder="class"
               setSelection={(value) => {
                 updateClass(value as characterClass);
@@ -187,7 +196,12 @@ const BasicInfo = () => {
           <div className="w-1/2">
             <Dropdown
               label="subclass"
-              options={mapClassToSubclasses(character.class)}
+              options={mapClassToSubclasses(character.class).map(
+                (subclass) => ({
+                  label: subclass,
+                  value: subclass,
+                })
+              )}
               placeholder="subclass"
               disabled={!character.class}
               setSelection={(value) =>
@@ -199,7 +213,10 @@ const BasicInfo = () => {
         </div>
         <Dropdown
           label="background"
-          options={backgrounds}
+          options={backgrounds.map((background) => ({
+            label: background,
+            value: background,
+          }))}
           placeholder="select a background"
           setSelection={(value) =>
             updateBackground(value as characterBackground)
@@ -233,7 +250,7 @@ const AbilityScores = () => {
 
   return (
     <div className="flex flex-col flex-wrap gap-2">
-      <p className="font-bold text-xl">Abilities</p>
+      <p className="font-bold text-xl">abilities</p>
       <div className="space-y-2">
         <div className={abilityClasses}>
           {abilityKeys
@@ -273,7 +290,7 @@ const Skills = () => {
 
   return (
     <div className="flex flex-col gap-1 ">
-      <p className="font-bold text-xl">Skills</p>
+      <p className="font-bold text-xl">skills</p>
       <div className="flex gap-4">
         <div>
           {skillKeys.slice(0, 9).map((skillKey) => getSkillControl(skillKey))}
@@ -289,21 +306,25 @@ const Skills = () => {
 const GeneratedCharacter = () => {
   const { getReport } = useCharacter();
 
-  const [reportType, setReportType] = useState<reportType>("json");
+  const [reportType, setReportType] = useState<reportType>("sheet");
 
   return (
     <Section>
       <Dropdown
-        label="Character"
-        options={reports}
+        label="report format"
+        options={reports.map((report) => ({
+          label: report,
+          value: report,
+        }))}
         placeholder="select a view"
         setSelection={(value) => setReportType(value as reportType)}
         defaultValue={reportType}
       />
       <Collapsible
+        startOpen
         buttonCenter
-        buttonTextClosed="Show Character Data"
-        buttonTextExpanded="Hide Character Data"
+        buttonTextClosed="show report"
+        buttonTextExpanded="hide report"
         buttonBg="bg-red-900"
         buttonHoverBg="hover:bg-red-700"
         buttonIconClosed={faMagnifyingGlassPlus}
