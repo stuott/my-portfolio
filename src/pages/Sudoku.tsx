@@ -21,27 +21,8 @@ const Sudoku = () => {
   const [lastKeyPressed, setLastKeyPressed] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [isMakerMode, setIsMakerMode] = useState(false);
-
-  const handleMouseDown = useCallback(
-    (row: number, col: number) => {
-      selectCell(row, col, multiSelect);
-      setIsDragging(true);
-    },
-    [selectCell, multiSelect]
-  );
-
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
-  }, []);
-
-  const handleMouseEnter = useCallback(
-    (row: number, col: number) => {
-      if (isDragging) {
-        selectCell(row, col, true);
-      }
-    },
-    [isDragging, selectCell]
-  );
+  const [keyQueue, setKeyQueue] = useState<KeyboardEvent[]>([]);
+  const [isProcessingKey, setIsProcessingKey] = useState(false);
 
   const handleKeyChange = useCallback(
     (event: KeyboardEvent, keyUp: boolean = false) => {
@@ -138,8 +119,57 @@ const Sudoku = () => {
     [deselectCells, updateSelectedCells, selectCell, clamp]
   );
 
+  const processKeyQueue = useCallback(() => {
+    console.log("Processing key queue:", keyQueue);
+    if (isProcessingKey || keyQueue.length === 0) return;
+
+    setIsProcessingKey(true);
+    const nextKey = keyQueue[0];
+    setKeyQueue((prevQueue) => prevQueue.slice(1));
+
+    handleKeyChange(nextKey);
+    console.log("Processing key:", nextKey.key);
+
+    setTimeout(() => {
+      setIsProcessingKey(false);
+      processKeyQueue();
+    }, 0); // Adjust delay if needed
+  }, [isProcessingKey, keyQueue, handleKeyChange]);
+
+  const enqueueKey = useCallback(
+    (event: KeyboardEvent) => {
+      const newQueue = keyQueue;
+      newQueue.push(event);
+      setKeyQueue(newQueue);
+      processKeyQueue();
+      console.log("Key enqueued:", event.key);
+    },
+    [processKeyQueue]
+  );
+
+  const handleMouseDown = useCallback(
+    (row: number, col: number) => {
+      selectCell(row, col, multiSelect);
+      setIsDragging(true);
+    },
+    [selectCell, multiSelect]
+  );
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const handleMouseEnter = useCallback(
+    (row: number, col: number) => {
+      if (isDragging) {
+        selectCell(row, col, true);
+      }
+    },
+    [isDragging, selectCell]
+  );
+
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => handleKeyChange(event);
+    const handleKeyDown = (event: KeyboardEvent) => enqueueKey(event);
     const handleKeyUp = (event: KeyboardEvent) => handleKeyChange(event, true);
 
     window.addEventListener("keydown", handleKeyDown);
@@ -149,7 +179,7 @@ const Sudoku = () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [handleKeyChange]);
+  }, [enqueueKey, handleKeyChange]);
 
   useEffect(() => {
     if (isMakerMode) {

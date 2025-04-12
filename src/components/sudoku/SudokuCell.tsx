@@ -85,8 +85,13 @@ const SudokuCell = memo(
       "text-sm font-bold text-zinc-300",
       "absolute top-0 left-0",
       "w-full h-full md:h-12 md:w-12 z-10",
-      "flex-wrap text-center",
-      getSelectedBorderClasses(),
+      "flex-wrap text-center"
+    );
+
+    const highlightClasses = classNames(
+      "flex gap-[0.5] pointer-events-none",
+      "absolute top-0 left-0 w-full h-full",
+      "transition-all duration-200",
       {
         "bg-red-900/10": cell.isSelected || cell.isHighlighted,
       }
@@ -96,34 +101,42 @@ const SudokuCell = memo(
       if (cell.guesses.length === 0 || cell.value !== null) {
         return null;
       }
+
+      const topClass = " top-[1px]";
+      const middleClass = " inset-y-[15px]";
+      const bottomClass = " bottom-0";
+      const leftClass = " left-[6px]";
+      const centerClass = " inset-x-0";
+      const rightClass = " right-[6px]";
+
       return (
         <div className="relative w-full h-full">
           {cell.guesses.includes(1) && (
-            <div className="absolute -top-[2px] left-[2px]">1</div>
+            <div className={"absolute" + topClass + leftClass}>1</div>
           )}
           {cell.guesses.includes(2) && (
-            <div className="absolute -top-[2px] inset-x-[2px]">2</div>
+            <div className={"absolute" + topClass + centerClass}>2</div>
           )}
           {cell.guesses.includes(3) && (
-            <div className="absolute -top-[2px] right-[2px]">3</div>
+            <div className={"absolute" + topClass + rightClass}>3</div>
           )}
           {cell.guesses.includes(4) && (
-            <div className="absolute inset-y-[10px] left-[2px]">4</div>
+            <div className={"absolute" + middleClass + leftClass}>4</div>
           )}
           {cell.guesses.includes(5) && (
-            <div className="absolute inset-y-[10px] inset-x-0">5</div>
+            <div className={"absolute" + middleClass + centerClass}>5</div>
           )}
           {cell.guesses.includes(6) && (
-            <div className="absolute inset-y-[10px] right-[2px]">6</div>
+            <div className={"absolute" + middleClass + rightClass}>6</div>
           )}
           {cell.guesses.includes(7) && (
-            <div className="absolute -bottom-[2px] left-[2px]">7</div>
+            <div className={"absolute" + bottomClass + leftClass}>7</div>
           )}
           {cell.guesses.includes(8) && (
-            <div className="absolute -bottom-[2px] inset-x-[2px]">8</div>
+            <div className={"absolute" + bottomClass + centerClass}>8</div>
           )}
           {cell.guesses.includes(9) && (
-            <div className="absolute -bottom-[2px] right-[2px]">9</div>
+            <div className={"absolute" + bottomClass + rightClass}>9</div>
           )}
         </div>
       );
@@ -136,6 +149,8 @@ const SudokuCell = memo(
         onMouseEnter={() => onMouseEnter(cell.row, cell.col)}
       >
         <button className={cellClasses}>{cell.value ?? ""}</button>
+        <div className={overlayClasses + " " + getSelectedBorderClasses()} />
+        <div className={highlightClasses} />
         <div className={overlayClasses}>{getGuessChildren()}</div>
       </div>
     );

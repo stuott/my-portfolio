@@ -15,7 +15,7 @@ import {
 import classNames from "classnames";
 import { useEffect, useMemo, useState } from "react";
 import { Line } from "react-chartjs-2";
-import { Driver, Lap, Session } from "types/racing";
+import { Driver, Lap, Position, Session } from "types/racing";
 
 ChartJS.register(
   CategoryScale,
@@ -37,7 +37,7 @@ const Racing = () => {
   }, []);
 
   // State to store the fetched data
-  const [selectedSession, setSelectedSession] = useState(0);
+  const [selectedSession, setSelectedSession] = useState(-1);
   const [sessionsData, setSessionsData] = useState<Session[] | null>(null);
 
   // State to handle loading and error states
@@ -72,29 +72,35 @@ const Racing = () => {
         <Dropdown
           label="Select a session"
           placeholder="session"
-          options={sessionsData.map((session) => ({
+          options={sessionsData.map((session, index) => ({
             label: session.country_name,
-            value: session.session_key.toString(),
+            value: index.toString(),
           }))}
-          setSelection={(value: string) => setSelectedSession(parseInt(value))}
+          setSelection={(value: string) => {
+            setSelectedSession(parseInt(value));
+          }}
         />
       )}
-      <DriverTable session={selectedSession} />
+      {sessionsData && <DriverTable session={sessionsData[selectedSession]} />}
     </Section>
   );
 };
 
-const DriverTable = ({ session }: { session: number }) => {
-  if (session === 0) return null;
+const DriverTable = ({ session }: { session: Session }) => {
+  if (!session) return null;
 
   // State to store the fetched data
   const [driverData, setDriverData] = useState<Driver[] | null>(null);
-  const [firstDriverNumber, setFirstDriverNumber] = useState<number>(0);
-  const [secondDriverNumber, setSecondDriverNumber] = useState<number>(0);
+  const [firstDriverNumber, setFirstDriverNumber] = useState<number>(1);
+  const [secondDriverNumber, setSecondDriverNumber] = useState<number>(1);
   const [firstDriverLaps, setFirstDriverLaps] = useState<Lap[] | null>(null);
   const [secondDriverLaps, setSecondDriverLaps] = useState<Lap[] | null>(null);
   const [firstDriver, setFirstDriver] = useState<Driver | null>(null);
   const [secondDriver, setSecondDriver] = useState<Driver | null>(null);
+  const [firstPositions, setFirstPositions] = useState<Position[] | null>(null);
+  const [secondPositions, setSecondPositions] = useState<Position[] | null>(
+    null
+  );
 
   // State to handle loading and error states
   const [loading, setLoading] = useState(true);
@@ -102,21 +108,35 @@ const DriverTable = ({ session }: { session: number }) => {
 
   const driverAPI = useMemo(() => {
     const url = new URL("https://api.openf1.org/v1/drivers");
-    url.searchParams.append("session_key", session.toString());
+    url.searchParams.append("session_key", session.session_key.toString());
     return url.href;
   }, [session]);
 
   const firstLapAPI = useMemo(() => {
     const url = new URL("https://api.openf1.org/v1/laps");
     url.searchParams.append("driver_number", firstDriverNumber.toString());
-    url.searchParams.append("session_key", session.toString());
+    url.searchParams.append("session_key", session.session_key.toString());
     return url.href;
   }, [firstDriverNumber, session]);
 
   const secondLapAPI = useMemo(() => {
     const url = new URL("https://api.openf1.org/v1/laps");
     url.searchParams.append("driver_number", secondDriverNumber.toString());
-    url.searchParams.append("session_key", session.toString());
+    url.searchParams.append("session_key", session.session_key.toString());
+    return url.href;
+  }, [secondDriverNumber, session]);
+
+  const firstPositionAPI = useMemo(() => {
+    const url = new URL("https://api.openf1.org/v1/position");
+    url.searchParams.append("driver_number", firstDriverNumber.toString());
+    url.searchParams.append("session_key", session.session_key.toString());
+    return url.href;
+  }, [firstDriverNumber, session]);
+
+  const secondPositionAPI = useMemo(() => {
+    const url = new URL("https://api.openf1.org/v1/position");
+    url.searchParams.append("driver_number", secondDriverNumber.toString());
+    url.searchParams.append("session_key", session.session_key.toString());
     return url.href;
   }, [secondDriverNumber, session]);
 
@@ -188,6 +208,46 @@ const DriverTable = ({ session }: { session: number }) => {
     );
   }, [secondLapAPI]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(firstPositionAPI);
+        console.log(firstPositionAPI);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+        const data = (await response.json()) as Position[];
+        setFirstPositions(data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [firstPositionAPI]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(secondPositionAPI);
+        console.log(secondPositionAPI);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+        const data = (await response.json()) as Position[];
+        setSecondPositions(data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [secondPositionAPI]);
+
   const lapTimesData = useMemo(() => {
     if (!firstDriverLaps || !secondDriverLaps) return null;
 
@@ -243,11 +303,16 @@ const DriverTable = ({ session }: { session: number }) => {
 
   const driverTableClasses = classNames("grid md:grid-cols-2 gap-4", "w-full");
 
+  const positionTableClasses = classNames(
+    "grid md:grid-cols-2 gap-4",
+    "w-full text-center "
+  );
+
   return (
     <div>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      <div className="space-y-10">
+      <div className="space-y-6">
         {driverData && (
           <div className={driverTableClasses}>
             <Selector
@@ -272,6 +337,18 @@ const DriverTable = ({ session }: { session: number }) => {
               }))}
               onChange={(value) => setSecondDriverNumber(parseInt(value))}
             />
+          </div>
+        )}
+        {firstPositions && secondPositions && (
+          <div className={positionTableClasses}>
+            <p>
+              {firstPositions[0].position} -{">"}{" "}
+              {firstPositions[firstPositions.length - 1].position}
+            </p>
+            <p>
+              {secondPositions[0].position} -{">"}{" "}
+              {secondPositions[secondPositions.length - 1].position}
+            </p>
           </div>
         )}
         <div className="bg-zinc-900 p-4 border-2 border-zinc-700">
