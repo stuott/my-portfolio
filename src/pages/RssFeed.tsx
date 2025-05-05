@@ -61,7 +61,6 @@ const RssFeedReader = () => {
   const [filteredItems, setFilteredItems] = useState<RssItemType[]>([]);
   const [searchInDescription, setSearchInDescription] =
     useState<boolean>(false);
-  const [visibleItemIds, setVisibleItemIds] = useState<Set<string>>(new Set());
 
   // View mode and navigation state
   const [viewMode, setViewMode] = useState<ViewMode>("list");
@@ -292,13 +291,6 @@ const RssFeedReader = () => {
     // If no search term, all items are visible
     if (searchTerm.trim() === "") {
       setFilteredItems(recentItems);
-      // Create a set of all item IDs (using guid or index as fallback)
-      const newVisibleIds = new Set(
-        recentItems.map(
-          (item) => item.guid || `item-${recentItems.indexOf(item)}`
-        )
-      );
-      setVisibleItemIds(newVisibleIds);
       return;
     }
 
@@ -312,12 +304,6 @@ const RssFeedReader = () => {
     );
 
     setFilteredItems(filtered);
-
-    // Update visible item IDs
-    const newVisibleIds = new Set(
-      filtered.map((item) => item.guid || `item-${recentItems.indexOf(item)}`)
-    );
-    setVisibleItemIds(newVisibleIds);
   }, [searchTerm, recentItems, searchInDescription]);
 
   return (
