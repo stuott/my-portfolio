@@ -39,3 +39,24 @@ html {
 .bg-moroccan {
   background-image: url("/graphics/moroccan.svg");
 }
+
+/* RSS item animation classes */
+.rss-item {
+  transition: opacity 0.5s ease, max-height 0.5s ease, margin 0.5s ease, padding 0.5s ease, transform 0.5s ease;
+  opacity: 1;
+  max-height: 1000px;
+  margin-bottom: 1.5rem;
+  transform: translateY(0);
+  overflow: hidden;
+}
+
+.rss-item.hidden {
+  opacity: 0;
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}

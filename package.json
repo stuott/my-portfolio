@@ -17,6 +17,7 @@
     "@tailwindcss/vite": "^4.0.0",
     "chart.js": "^4.4.8",
     "classnames": "^2.5.1",
+    "dompurify": "^3.2.5",
     "leaflet": "^1.9.4",
     "object-hash": "^3.0.0",
     "path": "^0.12.7",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "@types/dompurify": "^3.0.5",
     "@types/leaflet": "^1.9.16",
     "@types/object-hash": "^3.0.6",
     "@types/react": "^18.3.18",
