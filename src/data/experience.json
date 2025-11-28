@@ -10,14 +10,13 @@
       "location": "Madison, WI",
       "time": "June 2022 - Present",
       "points": [
-        "Improved system reliability and accuracy for cardiology and interventional radiology clinicians by addressing critical issues through developing changes to their electronic medical record system",
-        "Reduced the number of clicks necessary for completing and reviewing procedural documentation by an average of 160 clicks per month for each user by displaying relevant medication administration data in line with documentation tools",
-        "Enhanced the maintainability of the system for all customers by migrating existing VB code to a new web-based platform"
+        "Developed software fixes and ehnancements to an electronic medical record system to ensure reliability and efficient workflows for clincians at large scale health systems across the US",
+        "Managed interdisciplinary project teams to unify high-impact workflows between procedural applications and reduce the cost of maintaining critical specialties",
+        "Guided research and development for Interventional Radiology by meeting with clinicians and advocating for new workflows to support better patient outcomes"
       ],
       "hiddenPoints": [
-        "Facilitated a successful transition from SVN to Git for a team of forty developers by providing troubleshooting help and holding daily office hours",
-        "Resolved issues for end users transitioning from legacy systems at ten different customers by shadowing workflows on-site and collaborating with analysts at their organization",
-        "Maintained the quality and performance of a large, shared code base by reviewing over 250 changes and providing feedback on contributions from developers across multiple teams"
+        "Facilitated a transition from SVN to Git source control for a team of 40 developers by providing troubleshooting help and creating scripts to automate common commands",
+        "Reviewed over 250 changes of a large, shared codebase to provide feedback on technical designs and contributions from developers across application teams"
       ],
       "skills": [
         "TypeScript",
@@ -41,9 +40,8 @@
       "location": "Neenah, WI",
       "time": "May 2021 - August 2021",
       "points": [
-        "Simplified troubleshooting of medication dispensing cart errors for large medical organizations by developing a fix for electrical interference-induced data corruption",
-        "Provided a reliable quality standard for software used by two embedded medical device systems by evaluating product requirements and creating automated software verification test procedures",
-        "Improved workflows for a team of developers by migrating code repositories from SVN to Git and creating virtual environment configurations that had all necessary dependencies"
+        "Simplified troubleshooting of medication dispensing cart errors for large medical organizations by preventing data corruption from electrical interference",
+        "Created quality standards for software used by two embedded medical device systems by evaluating product requirements and building automated product verification tests"
       ],
       "skills": [
         "Python",
